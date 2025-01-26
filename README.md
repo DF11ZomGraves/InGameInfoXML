@@ -59,7 +59,7 @@ This section assumes that you're using the command-line version of Git.
 2. Execute `gradlew build`. If you did everything right, `BUILD SUCCESSFUL` will be displayed after it finishes. This should be relatively quick.
     * If you see `BUILD FAILED`, check the error output (it should be right around `BUILD FAILED`), fix everything (if possible), and try again.
 3. Go to `mcdev\InGameInfoXML\build\libs`.
-    * You should see a `.jar` file named `InGameInfoXML-#.#.#-#.#.#.#-universal.jar`.
+    * You should see a `.jar` file named `InGameInfoXML-#.#.#-#.#.#.#.jar` or `InGameInfoXML-#.#.#.#.jar`.
 4. Copy the jar into your Minecraft mods folder, and you are done!
 
 #### Updating Your Repository
