@@ -1,0 +1,168 @@
+buildscript {
+	repositories {
+		maven { url = 'https://maven.minecraftforge.net/' }
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+	}
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+group = 'com.github.lunatrius'
+version = "2.8.2.95"
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+compileJava {
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+	options.encoding = 'UTF-8'
+}
+
+minecraft {
+	mappings channel: 'snapshot', version: '20171003-1.12'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
+repositories {
+    // Adds the 'libs' folder in the project directory as a flat directory
+    flatDir {
+        dir 'libs'
+    }
+}
+
+dependencies {
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
+
+    // You may put jars on which you depend on in ./libs or you may define them like so..
+    // compile "some.group:artifact:version:classifier"
+    // compile "some.group:artifact:version"
+
+    // Real examples
+    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+//	implementation fg.deobf('com.github.lunatrius:LunatriusCore:1.2.0.42')
+	//compile 'com.github.lunatrius:LunatriusCore:1.2.0.42'
+
+    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // These dependencies get remapped to your current MCP mappings
+    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+}
+
+// Example for how to get properties into the manifest for reading by the runtime..
+jar {
+    //classifier = project.hasProperty('extra_classifier') ? project.extra_classifier : 'universal'
+    classifier = project.hasProperty('extra_classifier') ? project.extra_classifier : 'unofficial'
+
+    manifest {
+		if (project.hasProperty('extra_fmlat')) {
+			attributes 'FMLAT': project.extra_fmlat
+		}
+	}
+}
+
+if (!project.hasProperty('keystore_location'))
+    ext.keystore_location = '.'
+
+if (!project.hasProperty('keystore_alias'))
+    ext.keystore_alias = ''
+
+if (!project.hasProperty('keystore_password'))
+    ext.keystore_password = ''
+
+task signJars(dependsOn: ['reobfJar', 'sourceJar']) {
+    inputs.dir jar.destinationDir
+    inputs.file keystore_location
+    inputs.property 'keystore_alias', keystore_alias
+    inputs.property 'keystore_password', keystore_password
+    outputs.dir jar.destinationDir
+
+    onlyIf {
+        return keystore_location != '.'
+    }
+
+    doLast {
+        jar.destinationDir.eachFile { file ->
+            if (!file.getPath().endsWith('.jar'))
+                return;
+
+            logger.lifecycle "signing ${file}"
+            ant.signjar(
+                    destDir: file.getParentFile(),
+                    jar: file,
+                    keystore: keystore_location,
+                    alias: keystore_alias,
+                    storepass: keystore_password
+            )
+        }
+    }
+}
+
+if (!project.hasProperty('release_location'))
+    ext.release_location = '.'
+else
+    ext.release_location = release_location.replace('{modid}', project.name).replace('{mcversion}', project.version_minecraft).replace('{version}', version)
+
+task release(dependsOn: 'signJars', type: Copy) {
+    from project.tasks.jar.destinationDir
+    into project.file(project.release_location)
+
+    eachFile { file ->
+        logger.lifecycle "copying ${file}"
+    }
+
+    onlyIf {
+        return project.release_location != '.'
+    }
+}
+
+if (project.hasProperty('api_key_curseforge') && project.hasProperty('extra_curseforge_id')) {
+    tasks.curseforge.dependsOn signJars
+    curseforge {
+        apiKey = project.api_key_curseforge
+
+        project {
+            id = project.extra_curseforge_id
+            changelog = ''
+            releaseType = project.hasProperty('extra_curseforge_releasetype') ? project.extra_curseforge_releasetype : 'release'
+
+            addArtifact sourceJar
+        }
+    }
+}
