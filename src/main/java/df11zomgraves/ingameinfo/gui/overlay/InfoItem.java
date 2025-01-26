@@ -1,0 +1,69 @@
+package df11zomgraves.ingameinfo.gui.overlay;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.world.item.ItemStack;
+
+public class InfoItem extends Info {
+	private static final Minecraft MINECRAFT = Minecraft.getInstance();
+	private final ItemRenderer itemRenderer;
+	private final ItemStack itemStack;
+	private final boolean large;
+	private final int size;
+	public InfoItem(final ItemStack itemStack) {
+	    this(itemStack, false);
+	}
+	
+	public InfoItem(final ItemStack itemStack, final boolean large) {
+	    this(itemStack, large, 0, 0);
+	}
+	
+	public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y) {
+		super(x, y);
+		itemRenderer = MINECRAFT.getItemRenderer();
+		this.itemStack = itemStack;
+		this.large = large;
+	    this.size = large ? 16 : 8;
+	    if (large) {
+	        this.y = -4;
+	    }
+	}
+
+	@Override
+	public void drawInfo(PoseStack matrix) {
+		if (this.itemStack.isEmpty())
+			return;
+		PoseStack stack = RenderSystem.getModelViewStack();
+		stack.pushPose();
+		if (!large) {
+			stack.scale(0.5f, 0.5f, 0.5f);	
+			stack.translate(getX() * 2, getY() * 2, 0);
+		} else	
+			stack.translate(getX(), getY(), 0);
+		RenderSystem.applyModelViewMatrix();
+		itemRenderer.renderGuiItem(itemStack, 0, 0);
+		if (ConfigurationHandler.showOverlayItemIcons)
+			itemRenderer.renderGuiItemDecorations(MINECRAFT.font, itemStack, 0, 0, "");
+		stack.popPose();
+		RenderSystem.applyModelViewMatrix();
+    }
+
+    @Override
+    public int getWidth() {
+        return !this.itemStack.isEmpty() ? this.size : 0;
+    }
+
+    @Override
+    public int getHeight() {
+        return !this.itemStack.isEmpty() ? this.size : 0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("InfoItem{itemStack: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.itemStack, this.x, this.y, this.offsetX, this.offsetY, this.children);
+    }
+}

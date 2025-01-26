@@ -1,0 +1,16 @@
+{
+	"key.ingameinfoxml.reload": "Reload",
+	"key.ingameinfoxml.toggle": "Toggle overlay",
+	"key.ingameinfoxml.category": "InGameInfoXML",
+	"commands.ingameinfoxml.load": "Loading %s...",
+	"commands.ingameinfoxml.reload": "Reloading...",
+	"commands.ingameinfoxml.success": "Done!",
+	"commands.ingameinfoxml.failure": "Something went wrong!",
+	"commands.ingameinfoxml.alignment.get.success": "Alignment=%s, X=%d, Y=%d",
+	"commands.ingameinfoxml.alignment.get.failure": "Failure to get alignment %s.",
+	"commands.ingameinfoxml.alignment.set.success": "Successful to set alignment %s. X=%d, Y=%d",
+	"commands.ingameinfoxml.alignment.set.failure": "Failure to get alignment %s.",
+	"commands.ingameinfoxml.seed.set.success": "Successful to set local seed %d (InGameInfo XML not installed on server ONLY).",
+	"commands.ingameinfoxml.seed.set.failure": "Failure to set local seed.",
+	"chat.ingameinfo.version": "InGameInfo XML %s\n [%s] to toggle, [%s] to reload."
+}

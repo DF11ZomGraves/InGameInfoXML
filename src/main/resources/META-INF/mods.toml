@@ -1,0 +1,27 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="MIT"
+
+[[mods]]
+	modId="ingameinfoxml"
+	version="2.8.2.95"
+	displayName="InGame Info XML"
+	credits="DaftPVF, bspkrs, Lunatrius"
+	authors="DF11ZomGraves"
+	description='''Display extra information on top of your ingame screen.
+
+Unofficial version maintained by DF11ZomGraves.'''
+
+[[dependencies.ingameinfoxml]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.ingameinfoxml]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
