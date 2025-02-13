@@ -1,0 +1,16 @@
+{
+	"key.ingameinfoxml.reload": "重新加載",
+	"key.ingameinfoxml.toggle": "顯示切換",
+	"key.ingameinfoxml.category": "InGameInfoXML",
+	"commands.ingameinfoxml.load": "正在加載%s...",
+	"commands.ingameinfoxml.reload": "正在重新加載...",
+	"commands.ingameinfoxml.success": "完成！",
+	"commands.ingameinfoxml.failure": "出現了錯誤！",
+	"commands.ingameinfoxml.alignment.get.success": "Alignment=%s, X=%d, Y=%d",
+	"commands.ingameinfoxml.alignment.get.failure": "獲取對齊 %s 失敗",
+	"commands.ingameinfoxml.alignment.set.success": "已設置對齊 %s 的偏移值X為%d, Y為%d",
+	"commands.ingameinfoxml.alignment.set.failure": "設置對齊 %s 失敗",
+	"commands.ingameinfoxml.seed.set.success": "已修改當前本地種子為 %d（僅在服務器沒有安裝InGameInfo XML時生效）",
+	"commands.ingameinfoxml.seed.set.failure": "在修改本地種子時發生了錯誤",
+	"chat.ingameinfo.version": "InGameInfo XML %s\n按[%s]鍵顯示\/隱藏, [%s]鍵重新加載"
+}

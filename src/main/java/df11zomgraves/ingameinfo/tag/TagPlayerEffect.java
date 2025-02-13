@@ -1,6 +1,7 @@
 package df11zomgraves.ingameinfo.tag;
 
 import df11zomgraves.ingameinfo.gui.overlay.InfoEffect;
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.StringUtil;
@@ -77,7 +78,10 @@ public abstract class TagPlayerEffect extends Tag {
 			if (potionEffects.length > potionIndex) {
 				String str = I18n.get(potionEffects[potionIndex].getEffect().getDescriptionId());
 				int amp = potionEffects[potionIndex].getAmplifier();
-				return str + StringConvertUtils.numToRoman(amp);
+				if (ConfigurationHandler.numericAmplifier)
+					return String.format("%s %d", str, amp + 1);
+				else
+					return str + StringConvertUtils.numToRoman(amp);
 			}
 			return "";
 		}

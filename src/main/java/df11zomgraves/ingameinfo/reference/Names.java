@@ -59,6 +59,9 @@ public final class Names {
 		
 		public static final String DEFAULT_SEED_IN_SERVER = "DefaultSeedInServer";
 		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfoXML not installed in Server).";
+		
+		public static final String NUMERIC_AMPLIFIER = "NumericAmplifier";
+		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals。";
 	}
 
 	public static final class Files {

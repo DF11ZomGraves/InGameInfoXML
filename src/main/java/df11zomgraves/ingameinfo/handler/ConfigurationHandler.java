@@ -15,6 +15,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_ON_PLAYER_LIST_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_POTIONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
 	
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_LEFT;
@@ -34,6 +35,7 @@ public class ConfigurationHandler {
 	public static Double scale;
 	public static String configName;
 	public static boolean showInChat;
+	public static boolean numericAmplifier;
 	public static long seed;
 	
 //	public static boolean showOverlayPotions;
@@ -47,6 +49,7 @@ public class ConfigurationHandler {
 		FILE_INTERVAL_DEFAULT = BUILDER.comment(Names.Config.FILE_INTERVAL_DESC).defineInRange(Names.Config.FILE_INTERVAL, 5, 1, 60);
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
+		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, (long)0);
 
 		BUILDER.pop();
@@ -74,6 +77,7 @@ public class ConfigurationHandler {
 			SCALE_DEFAULT.set(scale);
 			CONFIG_NAME_DEFAULT.set(configName);
 			SHOW_IN_CHAT_DEFAULT.set(showInChat);
+			NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
 			SEED_DEFAULT.set(seed);
 			ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 			ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
@@ -91,6 +95,7 @@ public class ConfigurationHandler {
 			scale = SCALE_DEFAULT.get();
 			configName = CONFIG_NAME_DEFAULT.get();
 			showInChat = SHOW_IN_CHAT_DEFAULT.get();
+			numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
 			seed = SEED_DEFAULT.get();
 			Alignment.TOPLEFT.setXY(ALIGN_TOP_LEFT.get());
 			Alignment.TOPCENTER.setXY(ALIGN_TOP_CENTER.get());

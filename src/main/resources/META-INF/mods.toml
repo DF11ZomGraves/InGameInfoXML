@@ -6,6 +6,7 @@ license="MIT"
 	modId="ingameinfoxml"
 	version="2.8.2.95"
 	displayName="InGame Info XML"
+	displayURL="https://github.com/DF11ZomGraves/InGameInfoXML"
 	credits="DaftPVF, bspkrs, Lunatrius"
 	authors="DF11ZomGraves"
 	description='''Display extra information on top of your ingame screen.
