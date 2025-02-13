@@ -1,0 +1,47 @@
+﻿InGameInfo XML 2.8.2.95, Beta, 2025/1/25
+Common
+	1.Minecraft 1.18.2 and 1.20.1 available, Forge only.
+	2.Add server seed option to config file. Can calculate slime chunks if InGameInfo XML NOT INSTALLED on the server.
+	3.Add {absorption} tag.
+	4.Add {mouseoverisblock} tag.
+	5.Show error message to chat when attempt to load XML file with syntax errors.
+	6.Ranged weapons (bows, crossbows) now calculate the following number of arrows:
+		Normal arrow
+		spectral arrow
+		tipped arrow
+	7.After the effect exceeds level 4, the level can still be displayed, but when the level is greater than a certain value, it is displayed with numbers instead of Roman numerals.
+	8.Removed {eating} tag.
+	9.Add Numeric Amplifier option to config file.
+
+1.12.2
+	Required Forge 14.23.5.2860 and higher.
+	1.Server seed can be modified through Mod Options.
+	2.Show version and keybingds in the chat when entering single/multiplayer world.
+	3.Remove dependency: LunatriusCore.
+
+1.18.2/1.20.1
+	Required Forge 40.2.0 and higher (1.18.2).
+	Required Forge 47.3.0 and higher (1.20.1).
+	1.Use "/igi alignment get <alignment>" and "/igi alignment set <alignment> x y" to get/set alignment.
+	2.Use "/igi setseed <seed>" to modify server seed(This does not affect server seed).
+	3.Use keybings to reload (default: F12).
+	4.Effect icons of other mods can displayed correctly.
+	5.Show version and keybingds in the chat when entering world.
+	6.Increase maximum effect index to 48.
+	7.{dimension} tag now returns unique ID of player's current dimension.
+	8.{mouseoverid} tag only returns entity ID.
+	9.Remove the option to replace F3 debugging information
+	10.Remove the following tags, which are not supported：
+		worldsize worldsizemb dimensionid biomeid humidity mouseovermetadata mouseoverpowerinput
+	
+Known issues (Due to technical issues that cannot be resolved)
+1.12.2
+	1.{foodexhaustion} tag do not work.
+	2.Effect icons of other mods still cannot be displayed.
+	
+1.18.2/1.20.1
+	1.Function <icon> do not work.
+	2.Actual light level are wrong.
+	3.Vanilla effect overlay cannot hide.
+	4.The following tags are temporarily unavailable：
+		worldname nextweatherchange resourcepack pingicon nearbyplayericon

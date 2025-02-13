@@ -1,0 +1,43 @@
+InGameInfo XML 2.8.2.95, Beta, 2025/1/25
+通用
+	1.增加1.18.2和1.20.1版本，仅Forge端
+	2.配置文件增加“服务器种子”选项，用于在服务端没有安装InGameInfo XML的情况下计算史莱姆区块。
+	3.增加absorption伤害吸收值显示
+	4.增加mouseoverisblock判断当前指向是实体还是方块
+	5.加载包含语法错误的XML文档会提示错误信息
+	6.远程武器（弓、弩）现在计算箭矢数量包含药水箭和光灵箭
+	7.药水效果超过4级后仍然可以显示等级，但当等级大于一定数值用数字显示而不是罗马数字
+	8.移除eating标签，意义不明
+	9.配置文件增加“效果等级用数字显示”选项
+
+1.12.2
+	Forge版本为14.23.5.2860
+	1.服务器种子可以在Mod Options中进行配置
+	2.现在当进入单人/多人游戏后会在聊天栏中显示版本和键位信息
+	3.不再依赖LunatriusCore
+
+1.18.2/1.20.1
+	Forge版本为40.2.0(1.18.2)/47.3.0(1.20.1)
+	1.使用“/igi alignment get <alignment>”和“/igi alignment set <alignment> x y”来获取/修改对齐
+	2.服务器种子通过输入指令/igi setseed进行设置（这不影响服务器的种子）
+	3.重新加载配置文件改为按键控制（默认F12），而不是旧版的输入指令/igi reload
+	4.mod效果图标可以正常渲染
+	5.启动游戏后第一次进入世界会在聊天栏中显示版本信息
+	6.效果显示数量上限由32调整到48
+	7.dimension标签现在返回玩家当前维度的唯一标识符
+	8.mouseoverid现在只返回实体id
+	9.移除替换F3调试信息选项
+	10.移除如下标签，这些标签不受支持：
+		worldsize worldsizemb dimensionid biomeid humidity mouseovermetadata mouseoverpowerinput
+	
+已知问题（因技术问题无法解决）
+1.12.2
+	1.foodexhaustion无法使用
+	2.其他mod的药水效果图标仍无法显示
+	
+1.18.2/1.20.1
+	1.icon标签无法正常使用
+	2.光照等级、daytime无法和1.12.2同步
+	3.效果覆盖层无法隐藏
+	4.以下标签暂时无法使用：
+		worldname nextweatherchange resourcepack pingicon nearbyplayericon
