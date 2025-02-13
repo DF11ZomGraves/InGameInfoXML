@@ -15,6 +15,16 @@ ingameinfoxml.config.showOnPlayerList=玩家列表中顯示
 ingameinfoxml.config.showOnPlayerList.tooltip=在玩家列表中顯示信息.
 ingameinfoxml.config.scale=大小比例
 ingameinfoxml.config.scale.tooltip=信息顯示界面大小由該數值比例確定.
+ingameinfoxml.config.fileInterval=file標記讀取間隔
+ingameinfoxml.config.fileInterval.tooltip=“file”標記的文件讀取間隔（秒）。
+ingameinfoxml.config.showOverlayPotions=顯示藥水效果
+ingameinfoxml.config.showOverlayPotions.tooltip=顯示原版效果布局。
+ingameinfoxml.config.showOverlayItemIcons=顯示物品覆蓋
+ingameinfoxml.config.showOverlayItemIcons.tooltip=在圖標上顯示物品覆蓋（耐久度、堆疊大小）。
+ingameinfoxml.config.serverSeed=服務器種子
+ingameinfoxml.config.serverSeed.tooltip=指定服務器種子，僅在服務器沒有安裝InGameInfo XML時生效
+ingameinfoxml.config.numericAmplifier=效果等級用數字顯示
+ingameinfoxml.config.numericAmplifier.tooltip=效果等級用數字顯示，而不是使用羅馬數字
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=左上角
@@ -51,6 +61,10 @@ ingameinfoxml.tag.category.playerpotion.name=玩家 - 藥水效果
 ingameinfoxml.tag.category.riding.name=騎乘
 ingameinfoxml.tag.category.time.name=世界時間
 ingameinfoxml.tag.category.world.name=世界名稱
+ingameinfoxml.tag.category.bloodmagic.name=血魔法
+ingameinfoxml.tag.category.simplyjetpacks.name=簡易噴氣背包
+ingameinfoxml.tag.category.terrafirmacraft.name=TerraFirmaCraft
+ingameinfoxml.tag.category.thaumcraft.name=神祕時代
 
 # gui - tag list - formatting tags
 ingameinfoxml.tag.black.desc=黑色(§0例子§r).
@@ -69,7 +83,7 @@ ingameinfoxml.tag.red.desc=红色(§c例子§r).
 ingameinfoxml.tag.lightpurple.desc=淡紫色(§d例子§r).
 ingameinfoxml.tag.yellow.desc=黄色(§e例子§r).
 ingameinfoxml.tag.white.desc=白色(§f例子§r).
-ingameinfoxml.tag.obfuscated.desc=随機效果(§k例子§r).
+ingameinfoxml.tag.obfuscated.desc=隨機效果(§k例子§r).
 ingameinfoxml.tag.bold.desc=粗體(§l例子§r).
 ingameinfoxml.tag.strikethrough.desc=中劃線(§m例子§r).
 ingameinfoxml.tag.underline.desc=下劃線(§n例子§r).
@@ -100,11 +114,13 @@ ingameinfoxml.tag.mouseoverid.desc=游標下實體或方塊的ID, 如果游標�
 ingameinfoxml.tag.mouseovermetadata.desc=游標下方塊的metadata(元數據), 如果游標下什麼都沒有則顯示為0.
 ingameinfoxml.tag.mouseoverpowerweak.desc=該方塊红石信號的最小強度, 如果什麼都沒有則顯示為-1.
 ingameinfoxml.tag.mouseoverpowerstrong.desc=該方塊红石信號的最大強度, 如果什麼都沒有則顯示為-1.
-ingameinfoxml.tag.mouseoverpowerinput.desc=該方塊红石信號的输入強度, 如果什麼都沒有則顯示為-1.
+ingameinfoxml.tag.mouseoverpowerinput.desc=該方塊红石信號的輸入強度, 如果什麼都沒有則顯示為-1.
+ingameinfoxml.tag.mouseoverisblock.desc=光標指向為方塊時返回§e真§r，否則返回§e假§r。
 
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=與附近第x個玩家間的距離.
 ingameinfoxml.tag.nearbyplayername.desc=附近第x個玩家的名稱.
+ingameinfoxml.tag.nearbyplayericon.desc=附近第x个玩家的头像。
 
 # gui - tag list - player equipment
 ingameinfoxml.tag.equippedname.desc=持有物品的名稱.
@@ -115,6 +131,22 @@ ingameinfoxml.tag.equippeddamageleft.desc=持有物品的剩餘耐久.
 ingameinfoxml.tag.equippedquantity.desc=持有物品在物品欄中的數量.
 ingameinfoxml.tag.equippedicon.desc=持有物品的圖標.
 ingameinfoxml.tag.equippedlargeicon.desc=持有物品的大圖標.
+ingameinfoxml.tag.mainhandname.desc=主手物品的名稱。
+ingameinfoxml.tag.mainhanduniquename.desc=主手物品的唯一標記名稱。
+ingameinfoxml.tag.mainhanddamage.desc=主手物品的耐久。
+ingameinfoxml.tag.mainhandmaxdamage.desc=主手物品的最大耐久。
+ingameinfoxml.tag.mainhanddamageleft.desc=主手物品的剩餘耐久。
+ingameinfoxml.tag.mainhandquantity.desc=主手物品在物品欄中的數量。
+ingameinfoxml.tag.mainhandicon.desc=主手物品的圖標。
+ingameinfoxml.tag.mainhandlargeicon.desc=主手物品的大圖標。
+ingameinfoxml.tag.offhandname.desc=副手物品的名稱。
+ingameinfoxml.tag.offhanduniquename.desc=副手物品的唯一標記名稱。
+ingameinfoxml.tag.offhanddamage.desc=副手物品的耐久。
+ingameinfoxml.tag.offhandmaxdamage.desc=副手物品的最大耐久。
+ingameinfoxml.tag.offhanddamageleft.desc=副手物品的剩餘耐久。
+ingameinfoxml.tag.offhandquantity.desc=副手物品在物品欄中的數量。
+ingameinfoxml.tag.offhandicon.desc=副手物品的圖標。
+ingameinfoxml.tag.offhandlargeicon.desc=副手物品的大圖標。
 ingameinfoxml.tag.helmetname.desc=頭盔的名稱.
 ingameinfoxml.tag.helmetuniquename.desc=頭盔的 唯一標記名稱.
 ingameinfoxml.tag.helmetdamage.desc=頭盔的耐久.
@@ -150,12 +182,17 @@ ingameinfoxml.tag.bootslargeicon.desc=靴子的大圖標.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=你當前位置的光照等級.
+ingameinfoxml.tag.lighteye.desc=你當前位置的亮度等級（眼睛高度）。
 ingameinfoxml.tag.lightnosun.desc=在沒有陽光時間你當前位置的光照等級.
+ingameinfoxml.tag.lightnosuneye.desc=在沒有陽光時你當前位置的亮度等級（眼睛高度）。
+ingameinfoxml.tag.lightsun.desc=你當前位置的光照等級。
+ingameinfoxml.tag.lightsuneye.desc=你當前位置的光照等級（眼睛高度）。
 ingameinfoxml.tag.score.desc=玩家得分.
 ingameinfoxml.tag.gamemode.desc=玩家遊戲模式名稱.
 ingameinfoxml.tag.gamemodeid.desc=玩家遊戲模式id.
 ingameinfoxml.tag.health.desc=玩家當前生命值.
 ingameinfoxml.tag.maxhealth.desc=玩家最大生命值.
+ingameinfoxml.tag.absorption.desc=玩家傷害吸收值（黄心）。
 ingameinfoxml.tag.armor.desc=玩家護甲值.
 ingameinfoxml.tag.foodlevel.desc=玩家飢餓值.
 ingameinfoxml.tag.maxfoodlevel.desc=玩家最大飢餓值.
@@ -166,6 +203,7 @@ ingameinfoxml.tag.maxairticks.desc=玩家最大氧氣槽數量.
 ingameinfoxml.tag.playerlevel.desc=玩家等級.
 ingameinfoxml.tag.xpthislevel.desc=玩家當前經驗值.
 ingameinfoxml.tag.xpuntilnext.desc=玩家升級所需經驗值.
+ingameinfoxml.tag.xpcap.desc=玩家升级下一级所需的總經驗。
 ingameinfoxml.tag.username.desc=玩家名稱.
 ingameinfoxml.tag.inwater.desc=如果玩家位於水下就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.wet.desc=如果玩家被水打濕就返回§e真§r, 否則就返回§e假§r.
@@ -184,26 +222,31 @@ ingameinfoxml.tag.chunkoffsetx.desc=玩家X軸區塊坐標偏移量(0-15).
 ingameinfoxml.tag.chunkoffsetz.desc=玩家Z軸區塊坐標偏移量(0-15).
 ingameinfoxml.tag.x.desc=玩家X軸坐標.
 ingameinfoxml.tag.y.desc=玩家Y軸坐標.
+ingameinfoxml.tag.yeye.desc=玩家Y軸坐標（眼睛高度）。
 ingameinfoxml.tag.z.desc=玩家Z軸坐標.
 ingameinfoxml.tag.xi.desc=玩家X軸坐標取整.
 ingameinfoxml.tag.yi.desc=玩家Y軸坐標取整.
+ingameinfoxml.tag.yeyei.desc=玩家Y軸坐標取整（眼睛高度）。
 ingameinfoxml.tag.zi.desc=玩家Z軸坐標取整.
 ingameinfoxml.tag.speed.desc=玩家移動速度.
 ingameinfoxml.tag.speedx.desc=玩家移動速度x軸分量.
 ingameinfoxml.tag.speedy.desc=玩家移動速度y軸分量.
 ingameinfoxml.tag.speedz.desc=玩家移動速度z軸分量.
 ingameinfoxml.tag.speedxz.desc=玩家移動速度水平分量.
+ingameinfoxml.tag.pitch.desc=以角度為單位(-90~+90)的玩家朝向。
 ingameinfoxml.tag.direction.desc=以角度為單位(-180~+180)的玩家朝向.
 ingameinfoxml.tag.roughdirection.desc=玩家當前大致朝向(南,西,北,東).
 ingameinfoxml.tag.finedirection.desc=玩家當前精確朝向(南,西南,西,西北, ...).
 ingameinfoxml.tag.abrroughdirection.desc=玩家當前當前大致朝向簡寫(南,西,北,東).
 ingameinfoxml.tag.abrfinedirection.desc=玩家當前精確朝向簡寫(南,西南,西,西北, ...).
+ingameinfoxml.tag.axisdirection.desc=玩家當前朝向的軸方向(+Z, -X, -Z, +X)。
 ingameinfoxml.tag.directionhud.desc=一個小型的材質化的方向HUD(顯示器).
 
 # gui - tag list - player potion
 ingameinfoxml.tag.potioneffect.desc=第x個藥水效果名稱.
 ingameinfoxml.tag.potionduration.desc=第x個藥水效果的持續時間(單位為秒).
 ingameinfoxml.tag.potiondurationticks.desc=藥水效果的持續時間(單位為遊戲刻).
+ingameinfoxml.tag.potionnegative.desc=如果是負面效果就返回§e真§r，否则就返回§e假§r。
 ingameinfoxml.tag.potionicon.desc=第x個藥水效果的圖標.
 ingameinfoxml.tag.potionlargeicon.desc=第x個藥水效果的大圖標.
 
@@ -230,20 +273,27 @@ ingameinfoxml.tag.worldsizemb.desc=用MiB表示的遊戲世界大小.
 ingameinfoxml.tag.seed.desc=遊戲世界種子.
 ingameinfoxml.tag.difficulty.desc=遊戲世界難度名稱.
 ingameinfoxml.tag.difficultyid.desc=遊戲世界難度id.
-ingameinfoxml.tag.dimension.desc=维度名稱.
-ingameinfoxml.tag.dimensionid.desc=维度id.
+ingameinfoxml.tag.localdifficulty.desc=本地難度。
+ingameinfoxml.tag.dimension.desc=維度名稱.
+ingameinfoxml.tag.dimensionid.desc=維度id.
 ingameinfoxml.tag.biome.desc=生態域名稱.
 ingameinfoxml.tag.biomeid.desc=生態域id.
+ingameinfoxml.tag.moonphase.desc=月相。
 ingameinfoxml.tag.daytime.desc=如果是白天就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.raining.desc=如果在下雨就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.thundering.desc=如果是雷暴天氣就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.snowing.desc=如果在下雪就返回§e真§r, 否則就返回§e假§r.
+ingameinfoxml.tag.nextweatherchange.desc=下次天氣變化之前的時間。
+ingameinfoxml.tag.slimes.desc=如果當前位置会生成史莱姆就返回§e真§r，否則就返回§e假§r。
 ingameinfoxml.tag.slimechunk.desc=如果當前區塊為史莱姆區塊就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.hardcore.desc=如果該遊戲世界為極限模式就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.temperature.desc=生態域溫度.
+ingameinfoxml.tag.localtemperature.desc=你当前位置的生物群系溫度。
 ingameinfoxml.tag.humidity.desc=生態域濕度.
 
 # keys
+ingameinfoxml.key.category=InGame Info XML
+ingameinfoxml.key.toggle=顯示切換
 
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [文件名]
@@ -254,3 +304,6 @@ commands.ingameinfoxml.success=完成!
 commands.ingameinfoxml.failure=出現了錯誤!
 commands.ingameinfoxml.enable=InGame Info XML界面現在已啟用.
 commands.ingameinfoxml.disable=InGame Info XML界面現在已禁用.
+
+ingameinfo.chat.version=InGameInfo XML %s
+ingameinfo.chat.version2=按[%s]鍵顯示/隱藏，鍵入§e/igi reload§r重新加載

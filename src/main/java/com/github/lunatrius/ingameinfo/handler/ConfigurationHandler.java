@@ -27,6 +27,7 @@ public class ConfigurationHandler {
 	public static final int FILE_INTERVAL_DEFAULT = 5;
 	public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
 	public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
+	public static final boolean NUMERIC_AMPLIFIER_DEFAULT = false;
 	public static final int SERVER_SEED_DEFAULT = 0;
 
 	public static String configName = CONFIG_NAME_DEFAULT;
@@ -37,6 +38,7 @@ public class ConfigurationHandler {
 	public static int fileInterval = FILE_INTERVAL_DEFAULT;
 	public static boolean showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT;
 	public static boolean showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
+	public static boolean numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT;
 	public static long serverSeed = SERVER_SEED_DEFAULT;
 
 	public static Property propConfigName = null;
@@ -47,6 +49,7 @@ public class ConfigurationHandler {
 	public static Property propFileInterval = null;
 	public static Property propShowOverlayPotions = null;
 	public static Property propShowOverlayItemIcons = null;
+	public static Property propnumericAmplifier = null;
 	public static Property propServerSeed = null;
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
@@ -99,10 +102,14 @@ public class ConfigurationHandler {
 		showOverlayPotions = propShowOverlayPotions.getBoolean(SHOW_OVERLAY_POTIONS_DEFAULT);
 
 		propShowOverlayItemIcons = configuration.get(Names.Config.Category.GENERAL,
-				Names.Config.SHOW_OVERLAY_ITEM_ICONS, SHOW_OVERLAY_ITEM_ICONS_DEFAULT,
-				Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC);
+				Names.Config.SHOW_OVERLAY_ITEM_ICONS, SHOW_OVERLAY_ITEM_ICONS_DEFAULT, Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC);
 		propShowOverlayItemIcons.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_ITEM_ICONS);
 		showOverlayItemIcons = propShowOverlayItemIcons.getBoolean(SHOW_OVERLAY_ITEM_ICONS_DEFAULT);
+		
+		propnumericAmplifier = configuration.get(Names.Config.Category.GENERAL,
+				Names.Config.NUMERIC_AMPLIFIER, NUMERIC_AMPLIFIER_DEFAULT, Names.Config.NUMERIC_AMPLIFIER_DESC);
+		propnumericAmplifier.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.NUMERIC_AMPLIFIER);
+		numericAmplifier = propnumericAmplifier.getBoolean(NUMERIC_AMPLIFIER_DEFAULT);
 		
 		propServerSeed = configuration.get(Names.Config.Category.GENERAL, Names.Config.SERVER_SEED, SERVER_SEED_DEFAULT,
 				Names.Config.SERVER_SEED_DESC);

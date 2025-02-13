@@ -68,6 +68,9 @@ public final class Names {
 		public static final String SERVER_SEED = "serverSeed";
 		public static final String SERVER_SEED_DESC = "Set server seed in local. ONLY ENABLED when InGameInfo XML NOT installed on the server.";
 
+		public static final String NUMERIC_AMPLIFIER = "numericAmplifier";
+		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
+		
 		public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
 		public static final String LANG_PREFIX = Reference.MODID + ".config";

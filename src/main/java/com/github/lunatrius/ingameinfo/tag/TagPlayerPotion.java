@@ -1,6 +1,7 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
 
@@ -71,10 +72,14 @@ public abstract class TagPlayerPotion extends Tag {
 		@Override
 		public String getValue() {
 			updatePotionEffects();
+			int potionIndex = this.index;
 			if (potionEffects.length > this.index) {
-				String str = I18n.format(potionEffects[this.index].getEffectName());
-				str += StringConvertUtils.numToRoman(potionEffects[this.index].getAmplifier());
-				return str;
+				String str = I18n.format(potionEffects[potionIndex].getEffectName());
+				int amp = potionEffects[potionIndex].getAmplifier();
+				if (ConfigurationHandler.numericAmplifier)
+					return String.format("%s %d", str, amp + 1);
+				else
+					return str + StringConvertUtils.numToRoman(amp);
 			}
 			return "";
 		}
