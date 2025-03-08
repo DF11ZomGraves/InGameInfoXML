@@ -16,14 +16,7 @@ apply plugin: 'maven-publish'
 group = 'com.github.lunatrius'
 version = "2.8.2.95"
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
-compileJava {
-	sourceCompatibility = '1.8'
-	targetCompatibility = '1.8'
-	options.encoding = 'UTF-8'
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
 	mappings channel: 'snapshot', version: '20171003-1.12'
@@ -47,13 +40,6 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
         }
-    }
-}
-
-repositories {
-    // Adds the 'libs' folder in the project directory as a flat directory
-    flatDir {
-        dir 'libs'
     }
 }
 
@@ -97,72 +83,21 @@ jar {
 	}
 }
 
-if (!project.hasProperty('keystore_location'))
-    ext.keystore_location = '.'
+// Example configuration to allow publishing using the maven-publish task
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar') 
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+//publish.dependsOn('reobfJar')
 
-if (!project.hasProperty('keystore_alias'))
-    ext.keystore_alias = ''
-
-if (!project.hasProperty('keystore_password'))
-    ext.keystore_password = ''
-
-task signJars(dependsOn: ['reobfJar', 'sourceJar']) {
-    inputs.dir jar.destinationDir
-    inputs.file keystore_location
-    inputs.property 'keystore_alias', keystore_alias
-    inputs.property 'keystore_password', keystore_password
-    outputs.dir jar.destinationDir
-
-    onlyIf {
-        return keystore_location != '.'
-    }
-
-    doLast {
-        jar.destinationDir.eachFile { file ->
-            if (!file.getPath().endsWith('.jar'))
-                return;
-
-            logger.lifecycle "signing ${file}"
-            ant.signjar(
-                    destDir: file.getParentFile(),
-                    jar: file,
-                    keystore: keystore_location,
-                    alias: keystore_alias,
-                    storepass: keystore_password
-            )
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
         }
     }
-}
-
-if (!project.hasProperty('release_location'))
-    ext.release_location = '.'
-else
-    ext.release_location = release_location.replace('{modid}', project.name).replace('{mcversion}', project.version_minecraft).replace('{version}', version)
-
-task release(dependsOn: 'signJars', type: Copy) {
-    from project.tasks.jar.destinationDir
-    into project.file(project.release_location)
-
-    eachFile { file ->
-        logger.lifecycle "copying ${file}"
-    }
-
-    onlyIf {
-        return project.release_location != '.'
-    }
-}
-
-if (project.hasProperty('api_key_curseforge') && project.hasProperty('extra_curseforge_id')) {
-    tasks.curseforge.dependsOn signJars
-    curseforge {
-        apiKey = project.api_key_curseforge
-
-        project {
-            id = project.extra_curseforge_id
-            changelog = ''
-            releaseType = project.hasProperty('extra_curseforge_releasetype') ? project.extra_curseforge_releasetype : 'release'
-
-            addArtifact sourceJar
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
 }

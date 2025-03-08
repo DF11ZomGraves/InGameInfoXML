@@ -1,20 +1,16 @@
 [
 	{
 		"modid": "ingameinfoxml",
-		"name": "InGame Info XML",
+ 		"name": "InGame Info XML",
 		"description": "Display extra information on top of your ingame screen.\nUnofficial version maintained by DF11ZomGraves.",
-		"mcversion": "1.12.2",
 		"version": "2.8.2.95",
-		"authorList": [
-			"Lunatrius"
-		],
+		"mcversion": "1.12.2",
+		"url": "https://github.com/DF11ZomGraves/InGameInfoXML",
+		"updateUrl": "",
+		"authorList": ["Lunatrius"],
 		"credits": "DaftPVF, bspkrs, DF11ZomGraves",
-		"dependants": [  ],
-		"parent": "",
 		"logoFile": "",
-		"screenshots": [  ],
-		"updateUrl": "http://mc.lunatri.us/",
-		"url": "http://mc.lunatri.us/",
-		"useDependencyInformation": true
+		"screenshots": [],
+		"dependencies": []
 	}
 ]

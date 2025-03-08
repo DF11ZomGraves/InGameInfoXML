@@ -15,7 +15,6 @@ public class PlayerHandler {
 
 	@SubscribeEvent
 	public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
-		Tag.setSeed(ConfigurationHandler.serverSeed);
 		if (minecraft.isSingleplayer()) {
 			EntityPlayerMP player = (EntityPlayerMP) event.player;
 			long seed;
@@ -27,7 +26,7 @@ public class PlayerHandler {
 				PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.world.getSeed()),
 						(EntityPlayerMP) event.player);
 			} catch (final Exception ex) {
-				Reference.logger.error("Failed to send the seed!", ex);
+				Tag.setSeed(ConfigurationHandler.serverSeed);
 			}
 	}
 
