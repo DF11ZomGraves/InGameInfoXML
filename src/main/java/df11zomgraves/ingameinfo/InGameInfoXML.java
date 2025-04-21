@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -34,6 +35,9 @@ public class InGameInfoXML {
 	}
 
 	private void clientSetup(final FMLClientSetupEvent event) {
+		if (FMLLoader.getLoadingModList().getModFileById("chloride") != null)
+			logger.warn("Chloride installed. may cause FPS do not display. use Xenon instead.");
+		
 		IEventBus bus = MinecraftForge.EVENT_BUS;
 		bus.register(InGameInfoCore.INSTANCE);
 		bus.register(Ticker.INSTANCE);
