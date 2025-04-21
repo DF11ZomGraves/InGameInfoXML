@@ -179,7 +179,7 @@ public abstract class TagPlayerEquipment extends Tag {
 			TagRegistry.INSTANCE.register(new Quantity(SLOTS[i]).setName(TYPES[i] + "quantity"));
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], false).setName(TYPES[i] + "icon"));
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
-			TagRegistry.INSTANCE.register(new ArrowCount(SLOTS[i]).setName("arrowcount"));
 		}
+		TagRegistry.INSTANCE.register(new ArrowCount(0).setName("arrowcount"));
 	}
 }
