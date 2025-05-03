@@ -10,7 +10,7 @@
 	"commands.ingameinfoxml.alignment.get.failure": "获取对齐 %s 失败",
 	"commands.ingameinfoxml.alignment.set.success": "已设置对齐 %s 的偏移值X为%d, Y为%d",
 	"commands.ingameinfoxml.alignment.set.failure": "设置对齐 %s 失败",
-	"commands.ingameinfoxml.seed.set.success": "已修改当前本地种子为 %d（仅在服务器没有安装InGameInfo XML时生效）",
+	"commands.ingameinfoxml.seed.set.success": "已修改当前本地种子为 %d（仅在服务器没有安装InGameInfo XML时生效）。重启游戏后生效。",
 	"commands.ingameinfoxml.seed.set.failure": "在修改本地种子时发生了错误",
 	"chat.ingameinfo.version": "InGameInfo XML %s\n按[%s]键显示\/隐藏, [%s]键重新加载"
 }
