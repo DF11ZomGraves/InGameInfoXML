@@ -1,8 +1,10 @@
 package df11zomgraves.ingameinfo.tag;
 
+import df11zomgraves.ingameinfo.tag.TagPlayerGeneral.ArmorToughness;
 import df11zomgraves.ingameinfo.util.MBlockPos;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.LightLayer;
 
 import java.util.Locale;
@@ -281,6 +283,17 @@ public abstract class TagPlayerGeneral extends Tag {
 			return String.valueOf(player.isInvisible());
 		}
 	}
+	
+	public static class ArmorToughness extends TagPlayerGeneral {
+
+		@Override
+		public String getValue() {
+			if (player.getAttributes().hasAttribute(Attributes.ARMOR_TOUGHNESS))
+				return String.valueOf(player.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
+			return "0";
+		}
+		
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Light().setName("light"));
@@ -315,5 +328,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
 		TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
+		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
 	}
 }

@@ -1,5 +1,6 @@
 package df11zomgraves.ingameinfo.tag;
 
+import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraftforge.fml.ModList;
 
@@ -121,9 +122,8 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			int ping = -1;
 			try {
-				 final PlayerInfo playerInfo =
-						 minecraft.getConnection().getPlayerInfo(player.getUUID());
-				 ping = playerInfo.getLatency(); // ping?
+				 final PlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
+				 ping = playerInfo.getLatency();
 			} catch (final Exception e) {
 				ping = -1;
 			}
@@ -131,34 +131,35 @@ public abstract class TagMisc extends Tag {
 		}
 	}
 
-//	public static class PingIcon extends TagMisc {
-//		@Override
-//		public String getValue() {
-//			try {
-//				final PlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
-//				final int responseTime = playerInfo.getLatency();
-//				int pingIndex = 4;
-//				if (responseTime < 0) {
-//					pingIndex = 5;
-//				} else if (responseTime < 150) {
-//					pingIndex = 0;
-//				} else if (responseTime < 300) {
-//					pingIndex = 1;
-//				} else if (responseTime < 600) {
-//					pingIndex = 2;
-//				} else if (responseTime < 1000) {
-//					pingIndex = 3;
-//				}
-//				final InfoIcon icon = new InfoIcon("textures/gui/icons.png", new PoseStack());
-//				icon.setDisplayDimensions(0, 0, 10, 8);
-//				icon.setTextureData(0, 176 + pingIndex * 8, 10, 8, 256, 256);
-//				info.add(icon);
-//				return getIconTag(icon);
-//			} catch (final Exception e) {
-//			}
-//			return "-1";
-//		}
-//	}
+	public static class PingIcon extends TagMisc {
+		@Override
+		public String getValue() {
+			int ping = -1;
+			try {
+				final PlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
+				ping = playerInfo.getLatency();
+				int pingIndex = 4;
+				if (ping < 0)
+					pingIndex = 5;
+				else if (ping < 150)
+					pingIndex = 0;
+				else if (ping < 300)
+					pingIndex = 1;
+				else if (ping < 600)
+					pingIndex = 2;
+				else if (ping < 1000)
+					pingIndex = 3;
+				
+				final InfoIcon icon = new InfoIcon("textures/gui/icons.png");
+				icon.setDisplayDimensions(0, 0, 10, 8);
+				icon.setTextureData(0, 176 + pingIndex * 8, 10, 8, 256, 256);
+				info.add(icon);
+				return getIconTag(icon);
+			} catch (final Exception e) {
+			}
+			return "-1";
+		}
+	}
 
 	public static class MinecraftVersion extends TagMisc {
 		@Override
@@ -218,7 +219,7 @@ public abstract class TagMisc extends Tag {
 		TagRegistry.INSTANCE.register(new MinecraftVersion().setName("mcversion"));
 		TagRegistry.INSTANCE.register(new ModsActive().setName("modsactive"));
 		TagRegistry.INSTANCE.register(new ModsTotal().setName("modstotal"));
-//		TagRegistry.INSTANCE.register(new PingIcon().setName("pingicon"));
+		TagRegistry.INSTANCE.register(new PingIcon().setName("pingicon"));
 		TagRegistry.INSTANCE.register(new Ping().setName("ping"));
 		TagRegistry.INSTANCE.register(new ServerIP().setName("serverip"));
 		TagRegistry.INSTANCE.register(new ServerName().setName("servername"));

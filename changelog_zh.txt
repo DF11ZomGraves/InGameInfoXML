@@ -1,3 +1,11 @@
+InGameInfo XML 2.8.2.95, Beta, 2025/7/20
+通用
+	1.增加盔甲韧性armortoughness标签
+1.18.2/1.20.1
+	1.更新语言文件
+	2.pingicon标签可以正常使用了
+	3.icon和itemquantity标签可以正常使用了
+
 InGameInfo XML 2.8.2.95, Beta, 2025/1/25
 通用
 	1.增加1.18.2和1.20.1版本，仅Forge端

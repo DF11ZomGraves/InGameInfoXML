@@ -9,8 +9,10 @@ import java.util.regex.Pattern;
 import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.gui.overlay.Info;
 import df11zomgraves.ingameinfo.tag.TagRegistry;
+import net.minecraft.client.Minecraft;
 
 public abstract class Value {
+	protected static final Minecraft minecraft = Minecraft.getInstance();
     private static final Pattern PATTERN = Pattern.compile("\\{([a-z0-9]+)\\}", Pattern.CASE_INSENSITIVE);
     private static final Matcher MATCHER = PATTERN.matcher("");
     protected static List<Info> info;

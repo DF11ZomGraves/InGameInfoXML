@@ -1,4 +1,12 @@
-﻿InGameInfo XML 2.8.2.95, Beta, 2025/1/25
+﻿InGameInfo XML 2.8.2.95, Beta, 2025/7/20
+Common
+	1.Add {armortoughness} tag.
+1.18.2/1.20.1
+	1.Update language file.
+	2.{pingicon} tag are available now.
+	3.Function <icon> and <itemquantity> are available now.
+
+InGameInfo XML 2.8.2.95, Beta, 2025/1/25
 Common
 	1.Minecraft 1.18.2 and 1.20.1 available, Forge only.
 	2.Add server seed option to config file. Can calculate slime chunks if InGameInfo XML NOT INSTALLED on the server.
