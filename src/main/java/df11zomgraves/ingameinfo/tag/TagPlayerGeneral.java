@@ -1,6 +1,5 @@
 package df11zomgraves.ingameinfo.tag;
 
-import df11zomgraves.ingameinfo.tag.TagPlayerGeneral.ArmorToughness;
 import df11zomgraves.ingameinfo.util.MBlockPos;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
