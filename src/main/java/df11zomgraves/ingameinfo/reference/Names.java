@@ -2,7 +2,7 @@ package df11zomgraves.ingameinfo.reference;
 
 public final class Names {
 	public static final String MODID = "ingameinfoxml";
-	public static final String VERSION = "2.8.2.95";
+	public static final String VERSION = "2.8.2.96";
 	public static final String VERSION_CHAT = "chat.ingameinfo.version";
 	
 	public static final class Command {
@@ -61,7 +61,7 @@ public final class Names {
 		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfoXML not installed in Server).";
 		
 		public static final String NUMERIC_AMPLIFIER = "NumericAmplifier";
-		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals。";
+		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals銆�";
 	}
 
 	public static final class Files {

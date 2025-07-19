@@ -2,8 +2,16 @@ package df11zomgraves.ingameinfo.value;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
 import df11zomgraves.ingameinfo.InGameInfoXML;
+import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
+import df11zomgraves.ingameinfo.gui.overlay.InfoItem;
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import df11zomgraves.ingameinfo.tag.Tag;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -90,31 +98,24 @@ public abstract class ValueComplex extends Value {
 		}
 	}
 
-//	public static class ValueItemQuantity extends ValueComplex {
-//		@Override
-//		public boolean isValidSize() {
-//			return this.values.size() == 1 || this.values.size() == 2;
-//		}
-//
-//		@Override
-//		public String getValue() {
-//			try {
-//				int itemDamage = -1;
-//				ResourceLocation res = new ResourceLocation(getValue(0));
-//				try {
-//					item = Item.REGISTRY.getObject(new ResourceLocation());
-//				} catch (final Exception e3) {
-//					item = Item.REGISTRY.getObjectById(getIntValue(0));
-//				}
-//				if (this.values.size() == 2)
-//					itemDamage = getIntValue(1);
-//				return String.valueOf(EntityHelper
-//						.getItemCountInInventory(Minecraft.getInstance().player.getInventory(), item, itemDamage));
-//			} catch (final Exception e2) {
-//				return "0";
-//			}
-//		}
-//	}
+	public static class ValueItemQuantity extends ValueComplex {
+		@Override
+		public boolean isValidSize() {
+			return this.values.size() > 0;
+		}
+
+		@Override
+		public String getValue() {
+			try {
+				ResourceLocation res = new ResourceLocation(getValue(0));
+				Item item = ForgeRegistries.ITEMS.getValue(res);
+				int itemCount = minecraft.player.getInventory().countItem(item);
+				return String.valueOf(itemCount);
+			} catch (final Exception e2) {
+				return "0";
+			}
+		}
+	}
 
 	public static class ValueTranslate extends ValueComplex {
 		@Override
@@ -190,17 +191,17 @@ public abstract class ValueComplex extends Value {
 					InGameInfoXML.logger.trace("Clearing file cache...");
 					this.cache.clear();
 				}
-				
+
 				final File file = new File(InGameInfoCore.INSTANCE.getConfigDirectory(), filename);
 				if (file.exists()) {
 					this.cache.put(filename, getLine(file));
 				}
 			}
-			
+
 			final String line = this.cache.get(filename);
 			if (line != null)
 				return line;
-			
+
 			return "";
 		}
 
@@ -230,87 +231,68 @@ public abstract class ValueComplex extends Value {
 		}
 	}
 
-//	public static class ValueIcon extends ValueComplex {
-//		@Override
-//		public boolean isValidSize() {
-//			return this.values.size() == 1 || this.values.size() == 2 || this.values.size() == 5
-//					|| this.values.size() == 7 || this.values.size() == 11;
-//		}
-//
-//		@Override
-//		public String getValue() {
-//			try {
-//				final int size = this.values.size();
-//				final ResourceLocation what = new ResourceLocation(getValue(0));
-//
-//				if (size == 1 || size == 2) {
-//					final InfoItem item;
-//					ItemStack itemStack;
-//
-//					int metadata = 0;
-//					if (size == 2) {
-//						metadata = getIntValue(1);
-//						// TODO: this needs a better workaround
-//						final Block block = Block.REGISTRY.getObject(what);
-//						if (block == Blocks.DOUBLE_PLANT) {
-//							metadata &= 7;
-//						}
-//					}
-//
-//					itemStack = new ItemStack(Item.REGISTRY.getObject(what), 1, metadata);
-//					if (itemStack.getItem() != null) {
-//						item = new InfoItem(itemStack);
-//						info.add(item);
-//						return Tag.getIconTag(item);
-//					}
-//
-//					itemStack = new ItemStack(Block.REGISTRY.getObject(what), 1, metadata);
-//					if (itemStack.getItem() != null) {
-//						item = new InfoItem(itemStack);
-//						info.add(item);
-//						return Tag.getIconTag(item);
-//					}
-//				}
-//
-//				final InfoIcon icon = new InfoIcon(what);
-//				int index = 0;
-//
-//				if (size == 5 || size == 11) {
-//					final int displayX = getIntValue(++index);
-//					final int displayY = getIntValue(++index);
-//					final int displayWidth = getIntValue(++index);
-//					final int displayHeight = getIntValue(++index);
-//					icon.setDisplayDimensions(displayX, displayY, displayWidth, displayHeight);
-//				}
-//
-//				if (size == 7 || size == 11) {
-//					final int iconX = getIntValue(++index);
-//					final int iconY = getIntValue(++index);
-//					final int iconWidth = getIntValue(++index);
-//					final int iconHeight = getIntValue(++index);
-//					final int textureWidth = getIntValue(++index);
-//					final int textureHeight = getIntValue(++index);
-//					icon.setTextureData(iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight);
-//				}
-//
-//				info.add(icon);
-//				return Tag.getIconTag(icon);
-//			} catch (final Exception e) {
-//				return "?";
-//			}
-//		}
-//	}
+	public static class ValueIcon extends ValueComplex {
+		@Override
+		public boolean isValidSize() {
+			return this.values.size() == 1 || this.values.size() == 5 || this.values.size() == 7
+					|| this.values.size() == 11;
+		}
+
+		@Override
+		public String getValue() {
+			try {
+				final int size = this.values.size();
+				String value = getValue(0);
+				final ResourceLocation what = new ResourceLocation(value);
+				if (size == 1) {
+					Item item = ForgeRegistries.ITEMS.getValue(what);
+					if (item != null) {
+						ItemStack itemStack = item.getDefaultInstance();
+						InfoItem infoItem = new InfoItem(itemStack);
+						info.add(infoItem);
+						return Tag.getIconTag(infoItem);
+					}
+				}
+
+				final InfoIcon icon = new InfoIcon(what);
+				int index = 0;
+
+				if (size == 5 || size == 11) {
+					final int displayX = getIntValue(++index);
+					final int displayY = getIntValue(++index);
+					final int displayWidth = getIntValue(++index);
+					final int displayHeight = getIntValue(++index);
+					icon.setDisplayDimensions(displayX, displayY, displayWidth, displayHeight);
+				}
+
+				if (size == 7 || size == 11) {
+					final int iconX = getIntValue(++index);
+					final int iconY = getIntValue(++index);
+					final int iconWidth = getIntValue(++index);
+					final int iconHeight = getIntValue(++index);
+					final int textureWidth = getIntValue(++index);
+					final int textureHeight = getIntValue(++index);
+					icon.setTextureData(iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight);
+				}
+
+				info.add(icon);
+				return Tag.getIconTag(icon);
+			} catch (final Exception e) {
+				return "?";
+			}
+		}
+	}
 
 	public static void register() {
 		ValueRegistry.INSTANCE.register(new ValueOperation().setName("op").setAliases("operation"));
 		ValueRegistry.INSTANCE.register(new ValueConcat().setName("concat"));
 		ValueRegistry.INSTANCE.register(new ValueMax().setName("max").setAliases("maximum"));
 		ValueRegistry.INSTANCE.register(new ValueMin().setName("min").setAliases("minimum"));
-//		ValueRegistry.INSTANCE.register(new ValueItemQuantity().setName("itemquantity"));
+		ValueRegistry.INSTANCE.register(new ValueItemQuantity().setName("itemquantity"));
 		ValueRegistry.INSTANCE.register(new ValueTranslate().setName("trans").setAliases("translate"));
 		ValueRegistry.INSTANCE.register(new ValueFormattedTime().setName("formattedtime").setAliases("rltimef"));
 		ValueRegistry.INSTANCE.register(new ValueFormattedNumber().setName("formattednumber"));
-//		ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
+		ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
 		ValueRegistry.INSTANCE.register(new ValueFile().setName("file"));
 	}
 }
