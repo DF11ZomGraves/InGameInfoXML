@@ -23,6 +23,8 @@ ingameinfoxml.config.showOverlayItemIcons=显示物品覆盖
 ingameinfoxml.config.showOverlayItemIcons.tooltip=在图标上显示物品覆盖（耐久度、堆叠大小）。
 ingameinfoxml.config.serverSeed=服务器种子
 ingameinfoxml.config.serverSeed.tooltip=指定服务器种子，仅在服务器没有安装InGameInfo XML时生效
+ingameinfoxml.config.numericAmplifier=效果等级用数字显示
+ingameinfoxml.config.numericAmplifier.tooltip=效果等级用数字显示，而不是使用罗马数字
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=左上角
@@ -212,6 +214,7 @@ ingameinfoxml.tag.sneaking.desc=如果玩家正在潜行就返回§e真§r，否
 ingameinfoxml.tag.sprinting.desc=如果玩家正在疾跑就返回§e真§r，否则就返回§e假§r。
 ingameinfoxml.tag.invisible.desc=如果玩家处于隐身状态就返回§e真§r，否则就返回§e假§r。
 ingameinfoxml.tag.eating.desc=如果玩家正在进食就返回§e真§r，否则就返回§e假§r。
+ingameinfoxml.tag.armortoughness.desc=玩家的盔甲韧性。
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=玩家X轴区块坐标。

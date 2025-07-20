@@ -23,6 +23,8 @@ ingameinfoxml.config.showOverlayItemIcons=Show Item Overlay
 ingameinfoxml.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 ingameinfoxml.config.serverSeed=Server Seed
 ingameinfoxml.config.serverSeed.tooltip=Set server seed in local. ONLY ENABLED when InGameInfo XML NOT installed on the server.
+ingameinfoxml.config.numericAmplifier=Numeric Amplifier
+ingameinfoxml.config.numericAmplifier.tooltip=Use numerical values to display effect amplifier instead of Roman numerals.
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left
@@ -212,6 +214,7 @@ ingameinfoxml.tag.sneaking.desc=§etrue§r if the player is sneaking, §efalse§
 ingameinfoxml.tag.sprinting.desc=§etrue§r if the player is sprinting, §efalse§r otherwise.
 ingameinfoxml.tag.invisible.desc=§etrue§r if the player is invisible, §efalse§r otherwise.
 ingameinfoxml.tag.eating.desc=§etrue§r if the player is eating, §efalse§r otherwise.
+ingameinfoxml.tag.armortoughness.desc=Player's armor toughness.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Player's X chunk coordinate.

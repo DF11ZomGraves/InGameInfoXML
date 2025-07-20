@@ -4,6 +4,7 @@ import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.MBlockPos;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 
@@ -288,6 +289,15 @@ public abstract class TagPlayerGeneral extends Tag {
 			return String.valueOf(false);
 		}
 	}
+	
+	public static class ArmorToughness extends TagPlayerGeneral {
+
+		@Override
+		public String getValue() {
+			return String.valueOf(player.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue());
+		}
+		
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Light().setName("light"));
@@ -324,5 +334,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
 		TagRegistry.INSTANCE.register(new Eating().setName("eating"));
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
+		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
 	}
 }

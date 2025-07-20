@@ -214,6 +214,7 @@ ingameinfoxml.tag.sneaking.desc=如果玩家正在潜行就返回§e真§r, 否�
 ingameinfoxml.tag.sprinting.desc=如果玩家正在疾跑就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.invisible.desc=如果玩家處於隱身狀態就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.eating.desc=如果玩家正在進食就返回§e真§r, 否則就返回§e假§r.
+ingameinfoxml.tag.armortoughness.desc=玩家的盔甲韌性。
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=玩家X軸區塊坐標.
