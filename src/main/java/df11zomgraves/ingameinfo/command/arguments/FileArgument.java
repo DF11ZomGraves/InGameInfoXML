@@ -30,7 +30,6 @@ public class FileArgument implements ArgumentType<String> {
 		return context.getArgument(name, String.class);
 	}
 
-	@Override
 	public String parse(StringReader reader) throws CommandSyntaxException {
 		String filename = reader.getRemaining();
 		reader.setCursor(reader.getTotalLength());

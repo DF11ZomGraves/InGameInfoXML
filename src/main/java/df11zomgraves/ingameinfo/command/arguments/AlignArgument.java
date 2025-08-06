@@ -25,7 +25,6 @@ public class AlignArgument implements ArgumentType<String> {
 		return context.getArgument(name, String.class);
 	}
 	
-	@Override
 	public String parse(StringReader reader) throws CommandSyntaxException {
 		String alignment = reader.readString();
 		return alignment;

@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import df11zomgraves.ingameinfo.command.arguments.InGameInfoArgumentTypes;
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.handler.Ticker;
 import df11zomgraves.ingameinfo.network.PacketHandler;
@@ -13,7 +14,6 @@ import df11zomgraves.ingameinfo.tag.TagRegistry;
 import df11zomgraves.ingameinfo.value.ValueRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -26,12 +26,12 @@ import net.minecraftforge.fml.loading.FMLPaths;
 public class InGameInfoXML {
 	public static Logger logger = LogManager.getLogger(Names.MODID);
 
-	public InGameInfoXML() {
+	public InGameInfoXML(FMLJavaModLoadingContext context) {
 		PacketHandler.init();
-		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigurationHandler.SPEC);
+		IEventBus modEventBus = context.getModEventBus();
+		context.registerConfig(ModConfig.Type.CLIENT, ConfigurationHandler.SPEC);
 		modEventBus.addListener(this::clientSetup);
-//		InGameInfoArgumentTypes.COMMAND_ARGUMENT_TYPES.register(bus);
+		InGameInfoArgumentTypes.COMMAND_ARGUMENT_TYPES.register(modEventBus);
 	}
 
 	private void clientSetup(final FMLClientSetupEvent event) {
@@ -49,6 +49,6 @@ public class InGameInfoXML {
 		core.setConfigDirectory(modConfigPath.toFile());
 		core.setConfigFile(ConfigurationHandler.configName);
 		core.reloadConfig();
-//		event.enqueueWork(InGameInfoArgumentTypes::registerArgumentTypes);
+		event.enqueueWork(InGameInfoArgumentTypes::registerArgumentTypes);
 	}
 }
