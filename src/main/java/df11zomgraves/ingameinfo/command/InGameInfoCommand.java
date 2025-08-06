@@ -1,6 +1,5 @@
 package df11zomgraves.ingameinfo.command;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import com.mojang.brigadier.CommandDispatcher;
@@ -29,11 +28,9 @@ public class InGameInfoCommand {
 		final String x = "X";
 		final String y = "Y";
 		final String seed = "Seed";
-//		final String strDefault = "default";
 		final String filename = "filename";
 		
 		LiteralArgumentBuilder<CommandSourceStack> igiCommand = Commands.literal(Names.Command.NAME);
-		//TODO: So...why 1.20.1 do not work?
 //		// igi alignment get TOPLEFT
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.executes(source -> GetAlignment(AlignArgument.GetString(source, strAlign))))));
@@ -45,66 +42,6 @@ public class InGameInfoCommand {
 //		// igi load ingameinfo.xml
 		igiCommand.then(Commands.literal("load").then(Commands.argument(filename, FileArgument.files())
 				.executes(source -> loadFile(FileArgument.GetString(source, filename)))));
-		
-		
-		
-		
-		// igi alignment get TOPLEFT
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.TOP_LEFT)
-//				.executes(source -> GetAlignment(Names.Command.TOP_LEFT)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.TOP_CENTER)
-//				.executes(source -> GetAlignment(Names.Command.TOP_CENTER)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.TOP_RIGHT)
-//				.executes(source -> GetAlignment(Names.Command.TOP_RIGHT)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.MIDDLE_LEFT)
-//				.executes(source -> GetAlignment(Names.Command.MIDDLE_LEFT)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.MIDDLE_CENTER)
-//				.executes(source -> GetAlignment(Names.Command.MIDDLE_CENTER)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.MIDDLE_RIGHT)
-//				.executes(source -> GetAlignment(Names.Command.MIDDLE_RIGHT)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.BOTTOM_LEFT)
-//				.executes(source -> GetAlignment(Names.Command.BOTTOM_LEFT)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.BOTTOM_CENTER)
-//				.executes(source -> GetAlignment(Names.Command.BOTTOM_CENTER)))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.literal(Names.Command.BOTTOM_RIGHT)
-//				.executes(source -> GetAlignment(Names.Command.BOTTOM_RIGHT)))));
-		// igi alignment set TOPLEFT 2 2
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.TOP_LEFT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.TOP_LEFT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.TOP_CENTER)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.TOP_CENTER, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.TOP_RIGHT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.TOP_RIGHT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.MIDDLE_LEFT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.MIDDLE_LEFT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.MIDDLE_CENTER)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.MIDDLE_CENTER, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.MIDDLE_RIGHT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.MIDDLE_RIGHT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.BOTTOM_LEFT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.BOTTOM_LEFT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.BOTTOM_CENTER)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.BOTTOM_CENTER, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
-//		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.literal(Names.Command.BOTTOM_RIGHT)
-//				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
-//						.executes(source -> SetAlignment(Names.Command.BOTTOM_RIGHT, IntegerArgumentType.getInteger(source, x),
-//								IntegerArgumentType.getInteger(source, y))))))));
 		// igi setseed -2793514409027566328
 		igiCommand.then(Commands.literal("setseed").then(Commands.argument(seed, LongArgumentType.longArg())
 				.executes(source -> SetSeed(LongArgumentType.getLong(source, seed)))));
