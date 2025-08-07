@@ -1,6 +1,8 @@
 package df11zomgraves.ingameinfo.tag;
 
+import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
 import df11zomgraves.ingameinfo.util.MBlockPos;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -170,12 +172,12 @@ public abstract class TagPlayerGeneral extends Tag {
 		}
 	}
 
-    public static class Exhaustion extends TagPlayerGeneral {
-        @Override
-        public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.getFoodData().getExhaustionLevel());
-        }
-    }
+	public static class Exhaustion extends TagPlayerGeneral {
+		@Override
+		public String getValue() {
+			return String.format(Locale.ENGLISH, "%.2f", player.getFoodData().getExhaustionLevel());
+		}
+	}
 
 	public static class AirTicks extends TagPlayerGeneral {
 		@Override
@@ -282,24 +284,27 @@ public abstract class TagPlayerGeneral extends Tag {
 			return String.valueOf(player.isInvisible());
 		}
 	}
-	
-	public static class ArmorToughness extends TagPlayerGeneral {
 
+	public static class ArmorToughness extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
 			if (player.getAttributes().hasAttribute(Attributes.ARMOR_TOUGHNESS))
 				return String.valueOf(player.getAttributeValue(Attributes.ARMOR_TOUGHNESS));
 			return "0";
 		}
-		
 	}
 
-//	public static class Eating extends TagPlayerGeneral {
-//		@Override
-//		public String getValue() {
-//			return String.valueOf(player.isEating());
-//		}
-//	}
+	public static class PlayerIcon extends TagPlayerGeneral {
+		@Override
+		public String getValue() {
+			final PlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
+			final InfoIcon icon = new InfoIcon(playerInfo.getSkinLocation());
+			icon.setTextureData(8, 8, 8, 8, 64, 64);
+			icon.setDisplayDimensions(0, 0, 8, 8);
+			info.add(icon);
+			return getIconTag(icon);
+		}
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Light().setName("light"));
@@ -333,8 +338,8 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Sneaking().setName("sneaking"));
 		TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
 		TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
-//		TagRegistry.INSTANCE.register(new Eating().setName("eating"));
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
 		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
+		TagRegistry.INSTANCE.register(new PlayerIcon().setName("playericon"));
 	}
 }
