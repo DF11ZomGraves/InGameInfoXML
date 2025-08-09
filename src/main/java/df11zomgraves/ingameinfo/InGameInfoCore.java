@@ -7,10 +7,6 @@ import df11zomgraves.ingameinfo.parser.IParser;
 import df11zomgraves.ingameinfo.parser.json.JsonParser;
 import df11zomgraves.ingameinfo.parser.text.TextParser;
 import df11zomgraves.ingameinfo.parser.xml.XmlParser;
-import df11zomgraves.ingameinfo.printer.IPrinter;
-import df11zomgraves.ingameinfo.printer.json.JsonPrinter;
-import df11zomgraves.ingameinfo.printer.text.TextPrinter;
-import df11zomgraves.ingameinfo.printer.xml.XmlPrinter;
 import df11zomgraves.ingameinfo.reference.Alignment;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
@@ -219,21 +215,6 @@ public class InGameInfoCore {
 		}
 
 		return inputStream;
-	}
-
-	public boolean saveConfig(final String filename) {
-		IPrinter printer = null;
-		final File file = new File(this.configDirectory, filename);
-		if (filename.endsWith(Names.Files.EXT_XML)) {
-			printer = new XmlPrinter();
-		} else if (filename.endsWith(Names.Files.EXT_JSON)) {
-			printer = new JsonPrinter();
-		} else if (filename.endsWith(Names.Files.EXT_TXT)) {
-			printer = new TextPrinter();
-		} else {
-			InGameInfoXML.logger.warn("'{}' is an invalid file name");
-		}
-		return printer != null && printer.print(file, this.format);
 	}
 
 	private String getValue(final Value value) {
