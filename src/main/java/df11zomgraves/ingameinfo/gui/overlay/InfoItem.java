@@ -14,56 +14,66 @@ public class InfoItem extends Info {
 	private final ItemStack itemStack;
 	private final boolean large;
 	private final int size;
+	private boolean forceRender;
+
 	public InfoItem(final ItemStack itemStack) {
-	    this(itemStack, false);
+		this(itemStack, false);
 	}
-	
+
 	public InfoItem(final ItemStack itemStack, final boolean large) {
-	    this(itemStack, large, 0, 0);
+		this(itemStack, large, 0, 0);
 	}
-	
+
 	public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y) {
+		this(itemStack, large, x, y, false);
+	}
+
+	public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y, boolean forceRender) {
 		super(x, y);
 		itemRenderer = MINECRAFT.getItemRenderer();
 		this.itemStack = itemStack;
 		this.large = large;
-	    this.size = large ? 16 : 8;
-	    if (large) {
-	        this.y = -4;
-	    }
+		this.size = large ? 16 : 8;
+		if (large) {
+			this.y = -4;
+		}
+		this.forceRender = forceRender;
 	}
 
 	@Override
 	public void drawInfo(PoseStack matrix) {
-		if (this.itemStack.isEmpty())
+		if (this.itemStack.isEmpty() && !forceRender)
 			return;
 		PoseStack stack = RenderSystem.getModelViewStack();
 		stack.pushPose();
 		if (!large) {
-			stack.scale(0.5f, 0.5f, 0.5f);	
+			stack.scale(0.5f, 0.5f, 0.5f);
 			stack.translate(getX() * 2, getY() * 2, 0);
-		} else	
+		} else
 			stack.translate(getX(), getY(), 0);
 		RenderSystem.applyModelViewMatrix();
 		itemRenderer.renderGuiItem(itemStack, 0, 0);
-		if (ConfigurationHandler.showOverlayItemIcons)
+		if (forceRender)
+			itemRenderer.renderGuiItemDecorations(MINECRAFT.font, itemStack, 0, 0);
+		else if (ConfigurationHandler.showOverlayItemIcons)
 			itemRenderer.renderGuiItemDecorations(MINECRAFT.font, itemStack, 0, 0, "");
 		stack.popPose();
 		RenderSystem.applyModelViewMatrix();
-    }
+	}
 
-    @Override
-    public int getWidth() {
-        return !this.itemStack.isEmpty() ? this.size : 0;
-    }
+	@Override
+	public int getWidth() {
+		return this.forceRender ? this.size : !this.itemStack.isEmpty() ? this.size : 0;
+	}
 
-    @Override
-    public int getHeight() {
-        return !this.itemStack.isEmpty() ? this.size : 0;
-    }
+	@Override
+	public int getHeight() {
+		return this.forceRender ? this.size : !this.itemStack.isEmpty() ? this.size : 0;
+	}
 
-    @Override
-    public String toString() {
-        return String.format("InfoItem{itemStack: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.itemStack, this.x, this.y, this.offsetX, this.offsetY, this.children);
-    }
+	@Override
+	public String toString() {
+		return String.format("InfoItem{itemStack: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}",
+				this.itemStack, this.x, this.y, this.offsetX, this.offsetY, this.children);
+	}
 }

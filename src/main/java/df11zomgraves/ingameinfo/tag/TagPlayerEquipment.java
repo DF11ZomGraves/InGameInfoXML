@@ -14,14 +14,28 @@ public abstract class TagPlayerEquipment extends Tag {
 	public static final String[] TYPES = new String[] { "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots" };
 	public static final int[] SLOTS = new int[] { -2, -1, 3, 2, 1, 0 };
 	protected final int slot;
+	private boolean isInventorySlot;
 
 	public TagPlayerEquipment(final int slot) {
+		this(slot, false);
+	}
+
+	public TagPlayerEquipment(final int slot, final boolean isInventorySlot) {
 		this.slot = slot;
+		this.isInventorySlot = isInventorySlot;
 	}
 
 	@Override
 	public String getCategory() {
 		return "playerequipment";
+	}
+	
+	@Override
+	public String getName() {
+		if (isInventorySlot)
+			return super.getName() + this.slot;
+		else
+			return super.getName();
 	}
 
 	protected ItemStack getItemStack(final int slot) {
@@ -168,6 +182,25 @@ public abstract class TagPlayerEquipment extends Tag {
 			return getIconTag(item);
 		}
 	}
+	
+	public static class PlayerInventory extends TagPlayerEquipment {
+		public PlayerInventory(int slot) {
+			super(slot, true);
+		}
+
+		@Override
+		public String getValue() {
+			String itemTag = "";
+			for (int i = this.slot * 9; i < this.slot * 9 + 9; i++) {
+				final ItemStack itemStack = player.getInventory().getItem(i);
+				
+				final InfoItem item = new InfoItem(itemStack, true, 0, 0, true);
+				info.add(item);
+				itemTag += getIconTag(item) + " ";
+			}
+			return itemTag;
+		}
+	}
 
 	public static void register() {
 		for (int i = 0; i < TYPES.length; i++) {
@@ -181,5 +214,7 @@ public abstract class TagPlayerEquipment extends Tag {
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
 		}
 		TagRegistry.INSTANCE.register(new ArrowCount(0).setName("arrowcount"));
+		for (int i = 0; i < 4; i++)
+			TagRegistry.INSTANCE.register(new PlayerInventory(i).setName("inventory"));
 	}
 }
