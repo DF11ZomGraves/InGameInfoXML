@@ -11,17 +11,32 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class TagPlayerEquipment extends Tag {
-	public static final String[] TYPES = new String[] { "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots" };
+	public static final String[] TYPES = new String[] { "offhand", "mainhand", "helmet", "chestplate", "leggings",
+			"boots" };
 	public static final int[] SLOTS = new int[] { -2, -1, 3, 2, 1, 0 };
 	protected final int slot;
+	private boolean isInventorySlot;
 
 	public TagPlayerEquipment(final int slot) {
+		this(slot, false);
+	}
+
+	public TagPlayerEquipment(final int slot, final boolean isInventorySlot) {
 		this.slot = slot;
+		this.isInventorySlot = isInventorySlot;
 	}
 
 	@Override
 	public String getCategory() {
 		return "playerequipment";
+	}
+
+	@Override
+	public String getName() {
+		if (isInventorySlot)
+			return super.getName() + this.slot;
+		else
+			return super.getName();
 	}
 
 	protected ItemStack getItemStack(final int slot) {
@@ -44,19 +59,20 @@ public abstract class TagPlayerEquipment extends Tag {
 				return "";
 			}
 			final int regularArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.ARROW);
-			final int spectralArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.SPECTRAL_ARROW);
+			final int spectralArrows = EntityHelper.getItemCountInInventory(player.getInventory(),
+					Items.SPECTRAL_ARROW);
 			final int tippedArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.TIPPED_ARROW);
 			int arrowCount = regularArrows + spectralArrows + tippedArrows;
 			Item item = itemStack.getItem();
 			boolean showArrows;
-			showArrows = item instanceof BowItem || item  instanceof CrossbowItem;
+			showArrows = item instanceof BowItem || item instanceof CrossbowItem;
 			final String arrows = showArrows ? " (" + arrowCount + ")" : "";
 			return itemStack.getDisplayName().getString() + arrows;
 		}
 	}
-	
+
 	public static class ArrowCount extends TagPlayerEquipment {
-		
+
 		public ArrowCount(int slot) {
 			super(slot);
 		}
@@ -64,7 +80,8 @@ public abstract class TagPlayerEquipment extends Tag {
 		@Override
 		public String getValue() {
 			final int regularArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.ARROW);
-			final int spectralArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.SPECTRAL_ARROW);
+			final int spectralArrows = EntityHelper.getItemCountInInventory(player.getInventory(),
+					Items.SPECTRAL_ARROW);
 			final int tippedArrows = EntityHelper.getItemCountInInventory(player.getInventory(), Items.TIPPED_ARROW);
 			int arrowCount = regularArrows + spectralArrows + tippedArrows;
 			return String.valueOf(arrowCount);
@@ -130,8 +147,8 @@ public abstract class TagPlayerEquipment extends Tag {
 				return String.valueOf(-1);
 			}
 
-			return String.valueOf(
-					itemStack.isDamageableItem() ? itemStack.getMaxDamage() - itemStack.getDamageValue() : 0);
+			return String
+					.valueOf(itemStack.isDamageableItem() ? itemStack.getMaxDamage() - itemStack.getDamageValue() : 0);
 		}
 	}
 
@@ -169,6 +186,25 @@ public abstract class TagPlayerEquipment extends Tag {
 		}
 	}
 
+	public static class PlayerInventory extends TagPlayerEquipment {
+		public PlayerInventory(int slot) {
+			super(slot, true);
+		}
+
+		@Override
+		public String getValue() {
+			String itemTag = "";
+			for (int i = this.slot * 9; i < this.slot * 9 + 9; i++) {
+				final ItemStack itemStack = player.getInventory().getItem(i);
+				
+				final InfoItem item = new InfoItem(itemStack, true, 0, 0, true);
+				info.add(item);
+				itemTag += getIconTag(item) + " ";
+			}
+			return itemTag;
+		}
+	}
+
 	public static void register() {
 		for (int i = 0; i < TYPES.length; i++) {
 			TagRegistry.INSTANCE.register(new Name(SLOTS[i]).setName(TYPES[i] + "name"));
@@ -181,5 +217,7 @@ public abstract class TagPlayerEquipment extends Tag {
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
 		}
 		TagRegistry.INSTANCE.register(new ArrowCount(0).setName("arrowcount"));
+		for (int i = 0; i < 4; i++)
+			TagRegistry.INSTANCE.register(new PlayerInventory(i).setName("inventory"));
 	}
 }
