@@ -1,8 +1,9 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.MBlockPos;
-
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.math.MathHelper;
@@ -291,12 +292,22 @@ public abstract class TagPlayerGeneral extends Tag {
 	}
 	
 	public static class ArmorToughness extends TagPlayerGeneral {
-
 		@Override
 		public String getValue() {
 			return String.valueOf(player.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue());
 		}
-		
+	}
+	
+	public static class PlayerIcon extends TagPlayerGeneral {
+		@Override
+		public String getValue() {
+			final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUniqueID());
+			final InfoIcon icon = new InfoIcon(playerInfo.getLocationSkin());
+			icon.setTextureData(8, 8, 8, 8, 64, 64);
+			icon.setDisplayDimensions(0, 0, 8, 8);
+			info.add(icon);
+			return getIconTag(icon);
+		}
 	}
 
 	public static void register() {
@@ -335,5 +346,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Eating().setName("eating"));
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
 		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
+		TagRegistry.INSTANCE.register(new PlayerIcon().setName("playericon"));
 	}
 }
