@@ -42,7 +42,7 @@ public class InfoItem extends Info {
 
 	@Override
 	public void drawInfo(GuiGraphics guiGraphics) {
-		if (this.itemStack.isEmpty() && !forceRender)
+		if (this.itemStack.isEmpty())
 			return;
 		PoseStack stack = RenderSystem.getModelViewStack();
 		stack.pushPose();
