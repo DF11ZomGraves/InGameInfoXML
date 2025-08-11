@@ -14,14 +14,28 @@ public abstract class TagPlayerEquipment extends Tag {
 			"boots" };
 	public static final int[] SLOTS = new int[] { -2, -1, 3, 2, 1, 0 };
 	protected final int slot;
+	private boolean isInventorySlot;
 
 	public TagPlayerEquipment(final int slot) {
+		this(slot, false);
+	}
+
+	public TagPlayerEquipment(final int slot, final boolean isInventorySlot) {
 		this.slot = slot;
+		this.isInventorySlot = isInventorySlot;
 	}
 
 	@Override
 	public String getCategory() {
 		return "playerequipment";
+	}
+
+	@Override
+	public String getName() {
+		if (isInventorySlot)
+			return super.getName() + this.slot;
+		else
+			return super.getName();
 	}
 
 	protected ItemStack getItemStack(final int slot) {
@@ -149,6 +163,41 @@ public abstract class TagPlayerEquipment extends Tag {
 		}
 	}
 
+	public static class ArrowCount extends TagPlayerEquipment {
+		public ArrowCount(int slot) {
+			super(slot);
+		}
+
+		@Override
+		public String getValue() {
+			final int regularArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW);
+			final int spectralArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.SPECTRAL_ARROW);
+			final int tippedArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.TIPPED_ARROW);
+			int arrowCount = regularArrows + spectralArrows + tippedArrows;
+			return String.valueOf(arrowCount);
+		}
+	}
+
+	public static class PlayerInventory extends TagPlayerEquipment {
+		public PlayerInventory(int slot) {
+			super(slot, true);
+		}
+
+		@Override
+		public String getValue() {
+			String itemTag = "";
+			int startSlotIndex = this.slot * 9;
+			for (int i = startSlotIndex; i < startSlotIndex + 9; i++) {
+				final ItemStack itemStack = player.inventory.mainInventory.get(i);
+
+				final InfoItem item = new InfoItem(itemStack, true, 0, 0, true);
+				info.add(item);
+				itemTag += getIconTag(item) + " ";
+			}
+			return itemTag;
+		}
+	}
+
 	public static void register() {
 		for (int i = 0; i < TYPES.length; i++) {
 			TagRegistry.INSTANCE.register(new Name(SLOTS[i]).setName(TYPES[i] + "name"));
@@ -160,5 +209,8 @@ public abstract class TagPlayerEquipment extends Tag {
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], false).setName(TYPES[i] + "icon"));
 			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
 		}
+		TagRegistry.INSTANCE.register(new ArrowCount(0).setName("arrowcount"));
+		for (int i = 0; i < 4; i++)
+			TagRegistry.INSTANCE.register(new PlayerInventory(i).setName("inventory"));
 	}
 }

@@ -12,6 +12,7 @@ public class InfoItem extends Info {
 	private final ItemStack itemStack;
 	private final boolean large;
 	private final int size;
+	private boolean forceRender;
 
 	public InfoItem(final ItemStack itemStack) {
 		this(itemStack, false);
@@ -22,12 +23,17 @@ public class InfoItem extends Info {
 	}
 
 	public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y) {
+		this(itemStack, large, x, y, false);
+	}
+
+	public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y, boolean forceRender) {
 		super(x, y);
 		this.itemStack = itemStack;
 		this.large = large;
 		this.size = large ? 16 : 8;
 		if (large)
 			this.y = -4;
+		this.forceRender = forceRender;
 	}
 
 	@Override
@@ -44,8 +50,9 @@ public class InfoItem extends Info {
 			final float zLevel = renderItem.zLevel;
 			renderItem.zLevel = 300;
 			renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
-
-			if (ConfigurationHandler.showOverlayItemIcons)
+			if (forceRender)
+				renderItem.renderItemOverlays(MINECRAFT.fontRenderer, this.itemStack, 0, 0);
+			else if (ConfigurationHandler.showOverlayItemIcons)
 				renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRenderer, this.itemStack, 0, 0, "");
 
 			renderItem.zLevel = zLevel;
@@ -62,12 +69,12 @@ public class InfoItem extends Info {
 
 	@Override
 	public int getWidth() {
-		return !this.itemStack.isEmpty() ? this.size : 0;
+		return this.forceRender ? this.size : !this.itemStack.isEmpty() ? this.size : 0;
 	}
 
 	@Override
 	public int getHeight() {
-		return !this.itemStack.isEmpty() ? this.size : 0;
+		return this.forceRender ? this.size : !this.itemStack.isEmpty() ? this.size : 0;
 	}
 
 	@Override
