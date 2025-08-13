@@ -1,4 +1,17 @@
-﻿InGameInfo XML 2.8.2.95, Beta, 2025/7/20
+﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/14
+Common
+	1.Add {playericon} tag.
+	2.Add {inventory} tag.
+1.12.2
+	1.Add {arrowcount} tag.
+1.18.2
+	1.Adjust "/igi alignment" command.
+1.20.1
+	Required Forge 47.4.0 and higher.
+	1.{nearbyplayericon} tag are available now.
+	2.Adjust "/igi alignment" command.
+
+InGameInfo XML 2.8.2.96, Beta, 2025/7/20
 Common
 	1.Add {armortoughness} tag.
 1.18.2/1.20.1

@@ -1,4 +1,17 @@
-InGameInfo XML 2.8.2.95, Beta, 2025/7/20
+﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/14
+Common
+	1.增加玩家头像playericon标签
+	2.增加物品栏inventory标签
+1.12.2
+	1.增加箭矢数量arrowcount标签
+1.18.2
+	1.调整了指令“/igi alignment”
+1.20.1
+	Forge版本为47.4.0
+	1.nearbyplayericon标签可以正常使用了
+	2.调整了指令“/igi alignment”
+
+InGameInfo XML 2.8.2.96, Beta, 2025/7/20
 通用
 	1.增加盔甲韧性armortoughness标签
 1.18.2/1.20.1
