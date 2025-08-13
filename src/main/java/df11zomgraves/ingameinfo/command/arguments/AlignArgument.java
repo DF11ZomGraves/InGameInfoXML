@@ -16,6 +16,17 @@ import net.minecraft.commands.SharedSuggestionProvider;
 
 public class AlignArgument implements ArgumentType<String> {
 	private static final Collection<String> EXAMPLES = Arrays.asList("TOPLEFT", "MIDDLECENTER", "BOTTOMRIGHT");
+	private String[] align = {
+			Names.Command.TOP_LEFT,
+			Names.Command.TOP_CENTER,
+			Names.Command.TOP_RIGHT,
+			Names.Command.MIDDLE_LEFT,
+			Names.Command.MIDDLE_CENTER,
+			Names.Command.MIDDLE_RIGHT,
+			Names.Command.BOTTOM_LEFT,
+			Names.Command.BOTTOM_CENTER,
+			Names.Command.BOTTOM_RIGHT
+	};
 
 	public static AlignArgument GetAlignment() {
 		return new AlignArgument();
@@ -28,23 +39,15 @@ public class AlignArgument implements ArgumentType<String> {
 	@Override
 	public String parse(StringReader reader) throws CommandSyntaxException {
 		String alignment = reader.readString();
-		return alignment;
+		for (String s : align)
+			if (s.equals(alignment))
+				return alignment;
+		throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument().createWithContext(reader);
 	}
 
 	@Override
 	public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext,
 			SuggestionsBuilder suggestionsBuilder) {
-		String[] align = {
-				Names.Command.TOP_LEFT,
-				Names.Command.TOP_CENTER,
-				Names.Command.TOP_RIGHT,
-				Names.Command.MIDDLE_LEFT,
-				Names.Command.MIDDLE_CENTER,
-				Names.Command.MIDDLE_RIGHT,
-				Names.Command.BOTTOM_LEFT,
-				Names.Command.BOTTOM_CENTER,
-				Names.Command.BOTTOM_RIGHT
-		};
 		return SharedSuggestionProvider.suggest(align, suggestionsBuilder);
 	}
 	
