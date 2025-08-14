@@ -10,6 +10,7 @@ Common
 	Forge版本为47.4.0
 	1.nearbyplayericon标签可以正常使用了
 	2.调整了指令“/igi alignment”
+	3.指令 "/igi load <filename>"现在可以动态加载XML文件列表了
 
 InGameInfo XML 2.8.2.96, Beta, 2025/7/20
 通用
