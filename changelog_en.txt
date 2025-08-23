@@ -10,7 +10,7 @@ Common
 	Required Forge 47.4.0 and higher.
 	1.{nearbyplayericon} tag are available now.
 	2.Adjust "/igi alignment" command.
-	3.The "/igi load <filename>" command can dynamically load a list of XML files.
+	3.Fix issue of display content being covered when using spyglass.
 
 InGameInfo XML 2.8.2.96, Beta, 2025/7/20
 Common

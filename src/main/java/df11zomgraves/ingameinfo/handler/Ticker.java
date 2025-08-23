@@ -45,7 +45,7 @@ public class Ticker {
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void onRenderGuiEventPre(final RenderGuiEvent.Pre event) {
+	public void onRenderGuiEventPost(final RenderGuiEvent.Post event) {
 		if (isRunning()) {
 			this.core.onTickClient();
 			this.core.onTickRender(event.getGuiGraphics());

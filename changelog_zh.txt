@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/14
+﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 Common
 	1.增加玩家头像playericon标签
 	2.增加物品栏inventory标签
@@ -10,7 +10,7 @@ Common
 	Forge版本为47.4.0
 	1.nearbyplayericon标签可以正常使用了
 	2.调整了指令“/igi alignment”
-	3.指令 "/igi load <filename>"现在可以动态加载XML文件列表了
+	3.修复使用望远镜时显示内容被遮挡问题
 
 InGameInfo XML 2.8.2.96, Beta, 2025/7/20
 通用
