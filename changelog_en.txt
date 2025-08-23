@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/14
+﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 Common
 	1.Add {playericon} tag.
 	2.Add {inventory} tag.
