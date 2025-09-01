@@ -7,10 +7,6 @@ import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
 import com.github.lunatrius.ingameinfo.parser.xml.XmlParser;
-import com.github.lunatrius.ingameinfo.printer.IPrinter;
-import com.github.lunatrius.ingameinfo.printer.json.JsonPrinter;
-import com.github.lunatrius.ingameinfo.printer.text.TextPrinter;
-import com.github.lunatrius.ingameinfo.printer.xml.XmlPrinter;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
@@ -230,21 +226,6 @@ public class InGameInfoCore {
 		}
 
 		return inputStream;
-	}
-
-	public boolean saveConfig(final String filename) {
-		IPrinter printer = null;
-		final File file = new File(this.configDirectory, filename);
-		if (filename.endsWith(Names.Files.EXT_XML))
-			printer = new XmlPrinter();
-		else if (filename.endsWith(Names.Files.EXT_JSON))
-			printer = new JsonPrinter();
-		else if (filename.endsWith(Names.Files.EXT_TXT))
-			printer = new TextPrinter();
-		else
-			Reference.logger.warn("'{}' is an invalid file name");
-
-		return printer != null && printer.print(file, this.format);
 	}
 
 	private String getValue(final Value value) {

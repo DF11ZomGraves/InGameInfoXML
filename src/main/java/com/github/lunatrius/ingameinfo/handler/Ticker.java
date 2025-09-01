@@ -112,9 +112,10 @@ public class Ticker {
 
 	private void showVerionInfo() {
 		String keyToggle = KeyInputHandler.KEY_BINDING_TOGGLE.getDisplayName();
+		String keyReload = KeyInputHandler.KEY_BINDING_RELOAD.getDisplayName();
 		client.ingameGUI.addChatMessage(ChatType.CHAT,
 				new TextComponentTranslation(Names.VERSION_CHAT, Reference.VERSION));
 		client.ingameGUI.addChatMessage(ChatType.CHAT,
-				new TextComponentTranslation(Names.VERSION_CHAT2, keyToggle));
+				new TextComponentTranslation(Names.VERSION_CHAT2, keyToggle, keyReload));
 	}
 }

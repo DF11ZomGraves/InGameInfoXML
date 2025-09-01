@@ -116,6 +116,7 @@ ingameinfoxml.tag.mouseoverpowerweak.desc=该方块红石信号的最小强度�
 ingameinfoxml.tag.mouseoverpowerstrong.desc=该方块红石信号的最大强度，如果什么都没有则显示为-1。
 ingameinfoxml.tag.mouseoverpowerinput.desc=该方块红石信号的输入强度，如果什么都没有则显示为-1。
 ingameinfoxml.tag.mouseoverisblock.desc=光标指向为方块时返回§e真§r，否则返回§e假§r。
+ingameinfoxml.tag.lookingblockxyz.desc=光标下方块的坐标，如果光标下什么都没有则不显示任何东西。
 
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=与附近第x个玩家间的距离。
@@ -179,6 +180,8 @@ ingameinfoxml.tag.bootsdamageleft.desc=靴子的剩余耐久。
 ingameinfoxml.tag.bootsquantity.desc=该靴子在物品栏中的数量。
 ingameinfoxml.tag.bootsicon.desc=靴子的图标。
 ingameinfoxml.tag.bootslargeicon.desc=靴子的大图标。
+ingameinfoxml.tag.inventory.desc=玩家的第x行物品栏。
+ingameinfoxml.tag.arrowcount.desc=物品栏箭矢数量。
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=你当前位置的亮度等级。
@@ -215,6 +218,7 @@ ingameinfoxml.tag.sprinting.desc=如果玩家正在疾跑就返回§e真§r，�
 ingameinfoxml.tag.invisible.desc=如果玩家处于隐身状态就返回§e真§r，否则就返回§e假§r。
 ingameinfoxml.tag.eating.desc=如果玩家正在进食就返回§e真§r，否则就返回§e假§r。
 ingameinfoxml.tag.armortoughness.desc=玩家的盔甲韧性。
+ingameinfoxml.tag.playericon.desc=玩家头像。
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=玩家X轴区块坐标。
@@ -295,16 +299,14 @@ ingameinfoxml.tag.humidity.desc=生物群系湿度。
 # keys
 ingameinfoxml.key.category=InGame Info XML
 ingameinfoxml.key.toggle=显示切换
+ingameinfoxml.key.reload=重新加载
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [文件名]
+commands.ingameinfoxml.usage=/igi <load|taglist> [文件名]
 commands.ingameinfoxml.reload=正在重新加载...
 commands.ingameinfoxml.load=正在加载%s...
-commands.ingameinfoxml.save=正在保存%s...
 commands.ingameinfoxml.success=完成！
 commands.ingameinfoxml.failure=出现了错误！
-commands.ingameinfoxml.enable=InGame Info XML界面现在已启用。
-commands.ingameinfoxml.disable=InGame Info XML界面现在已禁用。
 
 ingameinfo.chat.version=InGameInfo XML %s
-ingameinfo.chat.version2=按[%s]键显示/隐藏，键入§e/igi reload§r重新加载
+ingameinfo.chat.version2=按[%s]键显示/隐藏, [%s]键重新加载。

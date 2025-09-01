@@ -116,6 +116,7 @@ ingameinfoxml.tag.mouseoverpowerweak.desc=Weak redstone power of the block, -1 i
 ingameinfoxml.tag.mouseoverpowerstrong.desc=Strong redstone power of the block, -1 if there is nothing.
 ingameinfoxml.tag.mouseoverpowerinput.desc=Input redstone power of the block, -1 if there is nothing.
 ingameinfoxml.tag.mouseoverisblock.desc=§etrue§r if block under the cursor, §efalse§r otherwise.
+ingameinfoxml.tag.lookingblockxyz.desc=Coordinate of the block under the cursor, an empty string if there is nothing.
 
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=Distance to x-th nearby player.
@@ -179,6 +180,8 @@ ingameinfoxml.tag.bootsdamageleft.desc=Boots' damage left.
 ingameinfoxml.tag.bootsquantity.desc=Quantity of the boots in the inventory.
 ingameinfoxml.tag.bootsicon.desc=Boots' icon.
 ingameinfoxml.tag.bootslargeicon.desc=Boots' large icon.
+ingameinfoxml.tag.inventory.desc=Head icon of the player.
+ingameinfoxml.tag.arrowcount.desc=Quantity of the arrows in the inventory.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=Light level at your current position.
@@ -215,6 +218,7 @@ ingameinfoxml.tag.sprinting.desc=§etrue§r if the player is sprinting, §efalse
 ingameinfoxml.tag.invisible.desc=§etrue§r if the player is invisible, §efalse§r otherwise.
 ingameinfoxml.tag.eating.desc=§etrue§r if the player is eating, §efalse§r otherwise.
 ingameinfoxml.tag.armortoughness.desc=Player's armor toughness.
+ingameinfoxml.tag.playericon.desc=Player's head icon.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Player's X chunk coordinate.
@@ -295,16 +299,14 @@ ingameinfoxml.tag.humidity.desc=Biome humidity.
 # keys
 ingameinfoxml.key.category=InGame Info XML
 ingameinfoxml.key.toggle=Toggle Overlay
+ingameinfoxml.key.reload=Reload
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [filename]
+commands.ingameinfoxml.usage=/igi <load|taglist> [filename]
 commands.ingameinfoxml.reload=Reloading...
 commands.ingameinfoxml.load=Loading %s...
-commands.ingameinfoxml.save=Saving %s...
 commands.ingameinfoxml.success=Done!
 commands.ingameinfoxml.failure=Something went wrong!
-commands.ingameinfoxml.enable=InGame Info XML overlay is now enabled.
-commands.ingameinfoxml.disable=InGame Info XML overlay is now disabled.
 
 ingameinfo.chat.version=InGameInfo XML %s
-ingameinfo.chat.version2=Press[%s]to toggle, type §e/igi reload§r to reload.
+ingameinfo.chat.version2=Press [%s] to toggle, [%s] to reload.

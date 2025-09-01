@@ -4,7 +4,6 @@ import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.client.gui.tag.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.DelayedGuiDisplayTicker;
-import com.github.lunatrius.ingameinfo.handler.Ticker;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.CommandBase;
@@ -50,17 +49,11 @@ public class InGameInfoCommand extends CommandBase {
 	@Override
 	public List<String> getTabCompletions(final MinecraftServer server, final ICommandSender sender,
 			final String[] args, final @Nullable BlockPos pos) {
-		if (args.length == 1) {
-			return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE,
-					Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
-		} else if (args.length == 2) {
+		if (args.length == 1)
+			return getListOfStringsMatchingLastWord(args, Names.Command.LOAD, Names.Command.TAGLIST);
+		else if (args.length == 2)
 			if (args[0].equalsIgnoreCase(Names.Command.LOAD))
 				return getListOfStringsMatchingLastWord(args, getFilenames());
-			else if (args[0].equalsIgnoreCase(Names.Command.SAVE))
-				return CommandBase.getListOfStringsMatchingLastWord(args, Names.Files.FILE_XML, Names.Files.FILE_JSON,
-						Names.Files.FILE_TXT);
-		}
-
 		return Collections.emptyList();
 	}
 
@@ -81,14 +74,7 @@ public class InGameInfoCommand extends CommandBase {
 	public void execute(final MinecraftServer server, final ICommandSender sender, final String[] args)
 			throws CommandException {
 		if (args.length > 0) {
-			if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
-				sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
-				ConfigurationHandler.reload();
-				final boolean success = this.core.reloadConfig();
-				sender.sendMessage(new TextComponentTranslation(
-						success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
-				return;
-			} else if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
+			if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
 				sender.sendMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
 				final boolean success = this.core.loadConfig(args[1]);
 				sender.sendMessage(new TextComponentTranslation(
@@ -97,20 +83,6 @@ public class InGameInfoCommand extends CommandBase {
 					ConfigurationHandler.setConfigName(args[1]);
 					ConfigurationHandler.save();
 				}
-				return;
-			} else if (args[0].equalsIgnoreCase(Names.Command.SAVE)) {
-				sender.sendMessage(new TextComponentTranslation(Names.Command.Message.SAVE, args[1]));
-				final boolean success = this.core.saveConfig(args[1]);
-				sender.sendMessage(new TextComponentTranslation(
-						success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
-				return;
-			} else if (args[0].equalsIgnoreCase(Names.Command.ENABLE)) {
-				sender.sendMessage(new TextComponentTranslation(Names.Command.Message.ENABLE));
-				Ticker.enabled = true;
-				return;
-			} else if (args[0].equalsIgnoreCase(Names.Command.DISABLE)) {
-				sender.sendMessage(new TextComponentTranslation(Names.Command.Message.DISABLE));
-				Ticker.enabled = false;
 				return;
 			} else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
 				DelayedGuiDisplayTicker.create(new GuiTags(), 10);

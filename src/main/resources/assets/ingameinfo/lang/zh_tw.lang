@@ -115,7 +115,8 @@ ingameinfoxml.tag.mouseovermetadata.desc=游標下方塊的metadata(元數據), 
 ingameinfoxml.tag.mouseoverpowerweak.desc=該方塊红石信號的最小強度, 如果什麼都沒有則顯示為-1.
 ingameinfoxml.tag.mouseoverpowerstrong.desc=該方塊红石信號的最大強度, 如果什麼都沒有則顯示為-1.
 ingameinfoxml.tag.mouseoverpowerinput.desc=該方塊红石信號的輸入強度, 如果什麼都沒有則顯示為-1.
-ingameinfoxml.tag.mouseoverisblock.desc=光標指向為方塊時返回§e真§r，否則返回§e假§r。
+ingameinfoxml.tag.mouseoverisblock.desc=游標指向為方塊時返回§e真§r，否則返回§e假§r。
+ingameinfoxml.tag.lookingblockxyz.desc=游標下方塊的座標, 如果游標下什麼都沒有則不顯示任何東西。
 
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=與附近第x個玩家間的距離.
@@ -179,6 +180,8 @@ ingameinfoxml.tag.bootsdamageleft.desc=靴子的剩餘耐久.
 ingameinfoxml.tag.bootsquantity.desc=該靴子在物品欄中的數量.
 ingameinfoxml.tag.bootsicon.desc=靴子的圖標.
 ingameinfoxml.tag.bootslargeicon.desc=靴子的大圖標.
+ingameinfoxml.tag.inventory.desc=玩家的第x行物品欄。
+ingameinfoxml.tag.arrowcount.desc=物品欄箭矢數量。
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=你當前位置的光照等級.
@@ -215,6 +218,7 @@ ingameinfoxml.tag.sprinting.desc=如果玩家正在疾跑就返回§e真§r, 否
 ingameinfoxml.tag.invisible.desc=如果玩家處於隱身狀態就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.eating.desc=如果玩家正在進食就返回§e真§r, 否則就返回§e假§r.
 ingameinfoxml.tag.armortoughness.desc=玩家的盔甲韌性。
+ingameinfoxml.tag.playericon.desc=玩家頭像。
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=玩家X軸區塊坐標.
@@ -295,16 +299,14 @@ ingameinfoxml.tag.humidity.desc=生態域濕度.
 # keys
 ingameinfoxml.key.category=InGame Info XML
 ingameinfoxml.key.toggle=顯示切換
+ingameinfoxml.key.reload=重新加載
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [文件名]
+commands.ingameinfoxml.usage=/igi <load|taglist> [文件名]
 commands.ingameinfoxml.reload=正在重新加載...
 commands.ingameinfoxml.load=正在加載%s...
-commands.ingameinfoxml.save=正在保存%s...
 commands.ingameinfoxml.success=完成!
 commands.ingameinfoxml.failure=出現了錯誤!
-commands.ingameinfoxml.enable=InGame Info XML界面現在已啟用.
-commands.ingameinfoxml.disable=InGame Info XML界面現在已禁用.
 
 ingameinfo.chat.version=InGameInfo XML %s
-ingameinfo.chat.version2=按[%s]鍵顯示/隱藏，鍵入§e/igi reload§r重新加載
+ingameinfo.chat.version2=按[%s]鍵顯示/隱藏, [%s]鍵重新加載。

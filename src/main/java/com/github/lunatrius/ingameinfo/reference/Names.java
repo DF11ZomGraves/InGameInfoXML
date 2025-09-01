@@ -1,6 +1,5 @@
 package com.github.lunatrius.ingameinfo.reference;
 
-@SuppressWarnings("HardCodedStringLiteral")
 public final class Names {
 	public static final String VERSION_CHAT = "ingameinfo.chat.version";
 	public static final String VERSION_CHAT2 = "ingameinfo.chat.version2";
@@ -24,19 +23,13 @@ public final class Names {
 			public static final String USAGE = "commands.ingameinfoxml.usage";
 			public static final String RELOAD = "commands.ingameinfoxml.reload";
 			public static final String LOAD = "commands.ingameinfoxml.load";
-			public static final String SAVE = "commands.ingameinfoxml.save";
 			public static final String SUCCESS = "commands.ingameinfoxml.success";
 			public static final String FAILURE = "commands.ingameinfoxml.failure";
-			public static final String ENABLE = "commands.ingameinfoxml.enable";
-			public static final String DISABLE = "commands.ingameinfoxml.disable";
 		}
 
 		public static final String NAME = "igi";
 		public static final String RELOAD = "reload";
 		public static final String LOAD = "load";
-		public static final String SAVE = "save";
-		public static final String ENABLE = "enable";
-		public static final String DISABLE = "disable";
 		public static final String TAGLIST = "taglist";
 	}
 
@@ -91,5 +84,6 @@ public final class Names {
 	public static final class Keys {
 		public static final String CATEGORY = "ingameinfoxml.key.category";
 		public static final String TOGGLE = "ingameinfoxml.key.toggle";
+		public static final String RELOAD = "ingameinfoxml.key.reload";
 	}
 }

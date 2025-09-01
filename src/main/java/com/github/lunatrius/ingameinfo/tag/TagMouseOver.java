@@ -147,6 +147,19 @@ public abstract class TagMouseOver extends Tag {
 			return "-1";
 		}
 	}
+	
+	public static class LookingAtXYZ extends TagMouseOver {
+		@Override
+		public String getValue() {
+			final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null)
+				if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
+					final BlockPos pos = objectMouseOver.getBlockPos();
+					return String.format("%s, %s, %s", pos.getX(), pos.getY(), pos.getZ());
+				}
+			return "";
+		}
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Name().setName("mouseovername"));
@@ -157,5 +170,6 @@ public abstract class TagMouseOver extends Tag {
 		TagRegistry.INSTANCE.register(new PowerStrong().setName("mouseoverpowerstrong"));
 		TagRegistry.INSTANCE.register(new PowerInput().setName("mouseoverpowerinput"));
 		TagRegistry.INSTANCE.register(new IsBlock().setName("mouseoverisblock"));
+		TagRegistry.INSTANCE.register(new LookingAtXYZ().setName("lookingblockxyz"));
 	}
 }
