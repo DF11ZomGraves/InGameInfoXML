@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = 'forge-1.18.2-2.8.2.97'
+version = 'forge-1.18.2-2.8.2.98'
 group = 'com.github.lunatrius.ingameinfo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ingameinfoxml'
 

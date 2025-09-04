@@ -2,7 +2,7 @@ package df11zomgraves.ingameinfo.reference;
 
 public final class Names {
 	public static final String MODID = "ingameinfoxml";
-	public static final String VERSION = "2.8.2.97";
+	public static final String VERSION = "2.8.2.98";
 	public static final String VERSION_CHAT = "chat.ingameinfo.version";
 	
 	public static final class Command {

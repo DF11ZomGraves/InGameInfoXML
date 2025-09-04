@@ -28,6 +28,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_CENTER;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_RIGHT;
 	
+	private static final long seedDefault = 0;
 	
 	public static boolean showOverlayItemIcons;
 	public static int fileInterval;
@@ -50,7 +51,7 @@ public class ConfigurationHandler {
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
-		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
+		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, seedDefault);
 
 		BUILDER.pop();
 		BUILDER.push(Names.Config.Category.ALIGNMENT);
