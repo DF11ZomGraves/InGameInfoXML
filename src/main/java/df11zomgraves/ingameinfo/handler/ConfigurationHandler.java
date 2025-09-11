@@ -24,6 +24,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
 
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_LEFT;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_CENTER;
@@ -44,6 +45,7 @@ public class ConfigurationHandler {
 	public static boolean showInChat;
 	public static boolean numericAmplifier;
 	public static long seed;
+	public static String alignmentMiddleCenter;
 	
 	private static final long seedDefault = 0;
 
@@ -59,6 +61,8 @@ public class ConfigurationHandler {
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, seedDefault);
+		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
+				Names.Command.MIDDLE_CENTER);
 
 		BUILDER.pop();
 		BUILDER.push(Names.Config.Category.ALIGNMENT);
@@ -97,6 +101,7 @@ public class ConfigurationHandler {
 		showInChat = SHOW_IN_CHAT_DEFAULT.get();
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
 		seed = SEED_DEFAULT.get();
+		alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT.get();
 	}
 	
 	public static void applyConfiguration() {
@@ -108,6 +113,7 @@ public class ConfigurationHandler {
 		CONFIG_NAME_DEFAULT.set(configName);
 		SHOW_IN_CHAT_DEFAULT.set(showInChat);
 		NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
+		ALIGNMENT_MIDDLECENTER_DEFAULT.set(alignmentMiddleCenter);
 		SEED_DEFAULT.set(seed);
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());

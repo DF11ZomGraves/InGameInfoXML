@@ -17,6 +17,8 @@ public final class Names {
 			public static final String ALIGNMENT_SET_FAILURE = "commands.ingameinfoxml.alignment.set.failure";
 			public static final String SED_SEET_SUCCESS = "commands.ingameinfoxml.seed.set.success";
 			public static final String SED_SEET_FAILURE = "commands.ingameinfoxml.seed.set.failure";
+			public static final String ALIGNMENT_MIDDLECENTER_SET_SUCCESS = "commands.ingameinfoxml.alignmentmiddlecenter.set.success";
+			public static final String ALIGNMENT_MIDDLECENTER_SET_FAILURE = "commands.ingameinfoxml.alignmentmiddlecenter.set.failure";
 		}
 
         public static final String NAME = "igi";
@@ -63,7 +65,10 @@ public final class Names {
 		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfoXML not installed in Server).";
 		
 		public static final String NUMERIC_AMPLIFIER = "NumericAmplifier";
-		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals銆�";
+		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
+		
+		public static final String ALIGNMENT_MIDDLECENTER = "AlignmentForMiddleCenter";
+		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen";
 	}
 
 	public static final class Files {

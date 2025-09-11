@@ -31,20 +31,23 @@ public class InGameInfoCommand {
 		final String filename = "filename";
 		
 		LiteralArgumentBuilder<CommandSourceStack> igiCommand = Commands.literal(Names.Command.NAME);
-//		// igi alignment get TOPLEFT
+		// igi alignment get TOPLEFT
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.executes(source -> GetAlignment(AlignArgument.GetString(source, strAlign))))));
-//		// igi alignment set TOPLEFT 2 2
+		// igi alignment set TOPLEFT 2 2
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
 						.executes(source -> SetAlignment(AlignArgument.GetString(source, strAlign), IntegerArgumentType.getInteger(source, x),
 								IntegerArgumentType.getInteger(source, y))))))));
-//		// igi load ingameinfo.xml
+		// igi load ingameinfo.xml
 		igiCommand.then(Commands.literal("load").then(Commands.argument(filename, FileArgument.files())
 				.executes(source -> loadFile(FileArgument.GetString(source, filename)))));
 		// igi setseed -2793514409027566328
 		igiCommand.then(Commands.literal("setseed").then(Commands.argument(seed, LongArgumentType.longArg())
 				.executes(source -> SetSeed(LongArgumentType.getLong(source, seed)))));
+		// igi setmiddlecenter MIDDLECENTER
+		igiCommand.then(Commands.literal("setmiddlecenter").then(Commands.argument(strAlign, AlignArgument.GetAlignment())
+				.executes(source -> SetMiddleCenterAlignment(AlignArgument.GetString(source, strAlign)))));
 		dispatcher.register(igiCommand);
 	}
 
@@ -70,6 +73,19 @@ public class InGameInfoCommand {
 			return -1;
 		}
 		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_GET_SUCCESS, alignment, align.x, align.y));
+		return 1;
+	}
+	
+	public static int SetMiddleCenterAlignment(String alignment) {
+		Alignment align = Alignment.parse(alignment);
+		Minecraft mc = Minecraft.getInstance();
+		if (align == null) {
+			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_FAILURE, alignment));
+			return -1;
+		}
+		ConfigurationHandler.alignmentMiddleCenter = alignment;
+		ConfigurationHandler.applyConfiguration();
+		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_SUCCESS, alignment));
 		return 1;
 	}
 	

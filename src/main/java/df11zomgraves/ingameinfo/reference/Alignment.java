@@ -2,6 +2,8 @@ package df11zomgraves.ingameinfo.reference;
 
 import java.util.Locale;
 
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+
 public enum Alignment {
 	TOPLEFT(2, 2),
 	TOPCENTER(0, 2),
@@ -64,13 +66,16 @@ public enum Alignment {
 	}
 
 	public int getX(final int screenwidth, final int textwidth) {
+		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toLowerCase(Locale.ENGLISH);
 		switch (this.alignment & MASK_X) {
 		case LEFT:
 			return this.x;
-
 		case CENTER:
+			if (alignmentMiddleCenter.endsWith("left"))
+				return this.x + (screenwidth / 2);
+			if (alignmentMiddleCenter.endsWith("right"))
+				return this.x - textwidth + (screenwidth / 2);
 			return this.x + (screenwidth - textwidth) / 2;
-
 		case RIGHT:
 			return this.x + screenwidth - textwidth;
 		}
@@ -79,13 +84,16 @@ public enum Alignment {
 	}
 
 	public int getY(final int screenheight, final int textheight) {
+		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toLowerCase(Locale.ENGLISH);
 		switch (this.alignment & MASK_Y) {
 		case TOP:
 			return this.y;
-
 		case MIDDLE:
+			if (alignmentMiddleCenter.startsWith("top"))
+				return this.y + (screenheight / 2);
+			if (alignmentMiddleCenter.startsWith("bot"))
+				return this.y - textheight + (screenheight / 2);	
 			return this.y + (screenheight - textheight) / 2;
-
 		case BOTTOM:
 			return this.y + screenheight - textheight;
 		}
