@@ -46,7 +46,10 @@ public class InGameInfoCommand {
 		// igi load ingameinfo.xml
 		igiCommand.then(Commands.literal("load").then(Commands.argument(filename, FileArgument.files())
 				.executes(source -> loadFile(FileArgument.GetString(source, filename)))));
-		
+		// igi setmiddlecenter MIDDLECENTER
+		igiCommand.then(Commands.literal("setmiddlecenter").then(Commands.argument(strAlign, AlignArgument.GetAlignment())
+				.executes(source -> SetMiddleCenterAlignment(AlignArgument.GetString(source, strAlign)))));
+
 		dispatcher.register(igiCommand);
 	}
 
@@ -74,7 +77,20 @@ public class InGameInfoCommand {
 		mc.gui.getChat().addMessage(new TranslatableComponent(Names.Command.Message.ALIGNMENT_GET_SUCCESS, alignment, align.x, align.y));
 		return 1;
 	}
-	
+
+	public static int SetMiddleCenterAlignment(String alignment) {
+		Alignment align = Alignment.parse(alignment);
+		Minecraft mc = Minecraft.getInstance();
+		if (align == null) {
+			mc.gui.getChat().addMessage(new TranslatableComponent(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_FAILURE, alignment));
+			return -1;
+		}
+		ConfigurationHandler.alignmentMiddleCenter = alignment;
+		ConfigurationHandler.applyConfiguration(true);
+		mc.gui.getChat().addMessage(new TranslatableComponent(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_SUCCESS, alignment));
+		return 1;
+	}
+
 	public static int SetSeed(long seed) {
 		Minecraft mc = Minecraft.getInstance();
 		try {
