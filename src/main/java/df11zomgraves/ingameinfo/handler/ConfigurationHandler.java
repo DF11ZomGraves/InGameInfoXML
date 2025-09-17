@@ -1,5 +1,6 @@
 package df11zomgraves.ingameinfo.handler;
 
+import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.reference.Alignment;
 import df11zomgraves.ingameinfo.reference.Names;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -46,8 +47,6 @@ public class ConfigurationHandler {
 	public static boolean numericAmplifier;
 	public static long seed;
 	public static String alignmentMiddleCenter;
-	
-	private static final long seedDefault = 0;
 
 	static {
 		BUILDER.push(Names.Config.Category.GENERAL);
@@ -60,7 +59,7 @@ public class ConfigurationHandler {
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
-		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, seedDefault);
+		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
 				Names.Command.MIDDLE_CENTER);
 
@@ -100,7 +99,13 @@ public class ConfigurationHandler {
 		configName = CONFIG_NAME_DEFAULT.get();
 		showInChat = SHOW_IN_CHAT_DEFAULT.get();
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
-		seed = SEED_DEFAULT.get();
+		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
+		try {
+			seed = (long)SEED_DEFAULT.get();
+		}
+		catch (Exception e) {
+			InGameInfoXML.logger.error(e.getMessage());
+		}
 		alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT.get();
 	}
 	
