@@ -22,9 +22,11 @@ ingameinfoxml.config.showOverlayPotions.tooltip=显示原版药水效果布局�
 ingameinfoxml.config.showOverlayItemIcons=显示物品覆盖
 ingameinfoxml.config.showOverlayItemIcons.tooltip=在图标上显示物品覆盖（耐久度、堆叠大小）。
 ingameinfoxml.config.serverSeed=服务器种子
-ingameinfoxml.config.serverSeed.tooltip=指定服务器种子，仅在服务器没有安装InGameInfo XML时生效
+ingameinfoxml.config.serverSeed.tooltip=指定服务器种子，仅在服务器没有安装InGameInfo XML时生效。
 ingameinfoxml.config.numericAmplifier=效果等级用数字显示
-ingameinfoxml.config.numericAmplifier.tooltip=效果等级用数字显示，而不是使用罗马数字
+ingameinfoxml.config.numericAmplifier.tooltip=效果等级用数字显示，而不是使用罗马数字。
+ingameinfoxml.config.alignmentForMiddleCenter=MIDDLECENTER的对齐方式
+ingameinfoxml.config.alignmentForMiddleCenter.tooltip=显示在屏幕正中心的内容的对齐方式。
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=左上角

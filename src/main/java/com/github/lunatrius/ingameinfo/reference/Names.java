@@ -31,6 +31,16 @@ public final class Names {
 		public static final String RELOAD = "reload";
 		public static final String LOAD = "load";
 		public static final String TAGLIST = "taglist";
+
+		public static final String TOP_LEFT = "TOPLEFT";
+		public static final String TOP_CENTER = "TOPCENTER";
+		public static final String TOP_RIGHT = "TOPRIGHT";
+		public static final String MIDDLE_LEFT = "MIDDLELEFT";
+		public static final String MIDDLE_CENTER = "MIDDLECENTER";
+		public static final String MIDDLE_RIGHT = "MIDDLERIGHT";
+		public static final String BOTTOM_LEFT = "BOTTOMLEFT";
+		public static final String BOTTOM_CENTER = "BOTTOMCENTER";
+		public static final String BOTTOM_RIGHT = "BOTTOMRIGHT";
 	}
 
 	public static final class Config {
@@ -64,6 +74,9 @@ public final class Names {
 		public static final String NUMERIC_AMPLIFIER = "numericAmplifier";
 		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
 		
+		public static final String ALIGNMENT_MIDDLECENTER = "alignmentForMiddleCenter";
+		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen.";
+
 		public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
 		public static final String LANG_PREFIX = Reference.MODID + ".config";

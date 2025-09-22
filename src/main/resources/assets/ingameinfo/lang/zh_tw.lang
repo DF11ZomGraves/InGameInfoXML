@@ -25,6 +25,8 @@ ingameinfoxml.config.serverSeed=服務器種子
 ingameinfoxml.config.serverSeed.tooltip=指定服務器種子，僅在服務器沒有安裝InGameInfo XML時生效
 ingameinfoxml.config.numericAmplifier=效果等級用數字顯示
 ingameinfoxml.config.numericAmplifier.tooltip=效果等級用數字顯示，而不是使用羅馬數字
+ingameinfoxml.config.alignmentForMiddleCenter=MIDDLECENTER的對齊方式
+ingameinfoxml.config.alignmentForMiddleCenter.tooltip=顯示在螢幕正中心的內容的對齊方式。
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=左上角

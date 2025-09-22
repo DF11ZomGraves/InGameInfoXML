@@ -29,6 +29,7 @@ public class ConfigurationHandler {
 	public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
 	public static final boolean NUMERIC_AMPLIFIER_DEFAULT = false;
 	public static final String SERVER_SEED_DEFAULT = "0";
+	public static final String ALIGNMENT_MIDDLECENTER_DEFAULT = "MIDDLECENTER";
 
 	public static String configName = CONFIG_NAME_DEFAULT;
 	public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
@@ -40,6 +41,7 @@ public class ConfigurationHandler {
 	public static boolean showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static boolean numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT;
 	public static long serverSeed = 0;
+	public static String alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT;
 
 	public static Property propConfigName = null;
 	public static Property propReplaceDebug = null;
@@ -51,6 +53,7 @@ public class ConfigurationHandler {
 	public static Property propShowOverlayItemIcons = null;
 	public static Property propnumericAmplifier = null;
 	public static Property propServerSeed = null;
+	public static Property propAlignmentMiddleCenter = null;
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
 	private ConfigurationHandler() {
@@ -121,6 +124,21 @@ public class ConfigurationHandler {
 			serverSeed = 0;
 		}
 		Reference.logger.info("serverSeed=" + serverSeed);
+		propAlignmentMiddleCenter = configuration.get(Names.Config.Category.GENERAL, Names.Config.ALIGNMENT_MIDDLECENTER,
+				ALIGNMENT_MIDDLECENTER_DEFAULT, Names.Config.ALIGNMENT_MIDDLECENTER_DESC);
+		propAlignmentMiddleCenter.setValidValues(new String[] {
+				Names.Command.TOP_LEFT,
+				Names.Command.TOP_CENTER,
+				Names.Command.TOP_RIGHT,
+				Names.Command.MIDDLE_LEFT,
+				Names.Command.MIDDLE_CENTER,
+				Names.Command.MIDDLE_RIGHT,
+				Names.Command.BOTTOM_LEFT,
+				Names.Command.BOTTOM_CENTER,
+				Names.Command.BOTTOM_RIGHT
+		});
+		propAlignmentMiddleCenter.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.ALIGNMENT_MIDDLECENTER);
+		alignmentMiddleCenter = propAlignmentMiddleCenter.getString();
 
 		for (final Alignment alignment : Alignment.values()) {
 			final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);

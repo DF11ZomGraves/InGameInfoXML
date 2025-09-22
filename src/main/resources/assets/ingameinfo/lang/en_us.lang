@@ -25,6 +25,8 @@ ingameinfoxml.config.serverSeed=Server Seed
 ingameinfoxml.config.serverSeed.tooltip=Set server seed in local. ONLY ENABLED when InGameInfo XML NOT installed on the server.
 ingameinfoxml.config.numericAmplifier=Numeric Amplifier
 ingameinfoxml.config.numericAmplifier.tooltip=Use numerical values to display effect amplifier instead of Roman numerals.
+ingameinfoxml.config.alignmentForMiddleCenter=Alignment For MIDDLECENTER
+ingameinfoxml.config.alignmentForMiddleCenter.tooltip=Alignment for the middle center side of the screen.
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left
