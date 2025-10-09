@@ -14,5 +14,6 @@
 	"commands.ingameinfoxml.seed.set.failure": "Failure to set local seed.",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.success": "Alignment for §eMIDDLECENTER§r is %s.",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.failure": "Failure to set alignment for MIDDLECENTER.",
-	"chat.ingameinfo.version": "InGameInfo XML %s\n [%s] to toggle, [%s] to reload."
+	"chat.ingameinfo.version": "InGameInfo XML %s\n [%s] to toggle, [%s] to reload.",
+	"chat.ingameinfo.seed": "[InGameInfo XML] Current seed: %s"
 }

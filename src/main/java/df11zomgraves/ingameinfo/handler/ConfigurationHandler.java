@@ -17,6 +17,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_POTIONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
 	
@@ -37,6 +38,7 @@ public class ConfigurationHandler {
 	public static String configName;
 	public static boolean showInChat;
 	public static boolean numericAmplifier;
+	public static boolean sendSeedToChat;
 	public static long seed;
 	public static String alignmentMiddleCenter;
 	
@@ -50,6 +52,7 @@ public class ConfigurationHandler {
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
+		SEND_SEED_TO_CHAT_DEFAULT = BUILDER.comment(Names.Config.SEND_SEED_TO_CHAT_DESC).define(Names.Config.SEND_SEED_TO_CHAT, false);
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
 				Names.Command.MIDDLE_CENTER);
@@ -80,6 +83,7 @@ public class ConfigurationHandler {
 			CONFIG_NAME_DEFAULT.set(configName);
 			SHOW_IN_CHAT_DEFAULT.set(showInChat);
 			NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
+			SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
 			SEED_DEFAULT.set(seed);
 			ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 			ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
@@ -98,6 +102,7 @@ public class ConfigurationHandler {
 			configName = CONFIG_NAME_DEFAULT.get();
 			showInChat = SHOW_IN_CHAT_DEFAULT.get();
 			numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
+			sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
 			try {
 				seed = (long)SEED_DEFAULT.get();
 			}

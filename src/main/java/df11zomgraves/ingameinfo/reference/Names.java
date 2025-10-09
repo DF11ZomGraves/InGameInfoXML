@@ -4,6 +4,7 @@ public final class Names {
 	public static final String MODID = "ingameinfoxml";
 	public static final String VERSION = "2.8.2.98";
 	public static final String VERSION_CHAT = "chat.ingameinfo.version";
+	public static final String SHOW_SEED = "chat.ingameinfo.seed";
 	
 	public static final class Command {
 		public static final class Message {
@@ -67,6 +68,9 @@ public final class Names {
 		
 		public static final String ALIGNMENT_MIDDLECENTER = "AlignmentForMiddleCenter";
 		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen";
+		
+		public static final String SEND_SEED_TO_CHAT = "SendSeedToChat";
+		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";
 	}
 
 	public static final class Files {

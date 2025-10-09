@@ -14,5 +14,6 @@
 	"commands.ingameinfoxml.seed.set.failure": "在修改本地種子時發生了錯誤",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.success": "已設置對齊§eMIDDLECENTER§r的對齊方式為%s。",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.failure": "設置對齊§eMIDDLECENTER§r的對齊方式失敗。",
-	"chat.ingameinfo.version": "InGameInfo XML %s\n按[%s]鍵顯示\/隱藏, [%s]鍵重新加載"
+	"chat.ingameinfo.version": "InGameInfo XML %s\n按[%s]鍵顯示\/隱藏, [%s]鍵重新加載",
+	"chat.ingameinfo.seed": "[InGameInfo XML]当前種子：%s"
 }
