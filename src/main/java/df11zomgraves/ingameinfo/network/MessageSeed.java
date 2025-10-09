@@ -3,6 +3,7 @@ package df11zomgraves.ingameinfo.network;
 import java.util.function.Supplier;
 
 import df11zomgraves.ingameinfo.tag.Tag;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -30,5 +31,6 @@ public class MessageSeed {
 			Tag.setSeed(seed);
 		});
 		context.get().setPacketHandled(true);
+		StringConvertUtils.sendSeedToChat(seed);
 	}
 }

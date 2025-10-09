@@ -11,6 +11,7 @@ import df11zomgraves.ingameinfo.network.PacketHandler;
 import df11zomgraves.ingameinfo.network.RequestSeedPacket;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -63,6 +64,7 @@ public class ForgeClientEventHandler {
 			long seed;
 			seed = player.serverLevel().getSeed();
 			Tag.setSeed(seed);
+			StringConvertUtils.sendSeedToChat(seed);
 		} else
 			try {
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());

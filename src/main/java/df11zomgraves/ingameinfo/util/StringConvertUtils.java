@@ -1,5 +1,11 @@
 package df11zomgraves.ingameinfo.util;
 
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import df11zomgraves.ingameinfo.reference.Names;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
+
 public class StringConvertUtils {
 	public static String numToRoman(int amplifier) {
 		StringBuilder s = new StringBuilder();
@@ -21,5 +27,13 @@ public class StringConvertUtils {
 			}
 		}
 		return s.toString();
+	}
+	
+	public static void sendSeedToChat(long seed) {
+		if (seed != 0 && ConfigurationHandler.sendSeedToChat) {
+			Component component = ComponentUtils.copyOnClickText(String.valueOf(seed));
+			Minecraft mc = Minecraft.getInstance();
+			mc.gui.getChat().addMessage(Component.translatable(Names.SHOW_SEED, component));
+		}
 	}
 }

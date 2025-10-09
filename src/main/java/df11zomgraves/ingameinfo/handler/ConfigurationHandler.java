@@ -18,12 +18,12 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Integer> FILE_INTERVAL_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Double> SCALE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<String> CONFIG_NAME_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> REPLACE_DEBUG_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_IN_CHAT_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_ON_PLAYER_LIST_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_POTIONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
 
@@ -45,13 +45,13 @@ public class ConfigurationHandler {
 	public static String configName;
 	public static boolean showInChat;
 	public static boolean numericAmplifier;
+	public static boolean sendSeedToChat;
 	public static long seed;
 	public static String alignmentMiddleCenter;
 
 	static {
 		BUILDER.push(Names.Config.Category.GENERAL);
 		CONFIG_NAME_DEFAULT = BUILDER.comment(Names.Config.FILENAME_DESC).define(Names.Config.FILENAME, "ingameinfo.xml");
-		REPLACE_DEBUG_DEFAULT = BUILDER.comment(Names.Config.REPLACE_DEBUG_DESC).define(Names.Config.REPLACE_DEBUG, false);
 		SHOW_IN_CHAT_DEFAULT = BUILDER.comment(Names.Config.SHOW_IN_CHAT_DESC).define(Names.Config.SHOW_IN_CHAT, true);
 		SHOW_ON_PLAYER_LIST_DEFAULT = BUILDER.comment(Names.Config.SHOW_ON_PLAYER_LIST_DESC).define(Names.Config.SHOW_ON_PLAYER_LIST, true);
 		SCALE_DEFAULT = BUILDER.comment(Names.Config.SCALE_DESC).defineInRange(Names.Config.SCALE, 1.0, 0.5, 2.0);
@@ -59,6 +59,7 @@ public class ConfigurationHandler {
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
+		SEND_SEED_TO_CHAT_DEFAULT = BUILDER.comment(Names.Config.SEND_SEED_TO_CHAT_DESC).define(Names.Config.SEND_SEED_TO_CHAT, false);
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
 				Names.Command.MIDDLE_CENTER);
@@ -93,12 +94,12 @@ public class ConfigurationHandler {
 		Alignment.BOTTOMRIGHT.setXY(ALIGN_BOTTOM_RIGHT.get());
 		showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT.get();
 		fileInterval = FILE_INTERVAL_DEFAULT.get();
-		replaceDebug = REPLACE_DEBUG_DEFAULT.get();
 		showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT.get();
 		scale = SCALE_DEFAULT.get();
 		configName = CONFIG_NAME_DEFAULT.get();
 		showInChat = SHOW_IN_CHAT_DEFAULT.get();
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
+		sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
 		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
 		try {
 			seed = (long)SEED_DEFAULT.get();
@@ -112,7 +113,6 @@ public class ConfigurationHandler {
 	public static void applyConfiguration() {
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT.set(showOverlayItemIcons);
 		FILE_INTERVAL_DEFAULT.set(fileInterval);
-		REPLACE_DEBUG_DEFAULT.set(replaceDebug);
 		SHOW_ON_PLAYER_LIST_DEFAULT.set(showOnPlayerList);
 		SCALE_DEFAULT.set(scale);
 		CONFIG_NAME_DEFAULT.set(configName);
@@ -120,6 +120,7 @@ public class ConfigurationHandler {
 		NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
 		ALIGNMENT_MIDDLECENTER_DEFAULT.set(alignmentMiddleCenter);
 		SEED_DEFAULT.set(seed);
+		SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
 		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());
