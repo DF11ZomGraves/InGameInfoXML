@@ -5,7 +5,6 @@ import df11zomgraves.ingameinfo.network.PacketHandler;
 import df11zomgraves.ingameinfo.network.RequestSeedPacket;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
-import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.ChatScreen;
@@ -70,7 +69,6 @@ public class Ticker {
 				inGame = true;
 			} catch (Exception e) {
 				Tag.setSeed(ConfigurationHandler.seed);
-				StringConvertUtils.sendSeedToChat(ConfigurationHandler.seed);
 			}
 		onTick(event);
 	}
