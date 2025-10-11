@@ -1,6 +1,8 @@
 package df11zomgraves.ingameinfo.handler;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
+import df11zomgraves.ingameinfo.network.PacketHandler;
+import df11zomgraves.ingameinfo.network.RequestSeedPacket;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
 import net.minecraft.client.Minecraft;
@@ -20,7 +22,7 @@ public class Ticker {
 
 	private final Minecraft client = Minecraft.getInstance();
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
-	private static boolean showVersionMessage = true;
+	private boolean inGame = false;
 
 	private Ticker() {
 	}
@@ -36,15 +38,25 @@ public class Ticker {
 
 	@SubscribeEvent
 	public void onClientTick(final TickEvent.ClientTickEvent event) {
+		boolean inGameCurrent = (client.level == null ? false : true);
+		if (inGame) {
+			if (!inGameCurrent) {
+				Tag.setSeed(ConfigurationHandler.seed);
+				inGame = false;
+			}
+		} else if (inGameCurrent)
+			try {
+				showVerionInfo();
+				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
+				inGame = true;
+			} catch (Exception e) {
+				Tag.setSeed(ConfigurationHandler.seed);
+			}
 		onTick(event);
 	}
 
 	@SubscribeEvent
 	public void onRenderTick(final TickEvent.RenderTickEvent event) {
-		if (showVersionMessage && client != null && client.player != null) {
-			showVersionMessage = false;
-			showVerionInfo();
-		}
 		onTick(event);
 	}
 
