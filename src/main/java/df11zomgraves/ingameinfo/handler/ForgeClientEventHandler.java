@@ -7,19 +7,13 @@ import javax.annotation.Nonnull;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
 import df11zomgraves.ingameinfo.command.InGameInfoCommand;
-import df11zomgraves.ingameinfo.network.PacketHandler;
-import df11zomgraves.ingameinfo.network.RequestSeedPacket;
 import df11zomgraves.ingameinfo.reference.Names;
-import df11zomgraves.ingameinfo.tag.Tag;
-import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -54,27 +48,5 @@ public class ForgeClientEventHandler {
 	@SubscribeEvent
 	public static void onRegisterClientCommands(@Nonnull RegisterClientCommandsEvent event) {
 		InGameInfoCommand.register(event.getDispatcher());
-	}
-
-	@SubscribeEvent
-	public static void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
-		Minecraft mc = Minecraft.getInstance();
-		if (mc.isSingleplayer()) {
-			ServerPlayer player = (ServerPlayer) event.getEntity();
-			long seed;
-			seed = player.serverLevel().getSeed();
-			Tag.setSeed(seed);
-			StringConvertUtils.sendSeedToChat(seed);
-		} else
-			try {
-				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
-			} catch (Exception e) {
-				Tag.setSeed(ConfigurationHandler.seed);
-			}
-	}
-
-	@SubscribeEvent
-	public static void onPlayerLoggout(final PlayerEvent.PlayerLoggedOutEvent event) {
-		Tag.setSeed(ConfigurationHandler.seed);
 	}
 }
