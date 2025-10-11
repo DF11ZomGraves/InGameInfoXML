@@ -1,5 +1,22 @@
-﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/23
-Common
+﻿InGameInfo XML 2.8.2.98, ?, 发布时间未定
+
+通用
+	1.配置文件增加“AlignmentForMiddleCenter”选项，用于控制在屏幕中心显示的文本对齐方式。
+	2.配置文件增加“SendSeedToChat”选项，启用该选项后，从服务端获取的种子自动发送到聊天栏。
+	3.更新ingameinfo.xml文件
+
+1.12.2
+	1.增加光标悬停方块坐标lookingblockxyz标签
+	2.移除指令“/igi reload”，与1.18.2/1.20.1版本同步使用F12键（可配置键位）
+	3.移除指令“/igi enable|disable”，与1.18.2/1.20.1版本同步使用F10键（可配置键位）
+	4.移除指令“/igi save”
+
+1.18.2/1.20.1
+	1.修复从配置文件获取服务器种子时导致资源加载失败问题
+	2.修复多人游戏不能获取服务器种子问题
+
+InGameInfo XML 2.8.2.97, Beta, 2025/8/23
+通用
 	1.增加玩家头像playericon标签
 	2.增加物品栏inventory标签
 1.12.2

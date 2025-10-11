@@ -1,4 +1,21 @@
-﻿InGameInfo XML 2.8.2.97, Beta, 2025/8/23
+﻿InGameInfo XML 2.8.2.98, ?, ?
+
+Common
+	1.Add the "AlignForMiddleCenter" option to the configuration file to control the alignment of text displayed in the center of the screen.
+	2.Add the "SendSeedToChat" option to the configuration file. The server seed will be automatically sent to the chat if SendSeedToChat is enabled.
+	3.Update ingameinfo.xml file.
+
+1.12.2
+	1.Add {lookingblockxyz} tag.
+	2.Remove "/igi reload" command, using F12 instead.
+	3.Remove "/igi enable", "/igi disable" command, using F10 instead.
+	4.Remove "/igi save" command.
+
+1.18.2/1.20.1
+	1.Fix issue of loading resources failed when trying to get seed from toml file.
+	2.Fix issue of unable to get seed in multiplayer world.
+
+InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 Common
 	1.Add {playericon} tag.
 	2.Add {inventory} tag.
