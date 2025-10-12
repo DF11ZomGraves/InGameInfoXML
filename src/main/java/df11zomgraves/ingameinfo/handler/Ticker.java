@@ -64,9 +64,9 @@ public class Ticker {
 			}
 		} else if (inGameCurrent)
 			try {
+				inGame = true;
 				showVerionInfo();
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
-				inGame = true;
 			} catch (Exception e) {
 				Tag.setSeed(ConfigurationHandler.seed);
 			}
