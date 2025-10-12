@@ -21,12 +21,14 @@ ingameinfoxml.config.showOverlayPotions=顯示藥水效果
 ingameinfoxml.config.showOverlayPotions.tooltip=顯示原版效果布局。
 ingameinfoxml.config.showOverlayItemIcons=顯示物品覆蓋
 ingameinfoxml.config.showOverlayItemIcons.tooltip=在圖標上顯示物品覆蓋（耐久度、堆疊大小）。
-ingameinfoxml.config.serverSeed=服務器種子
-ingameinfoxml.config.serverSeed.tooltip=指定服務器種子，僅在服務器沒有安裝InGameInfo XML時生效
+ingameinfoxml.config.serverSeed=當前世界種子
+ingameinfoxml.config.serverSeed.tooltip=指定當前世界種子，僅在伺服器沒有安裝InGameInfo XML或者無法從伺服器獲取種子時生效。
 ingameinfoxml.config.numericAmplifier=效果等級用數字顯示
 ingameinfoxml.config.numericAmplifier.tooltip=效果等級用數字顯示，而不是使用羅馬數字
 ingameinfoxml.config.alignmentForMiddleCenter=MIDDLECENTER的對齊方式
 ingameinfoxml.config.alignmentForMiddleCenter.tooltip=顯示在螢幕正中心的內容的對齊方式。
+ingameinfoxml.config.sendSeedToChat=發送種子到聊天欄
+ingameinfoxml.config.sendSeedToChat.tooltip=從伺服器獲取的種子自動發送到聊天欄。
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=左上角
@@ -299,7 +301,7 @@ ingameinfoxml.tag.localtemperature.desc=你当前位置的生物群系溫度。
 ingameinfoxml.tag.humidity.desc=生態域濕度.
 
 # keys
-ingameinfoxml.key.category=InGame Info XML
+ingameinfoxml.key.category=InGameInfo XML
 ingameinfoxml.key.toggle=顯示切換
 ingameinfoxml.key.reload=重新加載
 
@@ -312,3 +314,4 @@ commands.ingameinfoxml.failure=出現了錯誤!
 
 ingameinfo.chat.version=InGameInfo XML %s
 ingameinfo.chat.version2=按[%s]鍵顯示/隱藏, [%s]鍵重新加載。
+ingameinfo.chat.seed=[InGameInfo XML] 當前種子：[%s]

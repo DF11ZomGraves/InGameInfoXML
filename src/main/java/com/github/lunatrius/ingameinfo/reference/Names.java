@@ -3,6 +3,7 @@ package com.github.lunatrius.ingameinfo.reference;
 public final class Names {
 	public static final String VERSION_CHAT = "ingameinfo.chat.version";
 	public static final String VERSION_CHAT2 = "ingameinfo.chat.version2";
+	public static final String SEED_CHAT = "ingameinfo.chat.seed";
 	
 	public static final class Mods {
 		public static final String BLOODMAGIC_MODID = "AWWayofTime";
@@ -77,6 +78,9 @@ public final class Names {
 		public static final String ALIGNMENT_MIDDLECENTER = "alignmentForMiddleCenter";
 		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen.";
 
+		public static final String SEND_SEED_TO_CHAT = "sendSeedToChat";
+		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";
+		
 		public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
 		public static final String LANG_PREFIX = Reference.MODID + ".config";

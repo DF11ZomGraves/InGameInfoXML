@@ -1,7 +1,12 @@
 package com.github.lunatrius.ingameinfo.network.message;
 
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.ChatType;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -30,9 +35,13 @@ public class MessageSeed implements IMessage, IMessageHandler<MessageSeed, IMess
 
 	@Override
 	public IMessage onMessage(final MessageSeed message, final MessageContext ctx) {
-		if (ctx.side == Side.CLIENT)
+		if (ctx.side == Side.CLIENT) {
 			Tag.setSeed(message.seed);
-
+			if (ConfigurationHandler.sendSeedToChat) {
+				Minecraft mc = Minecraft.getMinecraft();
+				mc.ingameGUI.addChatMessage(ChatType.CHAT, new TextComponentTranslation(Names.SEED_CHAT, message.seed));
+			}
+		}
 		return null;
 	}
 }

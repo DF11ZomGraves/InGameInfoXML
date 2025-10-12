@@ -28,6 +28,7 @@ public class ConfigurationHandler {
 	public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
 	public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
 	public static final boolean NUMERIC_AMPLIFIER_DEFAULT = false;
+	public static final boolean SEND_SEED_TO_CHAT_DEFAULT = false;
 	public static final String SERVER_SEED_DEFAULT = "0";
 	public static final String ALIGNMENT_MIDDLECENTER_DEFAULT = "MIDDLECENTER";
 
@@ -40,6 +41,7 @@ public class ConfigurationHandler {
 	public static boolean showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT;
 	public static boolean showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static boolean numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT;
+	public static boolean sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT;
 	public static long serverSeed = 0;
 	public static String alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT;
 
@@ -54,6 +56,7 @@ public class ConfigurationHandler {
 	public static Property propnumericAmplifier = null;
 	public static Property propServerSeed = null;
 	public static Property propAlignmentMiddleCenter = null;
+	public static Property propSendSeedToChat = null;
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
 	private ConfigurationHandler() {
@@ -124,6 +127,10 @@ public class ConfigurationHandler {
 			serverSeed = 0;
 		}
 		Reference.logger.info("serverSeed=" + serverSeed);
+		propSendSeedToChat = configuration.get(Names.Config.Category.GENERAL, Names.Config.SEND_SEED_TO_CHAT, false,
+				Names.Config.SEND_SEED_TO_CHAT_DESC);
+		propSendSeedToChat.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SEND_SEED_TO_CHAT);
+		sendSeedToChat = propSendSeedToChat.getBoolean();
 		propAlignmentMiddleCenter = configuration.get(Names.Config.Category.GENERAL, Names.Config.ALIGNMENT_MIDDLECENTER,
 				ALIGNMENT_MIDDLECENTER_DEFAULT, Names.Config.ALIGNMENT_MIDDLECENTER_DESC);
 		propAlignmentMiddleCenter.setValidValues(new String[] {
