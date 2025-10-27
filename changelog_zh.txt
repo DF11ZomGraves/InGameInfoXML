@@ -4,6 +4,7 @@
 	1.配置文件增加“AlignmentForMiddleCenter”选项，用于控制在屏幕中心显示的文本对齐方式。
 	2.配置文件增加“SendSeedToChat”选项，启用该选项后，从服务端获取的种子自动发送到聊天栏。
 	3.更新ingameinfo.xml文件
+	4.增加玩家效果数量effectcount标签
 
 1.12.2
 	1.增加光标悬停方块坐标lookingblockxyz标签
@@ -14,6 +15,10 @@
 1.18.2/1.20.1
 	1.修复从配置文件获取服务器种子时导致资源加载失败问题
 	2.修复多人游戏不能获取服务器种子问题
+	3.移除如下标签，这些标签不受支持：
+		worldname resourcepack
+1.20.1
+	1.效果持续时间为无限的，显示方式同原版
 
 InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 通用
