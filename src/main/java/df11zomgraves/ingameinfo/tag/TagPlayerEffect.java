@@ -24,6 +24,8 @@ public abstract class TagPlayerEffect extends Tag {
 
 	@Override
 	public String getName() {
+		if (this.index == -1)
+			return super.getName();
 		return super.getName() + this.index;
 	}
 
@@ -155,6 +157,19 @@ public abstract class TagPlayerEffect extends Tag {
 			return "";
 		}
 	}
+	
+	public static class EffectCount extends TagPlayerEffect {
+
+		public EffectCount(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updatePotionEffects();
+			return String.valueOf(potionEffects.length);
+		}
+	}
 
 	public static void register() {
 		for (int i = 0; i < MAXIMUM_INDEX; i++) {
@@ -165,6 +180,7 @@ public abstract class TagPlayerEffect extends Tag {
 			TagRegistry.INSTANCE.register(new Icon(i, false).setName("potionicon"));
 			TagRegistry.INSTANCE.register(new Icon(i, true).setName("potionlargeicon"));
 		}
+		TagRegistry.INSTANCE.register(new EffectCount(-1).setName("effectcount"));
 	}
 
 	public static void releaseResources() {
