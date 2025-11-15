@@ -71,6 +71,9 @@ public final class Names {
 		
 		public static final String SEND_SEED_TO_CHAT = "SendSeedToChat";
 		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";
+		
+		public static final String SHOW_SURVIVAL_HUD = "ShowSurvivalHUD";
+		public static final String SHOW_SURVIVAL_HUD_DESC = "Display the vanilla survival hud (health, foodlevel, armor).";
 	}
 
 	public static final class Files {

@@ -8,8 +8,12 @@ import df11zomgraves.ingameinfo.tag.Tag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.NamedGuiOverlay;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -40,10 +44,25 @@ public class Ticker {
 				return false;
 			if (this.client.gui == null)
 				return true;
-
+			if (this.client.screen instanceof GameModeSwitcherScreen)
+				return true;
 			return client.screen == null || ConfigurationHandler.showInChat && client.screen instanceof ChatScreen;
 		}
 		return false;
+	}
+
+	@SubscribeEvent
+	public void onRenderGuiOverlayEvent(final RenderGuiOverlayEvent.Pre event) {
+//		if (!isRunning())
+//			return;
+		NamedGuiOverlay overlay = event.getOverlay();
+		boolean isSurvivalHUD = overlay == VanillaGuiOverlay.PLAYER_HEALTH.type()
+				|| overlay == VanillaGuiOverlay.FOOD_LEVEL.type() || overlay == VanillaGuiOverlay.ARMOR_LEVEL.type();
+
+		if (isSurvivalHUD && !ConfigurationHandler.showSurvivalHUD)
+			event.setCanceled(true);
+		else if (overlay == VanillaGuiOverlay.POTION_ICONS.type() && !ConfigurationHandler.showOverlayPotions)
+			event.setCanceled(true);
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

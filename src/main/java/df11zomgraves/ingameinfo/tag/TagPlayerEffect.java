@@ -100,7 +100,7 @@ public abstract class TagPlayerEffect extends Tag {
 			if (potionEffects.length > this.index) {
 				int duration = potionEffects[this.index].getDuration();
 				if (duration == -1)
-					return "∞";
+					return "\u221e";
 				return StringUtil.formatTickDuration(duration);
 
 			}

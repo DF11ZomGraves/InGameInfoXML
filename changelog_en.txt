@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.8.2.98, ?, ?
+﻿InGameInfo XML 2.8.2.98, Release, 2025/11/15
 
 Common
 	1.Add the "AlignForMiddleCenter" option to the configuration file to control the alignment of text displayed in the center of the screen.
@@ -19,6 +19,8 @@ Common
 		worldname resourcepack
 1.20.1
 	1.The effect has an infinite duration and displays the same as vanilla.
+	2.Add the "ShowSurvivalHUD" option to the configuration file. Set to false to hide vanilla survival hud.
+	3.Add the "showOverlayPotions" option to the configuration file. Set to false to hide vanilla potion overlay.
 
 InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 Common

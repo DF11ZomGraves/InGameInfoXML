@@ -24,6 +24,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_SURVIVAL_HUD_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
 
@@ -38,6 +39,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_RIGHT;
 
 	public static boolean showOverlayItemIcons;
+	public static boolean showOverlayPotions;
 	public static int fileInterval;
 	public static boolean replaceDebug;
 	public static boolean showOnPlayerList;
@@ -46,6 +48,7 @@ public class ConfigurationHandler {
 	public static boolean showInChat;
 	public static boolean numericAmplifier;
 	public static boolean sendSeedToChat;
+	public static boolean showSurvivalHUD;
 	public static long seed;
 	public static String alignmentMiddleCenter;
 
@@ -63,6 +66,7 @@ public class ConfigurationHandler {
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
 				Names.Command.MIDDLE_CENTER);
+		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
 
 		BUILDER.pop();
 		BUILDER.push(Names.Config.Category.ALIGNMENT);
@@ -93,6 +97,7 @@ public class ConfigurationHandler {
 		Alignment.BOTTOMCENTER.setXY(ALIGN_BOTTOM_CENTER.get());
 		Alignment.BOTTOMRIGHT.setXY(ALIGN_BOTTOM_RIGHT.get());
 		showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT.get();
+		showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT.get();
 		fileInterval = FILE_INTERVAL_DEFAULT.get();
 		showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT.get();
 		scale = SCALE_DEFAULT.get();
@@ -100,6 +105,7 @@ public class ConfigurationHandler {
 		showInChat = SHOW_IN_CHAT_DEFAULT.get();
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
 		sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
+		showSurvivalHUD = SHOW_SURVIVAL_HUD_DEFAULT.get();
 		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
 		try {
 			seed = (long)SEED_DEFAULT.get();
@@ -112,6 +118,7 @@ public class ConfigurationHandler {
 	
 	public static void applyConfiguration() {
 		SHOW_OVERLAY_ITEM_ICONS_DEFAULT.set(showOverlayItemIcons);
+		SHOW_OVERLAY_POTIONS_DEFAULT.set(showOverlayPotions);
 		FILE_INTERVAL_DEFAULT.set(fileInterval);
 		SHOW_ON_PLAYER_LIST_DEFAULT.set(showOnPlayerList);
 		SCALE_DEFAULT.set(scale);
@@ -121,6 +128,7 @@ public class ConfigurationHandler {
 		ALIGNMENT_MIDDLECENTER_DEFAULT.set(alignmentMiddleCenter);
 		SEED_DEFAULT.set(seed);
 		SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
+		SHOW_SURVIVAL_HUD_DEFAULT.set(showSurvivalHUD);
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
 		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());

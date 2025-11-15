@@ -1,7 +1,7 @@
 {
 	"key.ingameinfoxml.reload": "重新加載",
 	"key.ingameinfoxml.toggle": "顯示切換",
-	"key.ingameinfoxml.category": "InGameInfoXML",
+	"key.ingameinfoxml.category": "InGameInfo XML",
 	"commands.ingameinfoxml.load": "正在加載%s...",
 	"commands.ingameinfoxml.reload": "正在重新加載...",
 	"commands.ingameinfoxml.success": "完成！",

@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.8.2.98, ?, 发布时间未定
+﻿InGameInfo XML 2.8.2.98, Release, 2025/11/15
 
 通用
 	1.配置文件增加“AlignmentForMiddleCenter”选项，用于控制在屏幕中心显示的文本对齐方式。
@@ -19,6 +19,8 @@
 		worldname resourcepack
 1.20.1
 	1.效果持续时间为无限的，显示方式同原版
+	2.配置文件增加“ShowSurvivalHUD”选项，设置为false隐藏生存模式部分HUD。
+	3.配置文件增加“showOverlayPotions”选项，设置为false隐藏原版药水效果图标。
 
 InGameInfo XML 2.8.2.97, Beta, 2025/8/23
 通用
