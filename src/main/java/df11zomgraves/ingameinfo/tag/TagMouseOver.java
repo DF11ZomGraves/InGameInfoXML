@@ -1,8 +1,12 @@
 package df11zomgraves.ingameinfo.tag;
 
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -172,6 +176,43 @@ public abstract class TagMouseOver extends Tag {
 		}
 	}
 
+	public static class TargetHealth extends TagMouseOver {
+		@Override
+		public String getValue() {
+			final HitResult hitResult = minecraft.hitResult;
+			if (hitResult != null) {
+				final Type hitType = hitResult.getType();
+				if (hitType == HitResult.Type.ENTITY) {
+					final EntityHitResult targetEntity = (EntityHitResult) hitResult;
+					Entity entity = targetEntity.getEntity();
+					if (entity instanceof Mob) {
+						float mobHealth = ((Mob)entity).getHealth();//getMaxHealth
+						return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
+	
+	public static class TargetMaxHealth extends TagMouseOver {
+		@Override
+		public String getValue() {
+			final HitResult hitResult = minecraft.hitResult;
+			if (hitResult != null) {
+				final Type hitType = hitResult.getType();
+				if (hitType == HitResult.Type.ENTITY) {
+					final EntityHitResult targetEntity = (EntityHitResult) hitResult;
+					Entity entity = targetEntity.getEntity();
+					if (entity instanceof Mob) {
+						float mobHealth = ((Mob)entity).getMaxHealth();
+						return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Name().setName("mouseovername"));
@@ -181,6 +222,8 @@ public abstract class TagMouseOver extends Tag {
 		TagRegistry.INSTANCE.register(new IsBlock().setName("mouseoverisblock"));
 		TagRegistry.INSTANCE.register(new LookingAtXYZ().setName("lookingblockxyz"));
 		TagRegistry.INSTANCE.register(new Id().setName("mouseoverid"));
+		TagRegistry.INSTANCE.register(new TargetHealth().setName("targethealth"));
+		TagRegistry.INSTANCE.register(new TargetMaxHealth().setName("targetmaxhealth"));
 //		TagRegistry.INSTANCE.register(new Metadata().setName("mouseovermetadata"));
 //		TagRegistry.INSTANCE.register(new PowerInput().setName("mouseoverpowerinput"));
 	}

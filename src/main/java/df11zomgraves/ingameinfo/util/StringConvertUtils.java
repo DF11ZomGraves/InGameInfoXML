@@ -36,4 +36,13 @@ public class StringConvertUtils {
 			mc.gui.getChat().addMessage(Component.translatable(Names.SHOW_SEED, component));
 		}
 	}
+	
+	public static String getFloatDisplayFormat(float value, int decimalPlace) {
+		if (decimalPlace < 0)
+			decimalPlace = 0;
+		else if (decimalPlace > 7)
+			decimalPlace = 7;
+		String result = String.format("%%.%df", decimalPlace);
+		return String.format(result, value);
+	}
 }

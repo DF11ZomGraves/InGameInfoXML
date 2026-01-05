@@ -1,14 +1,14 @@
 package df11zomgraves.ingameinfo.tag;
 
 import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.util.MBlockPos;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.LightLayer;
-
-import java.util.Locale;
 
 public abstract class TagPlayerGeneral extends Tag {
 	protected final MBlockPos pos = new MBlockPos();
@@ -125,21 +125,24 @@ public abstract class TagPlayerGeneral extends Tag {
 	public static class Health extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getHealth());
+			float playerHealth = player.getHealth();
+			return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
 	public static class MaxHealth extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getMaxHealth());
+			float playerHealth = player.getMaxHealth();
+			return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
 	public static class Absorption extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getAbsorptionAmount());
+			float playerAbsorption = player.getAbsorptionAmount();
+			return StringConvertUtils.getFloatDisplayFormat(playerAbsorption, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
@@ -168,16 +171,18 @@ public abstract class TagPlayerGeneral extends Tag {
 	public static class SaturationLevel extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getFoodData().getSaturationLevel());
+			float saturationLevel = player.getFoodData().getSaturationLevel();
+			return StringConvertUtils.getFloatDisplayFormat(saturationLevel, ConfigurationHandler.hungerDecimalPlace);
 		}
 	}
 
-    public static class Exhaustion extends TagPlayerGeneral {
-        @Override
-        public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.getFoodData().getExhaustionLevel());
-        }
-    }
+	public static class Exhaustion extends TagPlayerGeneral {
+		@Override
+		public String getValue() {
+			float exhaustionLevel = player.getFoodData().getExhaustionLevel();
+			return StringConvertUtils.getFloatDisplayFormat(exhaustionLevel, ConfigurationHandler.hungerDecimalPlace);
+		}
+	}
 
 	public static class AirTicks extends TagPlayerGeneral {
 		@Override
@@ -210,8 +215,7 @@ public abstract class TagPlayerGeneral extends Tag {
 	public static class ExperienceUntilNext extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String
-					.valueOf((int) Math.floor((1.0 - player.experienceProgress) * player.getXpNeededForNextLevel()));
+			return String.valueOf((int) Math.floor((1.0 - player.experienceProgress) * player.getXpNeededForNextLevel()));
 		}
 	}
 
@@ -284,7 +288,7 @@ public abstract class TagPlayerGeneral extends Tag {
 			return String.valueOf(player.isInvisible());
 		}
 	}
-	
+
 	public static class ArmorToughness extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
@@ -293,7 +297,7 @@ public abstract class TagPlayerGeneral extends Tag {
 			return "0";
 		}
 	}
-	
+
 	public static class PlayerIcon extends TagPlayerGeneral {
 		@Override
 		public String getValue() {

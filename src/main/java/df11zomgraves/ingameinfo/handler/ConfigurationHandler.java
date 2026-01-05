@@ -37,6 +37,8 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_LEFT;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_CENTER;
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_RIGHT;
+	public static final ForgeConfigSpec.ConfigValue<Integer> HEALTH_DECIMAL_PLACE;
+	public static final ForgeConfigSpec.ConfigValue<Integer> HUNGER_DECIMAL_PLACE;
 
 	public static boolean showOverlayItemIcons;
 	public static boolean showOverlayPotions;
@@ -51,6 +53,8 @@ public class ConfigurationHandler {
 	public static boolean showSurvivalHUD;
 	public static long seed;
 	public static String alignmentMiddleCenter;
+	public static int healthDecimalPlace;
+	public static int hungerDecimalPlace;
 
 	static {
 		BUILDER.push(Names.Config.Category.GENERAL);
@@ -67,6 +71,8 @@ public class ConfigurationHandler {
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
 				Names.Command.MIDDLE_CENTER);
 		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
+		HEALTH_DECIMAL_PLACE = BUILDER.comment(Names.Config.HEALTH_DECIMAL_PLACE_DESC).define(Names.Config.HEALTH_DECIMAL_PLACE, 2);
+		HUNGER_DECIMAL_PLACE = BUILDER.comment(Names.Config.HUNGER_DECIMAL_PLACE_DESC).define(Names.Config.HUNGER_DECIMAL_PLACE, 2);
 
 		BUILDER.pop();
 		BUILDER.push(Names.Config.Category.ALIGNMENT);
@@ -106,6 +112,8 @@ public class ConfigurationHandler {
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
 		sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
 		showSurvivalHUD = SHOW_SURVIVAL_HUD_DEFAULT.get();
+		healthDecimalPlace = HEALTH_DECIMAL_PLACE.get();
+		hungerDecimalPlace = HUNGER_DECIMAL_PLACE.get();
 		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
 		try {
 			seed = (long)SEED_DEFAULT.get();
@@ -129,6 +137,8 @@ public class ConfigurationHandler {
 		SEED_DEFAULT.set(seed);
 		SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
 		SHOW_SURVIVAL_HUD_DEFAULT.set(showSurvivalHUD);
+		HEALTH_DECIMAL_PLACE.set(healthDecimalPlace);
+		HUNGER_DECIMAL_PLACE.set(hungerDecimalPlace);
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
 		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());

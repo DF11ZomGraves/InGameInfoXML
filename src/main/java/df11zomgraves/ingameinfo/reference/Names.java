@@ -61,7 +61,7 @@ public final class Names {
 		public static final String SHOW_OVERLAY_ITEM_ICONS_DESC = "Display the item overlay on icon (durability, stack size).";
 
 		public static final String DEFAULT_SEED_IN_SERVER = "DefaultSeedInServer";
-		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfoXML not installed in Server).";
+		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfo XML NOT INSTALLED in Server).";
 		
 		public static final String NUMERIC_AMPLIFIER = "NumericAmplifier";
 		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
@@ -74,6 +74,12 @@ public final class Names {
 		
 		public static final String SHOW_SURVIVAL_HUD = "ShowSurvivalHUD";
 		public static final String SHOW_SURVIVAL_HUD_DESC = "Display the vanilla survival hud (health, foodlevel, armor).";
+		
+		public static final String HEALTH_DECIMAL_PLACE = "HealthDigit";
+		public static final String HEALTH_DECIMAL_PLACE_DESC = "Health value decimal places retained (health, absorption).";
+		
+		public static final String HUNGER_DECIMAL_PLACE = "HungerDigit";
+		public static final String HUNGER_DECIMAL_PLACE_DESC = "Hunger value decimal places retained (saturation, exhaustion).";
 	}
 
 	public static final class Files {
