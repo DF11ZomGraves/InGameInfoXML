@@ -1,5 +1,8 @@
 package df11zomgraves.ingameinfo.util;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.reference.Names;
 import net.minecraft.client.Minecraft;
@@ -40,9 +43,10 @@ public class StringConvertUtils {
 	public static String getFloatDisplayFormat(float value, int decimalPlace) {
 		if (decimalPlace < 0)
 			decimalPlace = 0;
-		else if (decimalPlace > 7)
-			decimalPlace = 7;
-		String result = String.format("%%.%df", decimalPlace);
-		return String.format(result, value);
+		else if (decimalPlace > 6)
+			decimalPlace = 6;
+		DecimalFormat df = new DecimalFormat("0." + "0".repeat(decimalPlace));
+		df.setRoundingMode(RoundingMode.CEILING);
+		return df.format(value);
 	}
 }
