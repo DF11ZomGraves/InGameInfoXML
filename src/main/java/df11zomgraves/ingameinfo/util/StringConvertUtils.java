@@ -45,7 +45,7 @@ public class StringConvertUtils {
 			decimalPlace = 0;
 		else if (decimalPlace > 6)
 			decimalPlace = 6;
-		DecimalFormat df = new DecimalFormat("0." + "0".repeat(decimalPlace));
+		DecimalFormat df = new DecimalFormat(decimalPlace == 0 ? "0" : ("0." + "0".repeat(decimalPlace)));
 		df.setRoundingMode(RoundingMode.CEILING);
 		return df.format(value);
 	}
