@@ -29,6 +29,10 @@ ingameinfoxml.config.alignmentForMiddleCenter=Alignment For MIDDLECENTER
 ingameinfoxml.config.alignmentForMiddleCenter.tooltip=Alignment for the middle center side of the screen.
 ingameinfoxml.config.sendSeedToChat=Send seed to chat
 ingameinfoxml.config.sendSeedToChat.tooltip=Send seed to chat when entering the world.
+ingameinfoxml.config.healthDecimalPlace=Health decimal place
+ingameinfoxml.config.healthDecimalPlace.tooltip=Health value decimal places retained (health, absorption).
+ingameinfoxml.config.hungerDecimalPlace=Hunger decimal place
+ingameinfoxml.config.hungerDecimalPlace.tooltip=Hunger value decimal places retained (saturation, exhaustion).
 
 
 # gui - config - alignment

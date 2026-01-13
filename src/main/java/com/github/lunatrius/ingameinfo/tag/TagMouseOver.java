@@ -1,8 +1,13 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -85,7 +90,6 @@ public abstract class TagMouseOver extends Tag {
 	public static class IsBlock extends TagMouseOver {
 		@Override
 		public String getValue() {
-			// TODO Auto-generated method stub
 			final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
 			if (objectMouseOver != null)
 				if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK)
@@ -160,6 +164,40 @@ public abstract class TagMouseOver extends Tag {
 			return "";
 		}
 	}
+	
+	public static class TargetHealth extends TagMouseOver {
+		@Override
+		public String getValue() {
+			final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
+					Entity entity = objectMouseOver.entityHit;
+					if (entity instanceof EntityCreature) {
+						float mobHealth = ((EntityCreature)entity).getHealth();
+						return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
+	
+	public static class TargetMaxHealth extends TagMouseOver {
+		@Override
+		public String getValue() {
+			final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
+					Entity entity = objectMouseOver.entityHit;
+					if (entity instanceof EntityCreature) {
+						float mobHealth = ((EntityCreature)entity).getMaxHealth();
+						return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Name().setName("mouseovername"));
@@ -171,5 +209,7 @@ public abstract class TagMouseOver extends Tag {
 		TagRegistry.INSTANCE.register(new PowerInput().setName("mouseoverpowerinput"));
 		TagRegistry.INSTANCE.register(new IsBlock().setName("mouseoverisblock"));
 		TagRegistry.INSTANCE.register(new LookingAtXYZ().setName("lookingblockxyz"));
+		TagRegistry.INSTANCE.register(new TargetHealth().setName("targethealth"));
+		TagRegistry.INSTANCE.register(new TargetMaxHealth().setName("targetmaxhealth"));
 	}
 }

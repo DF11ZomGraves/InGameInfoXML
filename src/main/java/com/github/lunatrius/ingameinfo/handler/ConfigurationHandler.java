@@ -31,6 +31,8 @@ public class ConfigurationHandler {
 	public static final boolean SEND_SEED_TO_CHAT_DEFAULT = false;
 	public static final String SERVER_SEED_DEFAULT = "0";
 	public static final String ALIGNMENT_MIDDLECENTER_DEFAULT = "MIDDLECENTER";
+	public static final int HEALTH_DECIMAL_PLACE_DEFAULT = 2;
+	public static final int HUNGER_DECIMAL_PLACE_DEFAULT = 2;
 
 	public static String configName = CONFIG_NAME_DEFAULT;
 	public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
@@ -44,6 +46,8 @@ public class ConfigurationHandler {
 	public static boolean sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT;
 	public static long serverSeed = 0;
 	public static String alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT;
+	public static int healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT;
+	public static int hungerDecimalPlace = HUNGER_DECIMAL_PLACE_DEFAULT;
 
 	public static Property propConfigName = null;
 	public static Property propReplaceDebug = null;
@@ -57,6 +61,9 @@ public class ConfigurationHandler {
 	public static Property propServerSeed = null;
 	public static Property propAlignmentMiddleCenter = null;
 	public static Property propSendSeedToChat = null;
+	public static Property prophealthDecimalPlace = null;
+	public static Property prophungerDecimalPlace = null;
+		
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
 	private ConfigurationHandler() {
@@ -127,10 +134,12 @@ public class ConfigurationHandler {
 			serverSeed = 0;
 		}
 		Reference.logger.info("serverSeed=" + serverSeed);
+		
 		propSendSeedToChat = configuration.get(Names.Config.Category.GENERAL, Names.Config.SEND_SEED_TO_CHAT, false,
 				Names.Config.SEND_SEED_TO_CHAT_DESC);
 		propSendSeedToChat.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SEND_SEED_TO_CHAT);
 		sendSeedToChat = propSendSeedToChat.getBoolean();
+		
 		propAlignmentMiddleCenter = configuration.get(Names.Config.Category.GENERAL, Names.Config.ALIGNMENT_MIDDLECENTER,
 				ALIGNMENT_MIDDLECENTER_DEFAULT, Names.Config.ALIGNMENT_MIDDLECENTER_DESC);
 		propAlignmentMiddleCenter.setValidValues(new String[] {
@@ -146,6 +155,16 @@ public class ConfigurationHandler {
 		});
 		propAlignmentMiddleCenter.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.ALIGNMENT_MIDDLECENTER);
 		alignmentMiddleCenter = propAlignmentMiddleCenter.getString();
+		
+		prophealthDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
+				Names.Config.HEALTH_DECIMAL_PLACE, HEALTH_DECIMAL_PLACE_DEFAULT, Names.Config.HEALTH_DECIMAL_PLACE_DESC);
+		prophealthDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HEALTH_DECIMAL_PLACE);
+		healthDecimalPlace = prophealthDecimalPlace.getInt(HEALTH_DECIMAL_PLACE_DEFAULT);
+		
+		prophungerDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
+				Names.Config.HUNGER_DECIMAL_PLACE, HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC);
+		prophungerDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HUNGER_DECIMAL_PLACE);
+		hungerDecimalPlace = prophungerDecimalPlace.getInt(HUNGER_DECIMAL_PLACE_DEFAULT);
 
 		for (final Alignment alignment : Alignment.values()) {
 			final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);

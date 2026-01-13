@@ -22,4 +22,13 @@ public class StringConvertUtils {
 		}
 		return s.toString();
 	}
+	
+	public static String getFloatDisplayFormat(float value, int decimalPlace) {
+		if (decimalPlace < 0)
+			decimalPlace = 0;
+		else if (decimalPlace > 6)
+			decimalPlace = 6;
+		String result = String.format("%%.%df", decimalPlace);
+		return String.format(result, value);
+	}
 }

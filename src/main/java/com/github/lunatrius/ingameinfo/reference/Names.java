@@ -53,7 +53,7 @@ public final class Names {
 		public static final String FILENAME = "filename";
 		public static final String FILENAME_DESC = "The configuration that should be loaded on startup.";
 		public static final String REPLACE_DEBUG = "replaceDebug";
-		public static final String REPLACE_DEBUG_DESC = "Replace the debug overlay (F3) with the InGameInfoXML overlay.";
+		public static final String REPLACE_DEBUG_DESC = "Replace the debug overlay (F3) with the InGameInfo XML overlay.";
 		public static final String SHOW_IN_CHAT = "showInChat";
 		public static final String SHOW_IN_CHAT_DESC = "Display the overlay in chat.";
 		public static final String SHOW_ON_PLAYER_LIST = "showOnPlayerList";
@@ -70,13 +70,19 @@ public final class Names {
 		public static final String SHOW_OVERLAY_ITEM_ICONS_DESC = "Display the item overlay on icon (durability, stack size).";
 		
 		public static final String SERVER_SEED = "serverSeed";
-		public static final String SERVER_SEED_DESC = "Set server seed in local. ONLY ENABLED when InGameInfo XML NOT installed on the server.";
+		public static final String SERVER_SEED_DESC = "Default seed in server (if InGameInfo XML NOT INSTALLED in Server).";
 
 		public static final String NUMERIC_AMPLIFIER = "numericAmplifier";
 		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
 		
 		public static final String ALIGNMENT_MIDDLECENTER = "alignmentForMiddleCenter";
 		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen.";
+		
+		public static final String HEALTH_DECIMAL_PLACE = "healthDecimalPlace";
+		public static final String HEALTH_DECIMAL_PLACE_DESC = "Health value decimal places retained (health, absorption).";
+		
+		public static final String HUNGER_DECIMAL_PLACE = "hungerDecimalPlace";
+		public static final String HUNGER_DECIMAL_PLACE_DESC = "Hunger value decimal places retained (saturation, exhaustion).";
 
 		public static final String SEND_SEED_TO_CHAT = "sendSeedToChat";
 		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";

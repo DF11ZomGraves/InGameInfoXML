@@ -1,8 +1,12 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
+
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.AbstractHorse;
 
@@ -30,9 +34,10 @@ public abstract class TagRiding extends Tag {
 		@Override
 		public String getValue() {
 			final Entity ridingEntity = player.getRidingEntity();
-			if (ridingEntity instanceof AbstractHorse)
-				return String.valueOf(((AbstractHorse) ridingEntity).getHealth());
-
+			if (ridingEntity instanceof EntityCreature) {
+				float mobHealth = ((EntityCreature) ridingEntity).getHealth();
+				return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+			}
 			return "-1";
 		}
 	}
@@ -41,9 +46,10 @@ public abstract class TagRiding extends Tag {
 		@Override
 		public String getValue() {
 			final Entity ridingEntity = player.getRidingEntity();
-			if (ridingEntity instanceof AbstractHorse)
-				return String.valueOf(((AbstractHorse) ridingEntity).getMaxHealth());
-
+			if (ridingEntity instanceof EntityCreature) {
+				float mobHealth = ((EntityCreature) ridingEntity).getMaxHealth();
+				return StringConvertUtils.getFloatDisplayFormat(mobHealth, ConfigurationHandler.healthDecimalPlace);
+			}
 			return "-1";
 		}
 	}

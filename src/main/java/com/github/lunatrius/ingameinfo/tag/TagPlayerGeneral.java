@@ -1,15 +1,16 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.MBlockPos;
+import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
+
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
-
-import java.util.Locale;
 
 public abstract class TagPlayerGeneral extends Tag {
 	protected final MBlockPos pos = new MBlockPos();
@@ -122,22 +123,24 @@ public abstract class TagPlayerGeneral extends Tag {
 	public static class Health extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getHealth());
+			float playerHealth = player.getHealth();
+			return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
 	public static class MaxHealth extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getMaxHealth());
+			float playerHealth = player.getMaxHealth();
+			return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
 	public static class Absorption extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			// TODO Auto-generated method stub
-			return String.format(Locale.ENGLISH, "%.2f", player.getAbsorptionAmount());
+			float playerAbsorption = player.getAbsorptionAmount();
+			return StringConvertUtils.getFloatDisplayFormat(playerAbsorption, ConfigurationHandler.healthDecimalPlace);
 		}
 	}
 
@@ -166,7 +169,8 @@ public abstract class TagPlayerGeneral extends Tag {
 	public static class Saturation extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
-			return String.format(Locale.ENGLISH, "%.2f", player.getFoodStats().getSaturationLevel());
+			float saturationLevel = player.getFoodStats().getSaturationLevel();
+			return StringConvertUtils.getFloatDisplayFormat(saturationLevel, ConfigurationHandler.hungerDecimalPlace);
 		}
 	}
 
@@ -282,15 +286,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		}
 	}
 
-	public static class Eating extends TagPlayerGeneral {
-		@Override
-		public String getValue() {
-			// TODO: remove or fix
-			// return String.valueOf(player.isEating());
-			return String.valueOf(false);
-		}
-	}
-	
 	public static class ArmorToughness extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
@@ -343,7 +338,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Sneaking().setName("sneaking"));
 		TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
 		TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
-		TagRegistry.INSTANCE.register(new Eating().setName("eating"));
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
 		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
 		TagRegistry.INSTANCE.register(new PlayerIcon().setName("playericon"));
