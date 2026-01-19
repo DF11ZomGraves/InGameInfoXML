@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 
 public abstract class TagNearbyPlayer extends Tag {
 	public static final int MAXIMUM_INDEX = 16;
@@ -135,12 +137,48 @@ public abstract class TagNearbyPlayer extends Tag {
 			return "";
 		}
 	}
+	
+	public static class Health extends TagNearbyPlayer {
+
+		public Health(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updateNearbyPlayers();
+			if (nearbyPlayers.length > this.index) {
+				float playerHealth = nearbyPlayers[this.index].getHealth();
+				return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
+			}
+			return "-1";
+		}
+	}
+	
+	public static class MaxHealth extends TagNearbyPlayer {
+
+		public MaxHealth(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updateNearbyPlayers();
+			if (nearbyPlayers.length > this.index) {
+				float playerHealth = nearbyPlayers[this.index].getMaxHealth();
+				return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
+			}
+			return "-1";
+		}
+	}
 
 	public static void register() {
 		for (int i = 0; i < MAXIMUM_INDEX; i++) {
 			TagRegistry.INSTANCE.register(new Name(i).setName("nearbyplayername"));
 			TagRegistry.INSTANCE.register(new Distance(i).setName("nearbyplayerdistance"));
 			TagRegistry.INSTANCE.register(new Icon(i).setName("nearbyplayericon"));
+			TagRegistry.INSTANCE.register(new Health(i).setName("nearbyplayerhealth"));
+			TagRegistry.INSTANCE.register(new MaxHealth(i).setName("nearbyplayermaxhealth"));
 		}
 	}
 
