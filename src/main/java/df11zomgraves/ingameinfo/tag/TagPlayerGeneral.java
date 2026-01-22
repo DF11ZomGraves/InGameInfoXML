@@ -309,6 +309,13 @@ public abstract class TagPlayerGeneral extends Tag {
 			return getIconTag(icon);
 		}
 	}
+	
+	public static class Freezing extends TagPlayerGeneral {
+		@Override
+		public String getValue() {
+			return String.valueOf(player.isFreezing());
+		}
+	}
 
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Light().setName("light"));
@@ -345,5 +352,6 @@ public abstract class TagPlayerGeneral extends Tag {
 		TagRegistry.INSTANCE.register(new Absorption().setName("absorption"));
 		TagRegistry.INSTANCE.register(new ArmorToughness().setName("armortoughness"));
 		TagRegistry.INSTANCE.register(new PlayerIcon().setName("playericon"));
+		TagRegistry.INSTANCE.register(new Freezing().setName("freezing"));
 	}
 }
