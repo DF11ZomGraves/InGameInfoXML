@@ -157,12 +157,14 @@ public class ConfigurationHandler {
 		alignmentMiddleCenter = propAlignmentMiddleCenter.getString();
 		
 		prophealthDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
-				Names.Config.HEALTH_DECIMAL_PLACE, HEALTH_DECIMAL_PLACE_DEFAULT, Names.Config.HEALTH_DECIMAL_PLACE_DESC);
+				Names.Config.HEALTH_DECIMAL_PLACE, HEALTH_DECIMAL_PLACE_DEFAULT, Names.Config.HEALTH_DECIMAL_PLACE_DESC,
+				0, 6);
 		prophealthDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HEALTH_DECIMAL_PLACE);
 		healthDecimalPlace = prophealthDecimalPlace.getInt(HEALTH_DECIMAL_PLACE_DEFAULT);
 		
 		prophungerDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
-				Names.Config.HUNGER_DECIMAL_PLACE, HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC);
+				Names.Config.HUNGER_DECIMAL_PLACE, HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC,
+				0, 6);
 		prophungerDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HUNGER_DECIMAL_PLACE);
 		hungerDecimalPlace = prophungerDecimalPlace.getInt(HUNGER_DECIMAL_PLACE_DEFAULT);
 

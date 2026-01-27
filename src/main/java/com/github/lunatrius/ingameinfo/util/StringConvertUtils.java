@@ -1,5 +1,8 @@
 package com.github.lunatrius.ingameinfo.util;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class StringConvertUtils {
 	public static String numToRoman(int amplifier) {
 		StringBuilder s = new StringBuilder();
@@ -22,13 +25,22 @@ public class StringConvertUtils {
 		}
 		return s.toString();
 	}
-	
+
 	public static String getFloatDisplayFormat(float value, int decimalPlace) {
 		if (decimalPlace < 0)
 			decimalPlace = 0;
 		else if (decimalPlace > 6)
 			decimalPlace = 6;
-		String result = String.format("%%.%df", decimalPlace);
-		return String.format(result, value);
+		StringBuilder s = new StringBuilder();
+		if (decimalPlace == 0)
+			s.append('0');
+		else {
+			s.append("0.");
+			for (int i = 0; i < decimalPlace; i++)
+				s.append('0');
+		}
+		DecimalFormat df = new DecimalFormat(s.toString());
+		df.setRoundingMode(RoundingMode.CEILING);
+		return df.format(value);
 	}
 }
