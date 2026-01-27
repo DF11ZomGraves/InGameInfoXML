@@ -1,7 +1,10 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
+
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,6 +41,8 @@ public abstract class TagNearbyPlayer extends Tag {
 
 	@Override
 	public String getName() {
+		if (this.index == -1)
+			return super.getName();
 		return super.getName() + this.index;
 	}
 
@@ -52,7 +57,7 @@ public abstract class TagNearbyPlayer extends Tag {
 
 	@Override
 	public boolean isIndexed() {
-		return true;
+		return this.index == -1 ? false : true;
 	}
 
 	@Override
@@ -130,11 +135,47 @@ public abstract class TagNearbyPlayer extends Tag {
 		}
 	}
 
+	public static class Health extends TagNearbyPlayer {
+
+		public Health(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updateNearbyPlayers();
+			if (nearbyPlayers.length > this.index) {
+				float playerHealth = nearbyPlayers[this.index].getHealth();
+				return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
+			}
+			return "-1";
+		}
+	}
+
+	public static class MaxHealth extends TagNearbyPlayer {
+
+		public MaxHealth(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updateNearbyPlayers();
+			if (nearbyPlayers.length > this.index) {
+				float playerHealth = nearbyPlayers[this.index].getMaxHealth();
+				return StringConvertUtils.getFloatDisplayFormat(playerHealth, ConfigurationHandler.healthDecimalPlace);
+			}
+			return "-1";
+		}
+	}
+
 	public static void register() {
 		for (int i = 0; i < MAXIMUM_INDEX; i++) {
 			TagRegistry.INSTANCE.register(new Name(i).setName("nearbyplayername"));
 			TagRegistry.INSTANCE.register(new Distance(i).setName("nearbyplayerdistance"));
 			TagRegistry.INSTANCE.register(new Icon(i).setName("nearbyplayericon"));
+			TagRegistry.INSTANCE.register(new Health(i).setName("nearbyplayerhealth"));
+			TagRegistry.INSTANCE.register(new MaxHealth(i).setName("nearbyplayermaxhealth"));
 		}
 	}
 

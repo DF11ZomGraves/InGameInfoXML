@@ -40,7 +40,7 @@ public abstract class TagPlayerPotion extends Tag {
 
 	@Override
 	public boolean isIndexed() {
-		return true;
+		return this.index == -1 ? false : true;
 	}
 
 	@Override

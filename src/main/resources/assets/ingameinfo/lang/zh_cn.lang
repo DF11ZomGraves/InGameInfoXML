@@ -125,11 +125,15 @@ ingameinfoxml.tag.mouseoverpowerstrong.desc=该方块红石信号的最大强度
 ingameinfoxml.tag.mouseoverpowerinput.desc=该方块红石信号的输入强度，如果什么都没有则显示为-1。
 ingameinfoxml.tag.mouseoverisblock.desc=光标指向为方块时返回§e真§r，否则返回§e假§r。
 ingameinfoxml.tag.lookingblockxyz.desc=光标下方块的坐标，如果光标指向实体或者什么都没有则不显示任何东西。
+ingameinfoxml.tag.targethealth.desc=光标下生物的生命值，如果光标下不是生物显示为-1。
+ingameinfoxml.tag.targetmaxhealth.desc=光标下生物的最大生命值，如果光标下不是生物显示为-1。
 
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=与附近第x个玩家间的距离。
 ingameinfoxml.tag.nearbyplayername.desc=附近第x个玩家的名称。
 ingameinfoxml.tag.nearbyplayericon.desc=附近第x个玩家的头像。
+ingameinfoxml.tag.nearbyplayerhealth.desc=附近第x个玩家的生命值。
+ingameinfoxml.tag.nearbyplayermaxhealth.desc=附近第x个玩家的最大生命值。
 
 # gui - tag list - player equipment
 ingameinfoxml.tag.equippedname.desc=持有物品的名称。
@@ -256,12 +260,13 @@ ingameinfoxml.tag.axisdirection.desc=玩家当前朝向的轴方向（+Z, -X, -Z
 ingameinfoxml.tag.directionhud.desc=一个小型的材质化的方向HUD（显示器）。
 
 # gui - tag list - player potion
-ingameinfoxml.tag.potioneffect.desc=第x个药水效果名称.
-ingameinfoxml.tag.potionduration.desc=第x个药水效果的持续时间（单位为秒）.
-ingameinfoxml.tag.potiondurationticks.desc=药水效果的持续时间（单位为游戏刻）.
+ingameinfoxml.tag.potioneffect.desc=第x个药水效果名称。
+ingameinfoxml.tag.potionduration.desc=第x个药水效果的持续时间（单位为秒）。
+ingameinfoxml.tag.potiondurationticks.desc=药水效果的持续时间（单位为游戏刻）。
 ingameinfoxml.tag.potionnegative.desc=如果是负面效果就返回§e真§r，否则就返回§e假§r。
-ingameinfoxml.tag.potionicon.desc=第x个药水效果的图标.
-ingameinfoxml.tag.potionlargeicon.desc=第x个药水效果的大图标.
+ingameinfoxml.tag.potionicon.desc=第x个药水效果的图标。
+ingameinfoxml.tag.potionlargeicon.desc=第x个药水效果的大图标。
+ingameinfoxml.tag.effectcount.desc=药水效果数量。
 
 # gui - tag list - riding
 ingameinfoxml.tag.ridinghorse.desc=如果玩家正在骑马就返回§e真§r，否则就返回§e假§r。
