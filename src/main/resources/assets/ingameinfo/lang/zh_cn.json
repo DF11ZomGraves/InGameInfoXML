@@ -14,6 +14,8 @@
 	"commands.ingameinfoxml.seed.set.failure": "在修改本地种子时发生了错误",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.success": "已设置对齐§eMIDDLECENTER§r的对齐方式为%s。",
 	"commands.ingameinfoxml.alignmentmiddlecenter.set.failure": "设置对齐§eMIDDLECENTER§r的对齐方式失败。",
+	"commands.ingameinfoxml.config.set.success": "已设置 %s 的值为 %s。",
+	"commands.ingameinfoxml.config.notfound": "未找到配置 %s。",
 	"chat.ingameinfo.version": "InGameInfo XML %s\n按[%s]键显示\/隐藏, [%s]键重新加载",
 	"chat.ingameinfo.seed": "[InGameInfo XML]当前种子：%s"
 }
