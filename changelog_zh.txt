@@ -1,4 +1,19 @@
-﻿InGameInfo XML 2.8.2.98, Release, 2025/11/15
+﻿InGameInfo XML 2.9.0.99, Release, 2026/2/11
+通用
+	1.配置文件增加“HealthDecimalPlace”和“HungerDecimalPlace”选项，用于设置生命值和饱食度的小数保留位数。
+	2.增加nearbyplayerhealth、nearbyplayermaxhealth标签，用于显示附近玩家的生命值。
+	3.增加targethealth、targetmaxhealth标签，用于显示光标指向实体的生命值。
+	4.骑乘在任何生物时（例如：猪），horsehealth和horsemaxhealth标签也可以显示生命值。
+1.12.2
+	1.修复标签列表中effectcount下标显示问题。
+	2.更新语言文件。
+1.18.2  
+	该版本已停止维护。
+1.20.1
+	1.配置文件中大多数选项可直接使用指令设置。
+	2.增加freezing标签，获取玩家是否处于冰冻状态。
+
+InGameInfo XML 2.8.2.98, Release, 2025/11/15
 
 通用
 	1.配置文件增加“AlignmentForMiddleCenter”选项，用于控制在屏幕中心显示的文本对齐方式。

@@ -1,4 +1,18 @@
-﻿InGameInfo XML 2.8.2.98, Release, 2025/11/15
+﻿InGameInfo XML 2.9.0.99, Release, 2026/2/11
+Common
+	1.Add the "HealthDecimalPlace" and "HungerDecimalPlace" option to the configuration file.
+	2.Add "targethealth", "targetmaxhealth", "nearbyplayerhealth", "nearbyplayermaxhealth" tag.
+	3.When riding any creature (e.g., a pig), the "horsehealth" and "horsemaxhealth" tags can also display health points.
+1.12.2
+	1.Fix the display issue of the effectcount index in the tag list.
+	2.Update language file.
+1.18.2  
+	This version has been discontinued.
+1.20.1
+	1.Add "/igi config" command.
+	2.Add "freezing" tag.
+
+InGameInfo XML 2.8.2.98, Release, 2025/11/15
 
 Common
 	1.Add the "AlignForMiddleCenter" option to the configuration file to control the alignment of text displayed in the center of the screen.
