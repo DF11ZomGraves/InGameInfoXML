@@ -35,45 +35,74 @@ public class InGameInfoCommand {
 		// igi alignment get TOPLEFT
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.executes(source -> GetAlignment(AlignArgument.GetString(source, strAlign))))));
+		
 		// igi alignment set TOPLEFT 2 2
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strSet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.then(Commands.argument(x, IntegerArgumentType.integer()).then(Commands.argument(y, IntegerArgumentType.integer())
 						.executes(source -> SetAlignment(AlignArgument.GetString(source, strAlign), IntegerArgumentType.getInteger(source, x),
 								IntegerArgumentType.getInteger(source, y))))))));
+		
 		// igi load ingameinfo.xml
 		igiCommand.then(Commands.literal("load").then(Commands.argument(filename, FileArgument.files())
 				.executes(source -> loadFile(FileArgument.GetString(source, filename)))));
+		
 		// igi setseed -2793514409027566328
 		igiCommand.then(Commands.literal("setseed").then(Commands.argument(seed, LongArgumentType.longArg())
 				.executes(source -> SetSeed(LongArgumentType.getLong(source, seed)))));
+		
 		// igi setmiddlecenter MIDDLECENTER
 		igiCommand.then(Commands.literal("setmiddlecenter").then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.executes(source -> SetMiddleCenterAlignment(AlignArgument.GetString(source, strAlign)))));
+		
 		// igi config showInChat true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_IN_CHAT)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SHOW_IN_CHAT, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config showOnPlayerList true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_ON_PLAYER_LIST)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SHOW_ON_PLAYER_LIST, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config showOverlayPotions true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_OVERLAY_POTIONS)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SHOW_OVERLAY_POTIONS, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config showOverlayItemIcons true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_OVERLAY_ITEM_ICONS)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SHOW_OVERLAY_ITEM_ICONS, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config numericAmplifier true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.NUMERIC_AMPLIFIER)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.NUMERIC_AMPLIFIER, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config sendSeedToChat true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SEND_SEED_TO_CHAT)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SEND_SEED_TO_CHAT, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config healthDigit true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HEALTH_DECIMAL_PLACE)
 				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
 						source -> setDecimalPlace(Names.Config.HEALTH_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
+		
+		// igi config hungerDigit true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HUNGER_DECIMAL_PLACE)
 				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
 						source -> setDecimalPlace(Names.Config.HUNGER_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
+		
+		// igi config showSurvivalHUD true
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_SURVIVAL_HUD)
+				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
+						source -> setBoolean(Names.Config.SHOW_SURVIVAL_HUD, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config displayInvisiblePlayer true
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.DISPLAY_INVISIBLE_PLAYER)
+				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
+						source -> setBoolean(Names.Config.DISPLAY_INVISIBLE_PLAYER, BoolArgumentType.getBool(source, value))))));
 		dispatcher.register(igiCommand);
 	}
 
@@ -168,6 +197,8 @@ public class InGameInfoCommand {
 			ConfigurationHandler.sendSeedToChat = value;
 		else if (config.equals(Names.Config.SHOW_SURVIVAL_HUD))
 			ConfigurationHandler.showSurvivalHUD = value;
+		else if (config.equals(Names.Config.DISPLAY_INVISIBLE_PLAYER))
+			ConfigurationHandler.displayInvisiblePlayer = value;
 		else {
 			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
 			return -1;

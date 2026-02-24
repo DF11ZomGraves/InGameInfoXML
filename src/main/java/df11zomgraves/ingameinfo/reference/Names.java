@@ -2,7 +2,7 @@ package df11zomgraves.ingameinfo.reference;
 
 public final class Names {
 	public static final String MODID = "ingameinfoxml";
-	public static final String VERSION = "2.9.0.99";
+	public static final String VERSION = "2.9.1.100";
 	public static final String VERSION_CHAT = "chat.ingameinfo.version";
 	public static final String SHOW_SEED = "chat.ingameinfo.seed";
 	
@@ -62,26 +62,29 @@ public final class Names {
 		public static final String SHOW_OVERLAY_ITEM_ICONS = "showOverlayItemIcons";
 		public static final String SHOW_OVERLAY_ITEM_ICONS_DESC = "Display the item overlay on icon (durability, stack size).";
 
-		public static final String DEFAULT_SEED_IN_SERVER = "DefaultSeedInServer";
+		public static final String DEFAULT_SEED_IN_SERVER = "defaultSeedInServer";
 		public static final String DEFAULT_SEED_IN_SERVER_DESC = "Default seed in server (if InGameInfo XML NOT INSTALLED in Server).";
 		
-		public static final String NUMERIC_AMPLIFIER = "NumericAmplifier";
+		public static final String NUMERIC_AMPLIFIER = "numericAmplifier";
 		public static final String NUMERIC_AMPLIFIER_DESC = "Use numerical values to display effect amplifier instead of Roman numerals.";
 		
-		public static final String ALIGNMENT_MIDDLECENTER = "AlignmentForMiddleCenter";
-		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen";
+		public static final String ALIGNMENT_MIDDLECENTER = "alignmentForMiddleCenter";
+		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen.";
 		
-		public static final String SEND_SEED_TO_CHAT = "SendSeedToChat";
+		public static final String SEND_SEED_TO_CHAT = "sendSeedToChat";
 		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";
 		
-		public static final String SHOW_SURVIVAL_HUD = "ShowSurvivalHUD";
+		public static final String SHOW_SURVIVAL_HUD = "showSurvivalHUD";
 		public static final String SHOW_SURVIVAL_HUD_DESC = "Display the vanilla survival hud (health, foodlevel, armor).";
 		
-		public static final String HEALTH_DECIMAL_PLACE = "HealthDigit";
+		public static final String HEALTH_DECIMAL_PLACE = "healthDigit";
 		public static final String HEALTH_DECIMAL_PLACE_DESC = "Health value decimal places retained (health, absorption).";
 		
-		public static final String HUNGER_DECIMAL_PLACE = "HungerDigit";
+		public static final String HUNGER_DECIMAL_PLACE = "hungerDigit";
 		public static final String HUNGER_DECIMAL_PLACE_DESC = "Hunger value decimal places retained (saturation, exhaustion).";
+		
+		public static final String DISPLAY_INVISIBLE_PLAYER = "displayInvisiblePlayer";
+		public static final String DISPLAY_INVISIBLE_PLAYER_DESC = "Should the nearbyplayer tag display invisible players?";
 	}
 
 	public static final class Files {

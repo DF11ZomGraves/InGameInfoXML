@@ -72,9 +72,10 @@ public abstract class TagNearbyPlayer extends Tag {
 		if (nearbyPlayers == null) {
 			final List<Player> playerList = new ArrayList<Player>();
 			for (final Player player : world.players()) {
-				if (player != Tag.player && !player.isShiftKeyDown()) {
+				if (player == Tag.player)
+					continue;
+				if (!player.isInvisible() || ConfigurationHandler.displayInvisiblePlayer)
 					playerList.add(player);
-				}
 			}
 
 			Collections.sort(playerList, PLAYER_DISTANCE_COMPARATOR);
