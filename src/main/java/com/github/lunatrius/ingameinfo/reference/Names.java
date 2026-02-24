@@ -87,6 +87,9 @@ public final class Names {
 		public static final String SEND_SEED_TO_CHAT = "sendSeedToChat";
 		public static final String SEND_SEED_TO_CHAT_DESC = "Send seed to chat when entering the world.";
 		
+		public static final String DISPLAY_INVISIBLE_PLAYER = "displayInvisiblePlayer";
+		public static final String DISPLAY_INVISIBLE_PLAYER_DESC = "Should the nearbyplayer tag display invisible players?";
+		
 		public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
 		public static final String LANG_PREFIX = Reference.MODID + ".config";

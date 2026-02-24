@@ -74,7 +74,9 @@ public abstract class TagNearbyPlayer extends Tag {
 		if (nearbyPlayers == null) {
 			final List<EntityPlayer> playerList = new ArrayList<EntityPlayer>();
 			for (final EntityPlayer player : world.playerEntities) {
-				if (player != Tag.player && !player.isSneaking())
+				if (player == Tag.player)
+					continue;
+				if (!player.isInvisible() || ConfigurationHandler.displayInvisiblePlayer)
 					playerList.add(player);
 			}
 

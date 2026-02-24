@@ -33,6 +33,7 @@ public class ConfigurationHandler {
 	public static final String ALIGNMENT_MIDDLECENTER_DEFAULT = "MIDDLECENTER";
 	public static final int HEALTH_DECIMAL_PLACE_DEFAULT = 2;
 	public static final int HUNGER_DECIMAL_PLACE_DEFAULT = 2;
+	public static final boolean DISPLAY_INVISIBLE_PLAYER_DEFAULT = false;
 
 	public static String configName = CONFIG_NAME_DEFAULT;
 	public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
@@ -48,6 +49,7 @@ public class ConfigurationHandler {
 	public static String alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT;
 	public static int healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT;
 	public static int hungerDecimalPlace = HUNGER_DECIMAL_PLACE_DEFAULT;
+	public static boolean displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT;
 
 	public static Property propConfigName = null;
 	public static Property propReplaceDebug = null;
@@ -61,12 +63,14 @@ public class ConfigurationHandler {
 	public static Property propServerSeed = null;
 	public static Property propAlignmentMiddleCenter = null;
 	public static Property propSendSeedToChat = null;
-	public static Property prophealthDecimalPlace = null;
-	public static Property prophungerDecimalPlace = null;
+	public static Property propHealthDecimalPlace = null;
+	public static Property propHungerDecimalPlace = null;
+	public static Property propDisplayInvisiblePlayer = null;
 		
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
 	private ConfigurationHandler() {
+		
 	}
 
 	public static void init(final File configFile) {
@@ -77,57 +81,58 @@ public class ConfigurationHandler {
 	}
 
 	private static void loadConfiguration() {
-		propConfigName = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILENAME, CONFIG_NAME_DEFAULT,
+		String prefix = Names.Config.LANG_PREFIX + ".";
+		String categoryGeneral = Names.Config.Category.GENERAL;
+		
+		propConfigName = configuration.get(categoryGeneral, Names.Config.FILENAME, CONFIG_NAME_DEFAULT,
 				Names.Config.FILENAME_DESC);
-		propConfigName.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILENAME);
-		propConfigName.setRequiresMcRestart(true);
+		propConfigName.setLanguageKey(prefix + Names.Config.FILENAME).setRequiresMcRestart(true);
 		configName = propConfigName.getString();
 
-		propReplaceDebug = configuration.get(Names.Config.Category.GENERAL, Names.Config.REPLACE_DEBUG,
+		propReplaceDebug = configuration.get(categoryGeneral, Names.Config.REPLACE_DEBUG,
 				REPLACE_DEBUG_DEFAULT, Names.Config.REPLACE_DEBUG_DESC);
-		propReplaceDebug.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.REPLACE_DEBUG);
+		propReplaceDebug.setLanguageKey(prefix + Names.Config.REPLACE_DEBUG);
 		replaceDebug = propReplaceDebug.getBoolean(REPLACE_DEBUG_DEFAULT);
 
-		propShowInChat = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_IN_CHAT,
+		propShowInChat = configuration.get(categoryGeneral, Names.Config.SHOW_IN_CHAT,
 				SHOW_IN_CHAT_DEFAULT, Names.Config.SHOW_IN_CHAT_DESC);
-		propShowInChat.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_IN_CHAT);
+		propShowInChat.setLanguageKey(prefix + Names.Config.SHOW_IN_CHAT);
 		showInChat = propShowInChat.getBoolean(SHOW_IN_CHAT_DEFAULT);
 
-		propShowOnPlayerList = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_ON_PLAYER_LIST,
+		propShowOnPlayerList = configuration.get(categoryGeneral, Names.Config.SHOW_ON_PLAYER_LIST,
 				SHOW_ON_PLAYER_LIST_DEFAULT, Names.Config.SHOW_ON_PLAYER_LIST_DESC);
-		propShowOnPlayerList.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_ON_PLAYER_LIST);
+		propShowOnPlayerList.setLanguageKey(prefix + Names.Config.SHOW_ON_PLAYER_LIST);
 		showOnPlayerList = propShowOnPlayerList.getBoolean(SHOW_ON_PLAYER_LIST_DEFAULT);
 
-		propScale = configuration.get(Names.Config.Category.GENERAL, Names.Config.SCALE, String.valueOf(SCALE_DEFAULT),
+		propScale = configuration.get(categoryGeneral, Names.Config.SCALE, String.valueOf(SCALE_DEFAULT),
 				Names.Config.SCALE_DESC);
-		propScale.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SCALE);
+		propScale.setLanguageKey(prefix + Names.Config.SCALE);
 		propScale.setValidValues(new String[] { "0.5", "1.0", "1.5", "2.0" });
 		scale = (float) propScale.getDouble(SCALE_DEFAULT);
 
-		propFileInterval = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILE_INTERVAL,
+		propFileInterval = configuration.get(categoryGeneral, Names.Config.FILE_INTERVAL,
 				FILE_INTERVAL_DEFAULT, Names.Config.FILE_INTERVAL_DESC, 1, 60);
-		propFileInterval.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILE_INTERVAL);
+		propFileInterval.setLanguageKey(prefix + Names.Config.FILE_INTERVAL);
 		fileInterval = propFileInterval.getInt(FILE_INTERVAL_DEFAULT);
 
-		propShowOverlayPotions = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_POTIONS,
+		propShowOverlayPotions = configuration.get(categoryGeneral, Names.Config.SHOW_OVERLAY_POTIONS,
 				SHOW_OVERLAY_POTIONS_DEFAULT, Names.Config.SHOW_OVERLAY_POTIONS_DESC);
-		propShowOverlayPotions.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_POTIONS);
+		propShowOverlayPotions.setLanguageKey(prefix + Names.Config.SHOW_OVERLAY_POTIONS);
 		showOverlayPotions = propShowOverlayPotions.getBoolean(SHOW_OVERLAY_POTIONS_DEFAULT);
 
-		propShowOverlayItemIcons = configuration.get(Names.Config.Category.GENERAL,
+		propShowOverlayItemIcons = configuration.get(categoryGeneral,
 				Names.Config.SHOW_OVERLAY_ITEM_ICONS, SHOW_OVERLAY_ITEM_ICONS_DEFAULT, Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC);
-		propShowOverlayItemIcons.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_ITEM_ICONS);
+		propShowOverlayItemIcons.setLanguageKey(prefix + Names.Config.SHOW_OVERLAY_ITEM_ICONS);
 		showOverlayItemIcons = propShowOverlayItemIcons.getBoolean(SHOW_OVERLAY_ITEM_ICONS_DEFAULT);
 		
-		propnumericAmplifier = configuration.get(Names.Config.Category.GENERAL,
+		propnumericAmplifier = configuration.get(categoryGeneral,
 				Names.Config.NUMERIC_AMPLIFIER, NUMERIC_AMPLIFIER_DEFAULT, Names.Config.NUMERIC_AMPLIFIER_DESC);
-		propnumericAmplifier.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.NUMERIC_AMPLIFIER);
+		propnumericAmplifier.setLanguageKey(prefix + Names.Config.NUMERIC_AMPLIFIER);
 		numericAmplifier = propnumericAmplifier.getBoolean(NUMERIC_AMPLIFIER_DEFAULT);
 		
-		propServerSeed = configuration.get(Names.Config.Category.GENERAL, Names.Config.SERVER_SEED, SERVER_SEED_DEFAULT,
+		propServerSeed = configuration.get(categoryGeneral, Names.Config.SERVER_SEED, SERVER_SEED_DEFAULT,
 				Names.Config.SERVER_SEED_DESC);
-		propServerSeed.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SERVER_SEED);
-		propServerSeed.setRequiresMcRestart(true);
+		propServerSeed.setLanguageKey(prefix + Names.Config.SERVER_SEED).setRequiresMcRestart(true);
 		try {
 			serverSeed = Long.parseLong(propServerSeed.getString());
 		} catch (Exception e) {
@@ -135,12 +140,12 @@ public class ConfigurationHandler {
 		}
 		Reference.logger.info("serverSeed=" + serverSeed);
 		
-		propSendSeedToChat = configuration.get(Names.Config.Category.GENERAL, Names.Config.SEND_SEED_TO_CHAT, false,
+		propSendSeedToChat = configuration.get(categoryGeneral, Names.Config.SEND_SEED_TO_CHAT, false,
 				Names.Config.SEND_SEED_TO_CHAT_DESC);
-		propSendSeedToChat.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SEND_SEED_TO_CHAT);
+		propSendSeedToChat.setLanguageKey(prefix + Names.Config.SEND_SEED_TO_CHAT);
 		sendSeedToChat = propSendSeedToChat.getBoolean();
 		
-		propAlignmentMiddleCenter = configuration.get(Names.Config.Category.GENERAL, Names.Config.ALIGNMENT_MIDDLECENTER,
+		propAlignmentMiddleCenter = configuration.get(categoryGeneral, Names.Config.ALIGNMENT_MIDDLECENTER,
 				ALIGNMENT_MIDDLECENTER_DEFAULT, Names.Config.ALIGNMENT_MIDDLECENTER_DESC);
 		propAlignmentMiddleCenter.setValidValues(new String[] {
 				Names.Command.TOP_LEFT,
@@ -153,31 +158,34 @@ public class ConfigurationHandler {
 				Names.Command.BOTTOM_CENTER,
 				Names.Command.BOTTOM_RIGHT
 		});
-		propAlignmentMiddleCenter.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.ALIGNMENT_MIDDLECENTER);
+		propAlignmentMiddleCenter.setLanguageKey(prefix + Names.Config.ALIGNMENT_MIDDLECENTER);
 		alignmentMiddleCenter = propAlignmentMiddleCenter.getString();
 		
-		prophealthDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
+		propHealthDecimalPlace = configuration.get(categoryGeneral,
 				Names.Config.HEALTH_DECIMAL_PLACE, HEALTH_DECIMAL_PLACE_DEFAULT, Names.Config.HEALTH_DECIMAL_PLACE_DESC,
 				0, 6);
-		prophealthDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HEALTH_DECIMAL_PLACE);
-		healthDecimalPlace = prophealthDecimalPlace.getInt(HEALTH_DECIMAL_PLACE_DEFAULT);
+		propHealthDecimalPlace.setLanguageKey(prefix + Names.Config.HEALTH_DECIMAL_PLACE);
+		healthDecimalPlace = propHealthDecimalPlace.getInt(HEALTH_DECIMAL_PLACE_DEFAULT);
 		
-		prophungerDecimalPlace = configuration.get(Names.Config.Category.GENERAL,
-				Names.Config.HUNGER_DECIMAL_PLACE, HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC,
-				0, 6);
-		prophungerDecimalPlace.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.HUNGER_DECIMAL_PLACE);
-		hungerDecimalPlace = prophungerDecimalPlace.getInt(HUNGER_DECIMAL_PLACE_DEFAULT);
+		propHungerDecimalPlace = configuration.get(categoryGeneral, Names.Config.HUNGER_DECIMAL_PLACE,
+				HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC, 0, 6);
+		propHungerDecimalPlace.setLanguageKey(prefix + Names.Config.HUNGER_DECIMAL_PLACE);
+		hungerDecimalPlace = propHungerDecimalPlace.getInt(HUNGER_DECIMAL_PLACE_DEFAULT);
+		
+		propDisplayInvisiblePlayer = configuration.get(categoryGeneral, Names.Config.DISPLAY_INVISIBLE_PLAYER,
+				false, Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC);
+		propDisplayInvisiblePlayer.setLanguageKey(prefix + Names.Config.DISPLAY_INVISIBLE_PLAYER);
+		displayInvisiblePlayer = propDisplayInvisiblePlayer.getBoolean();
 
 		for (final Alignment alignment : Alignment.values()) {
 			final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
 			final Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignmentName,
 					alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
-			property.setLanguageKey(Names.Config.LANG_PREFIX + "." + alignmentName);
+			property.setLanguageKey(prefix + alignmentName);
 			property.setValidationPattern(Pattern.compile("-?\\d+ -?\\d+"));
 			propAlignments.put(alignment, property);
 			alignment.setXY(property.getString());
 		}
-
 		save();
 	}
 
