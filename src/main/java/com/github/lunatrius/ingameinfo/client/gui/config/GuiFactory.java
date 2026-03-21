@@ -45,7 +45,7 @@ public class GuiFactory implements IModGuiFactory {
 		}
 	}
 
-	private static List<IConfigElement> getConfigElements(final Configuration configuration, final String langPrefix) {
+	public static List<IConfigElement> getConfigElements(final Configuration configuration, final String langPrefix) {
 		final List<IConfigElement> elements = new ArrayList<IConfigElement>();
 		for (final String name : configuration.getCategoryNames()) {
 			final ConfigCategory category = configuration.getCategory(name)

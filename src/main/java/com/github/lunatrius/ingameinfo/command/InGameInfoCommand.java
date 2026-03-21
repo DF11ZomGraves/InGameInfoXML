@@ -1,10 +1,13 @@
 package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.client.gui.config.GuiFactory;
 import com.github.lunatrius.ingameinfo.client.gui.tag.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.DelayedGuiDisplayTicker;
 import com.github.lunatrius.ingameinfo.reference.Names;
+import com.github.lunatrius.ingameinfo.reference.Reference;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -13,6 +16,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.client.config.GuiConfig;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -50,7 +54,8 @@ public class InGameInfoCommand extends CommandBase {
 	public List<String> getTabCompletions(final MinecraftServer server, final ICommandSender sender,
 			final String[] args, final @Nullable BlockPos pos) {
 		if (args.length == 1)
-			return getListOfStringsMatchingLastWord(args, Names.Command.LOAD, Names.Command.TAGLIST);
+			return getListOfStringsMatchingLastWord(args, Names.Command.LOAD, Names.Command.TAGLIST,
+					Names.Command.CONFIG);
 		else if (args.length == 2)
 			if (args[0].equalsIgnoreCase(Names.Command.LOAD))
 				return getListOfStringsMatchingLastWord(args, getFilenames());
@@ -87,9 +92,14 @@ public class InGameInfoCommand extends CommandBase {
 			} else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
 				DelayedGuiDisplayTicker.create(new GuiTags(), 10);
 				return;
+			} else if (args[0].equalsIgnoreCase(Names.Command.CONFIG)) {
+				String path = ConfigurationHandler.configuration.toString();
+				DelayedGuiDisplayTicker.create(new GuiConfig(null,
+						GuiFactory.getConfigElements(ConfigurationHandler.configuration, Names.Config.LANG_PREFIX),
+						Reference.MODID, false, false, GuiConfig.getAbridgedConfigPath(path)), 0);
+				return;
 			}
 		}
-
 		throw new WrongUsageException(getUsage(sender));
 	}
 }
