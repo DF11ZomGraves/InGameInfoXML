@@ -138,7 +138,6 @@ public abstract class TagNearbyPlayer extends Tag {
 	}
 
 	public static class Health extends TagNearbyPlayer {
-
 		public Health(int index) {
 			super(index);
 		}
@@ -155,7 +154,6 @@ public abstract class TagNearbyPlayer extends Tag {
 	}
 
 	public static class MaxHealth extends TagNearbyPlayer {
-
 		public MaxHealth(int index) {
 			super(index);
 		}
@@ -170,6 +168,23 @@ public abstract class TagNearbyPlayer extends Tag {
 			return "-1";
 		}
 	}
+	
+	public static class Absorption extends TagNearbyPlayer {
+		public Absorption(int index) {
+			super(index);
+		}
+
+		@Override
+		public String getValue() {
+			updateNearbyPlayers();
+			if (nearbyPlayers.length > this.index) {
+				float playerAbsorption = nearbyPlayers[this.index].getAbsorptionAmount();
+				return StringConvertUtils.getFloatDisplayFormat(playerAbsorption, ConfigurationHandler.healthDecimalPlace);
+			}
+			return "-1";
+		}
+		
+	}
 
 	public static void register() {
 		for (int i = 0; i < MAXIMUM_INDEX; i++) {
@@ -178,6 +193,7 @@ public abstract class TagNearbyPlayer extends Tag {
 			TagRegistry.INSTANCE.register(new Icon(i).setName("nearbyplayericon"));
 			TagRegistry.INSTANCE.register(new Health(i).setName("nearbyplayerhealth"));
 			TagRegistry.INSTANCE.register(new MaxHealth(i).setName("nearbyplayermaxhealth"));
+			TagRegistry.INSTANCE.register(new Absorption(i).setName("nearbyplayerabsorption"));
 		}
 	}
 

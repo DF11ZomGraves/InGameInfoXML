@@ -32,6 +32,7 @@ public final class Names {
 		public static final String RELOAD = "reload";
 		public static final String LOAD = "load";
 		public static final String TAGLIST = "taglist";
+		public static final String CONFIG = "config";
 
 		public static final String TOP_LEFT = "TOPLEFT";
 		public static final String TOP_CENTER = "TOPCENTER";
