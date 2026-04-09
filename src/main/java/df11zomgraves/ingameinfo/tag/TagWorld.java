@@ -217,39 +217,20 @@ public abstract class TagWorld extends Tag {
 //			return String.format(Locale.ENGLISH, "%.0f", f * 100);
 //		}
 //	}
+	
+	public static class TPS extends TagWorld {
+		@Override
+		public String getValue() {
+			return String.format("%.0f", tps);
+		}
+	}
 
-	// reference net.minecraftforge.server.command.TPSCommand
-//	private static long mean(long[] values) {
-//		long sum = 0L;
-//		for (long v : values)
-//			sum += v;
-//		return sum / values.length;
-//	}
-
-//	public static class TPS extends TagWorld {
-//		@Override
-//		public String getValue() {
-//			ResourceKey<Level> dim = world.dimension();
-//			long[] times = minecraft.player.getServer().getTickTime(dim);
-//			if (times == null)
-//				return "-1";
-//			double worldTickTime = mean(times) * 1.0E-6D;
-//			double worldTPS = Math.min(1000.0 / worldTickTime, 20);
-//			return String.format("###0.00", worldTPS);
-//		}
-//	}
-
-//	public static class MSPT extends TagWorld {
-//		@Override
-//		public String getValue() {
-//			ResourceKey<Level> dim = world.dimension();
-//			long[] times = minecraft.player.getServer().getTickTime(dim);
-//			if (times == null)
-//				return "-1";
-//			double worldTickTime = mean(times) * 1.0E-6D;
-//			return String.format("###0.00", worldTickTime);
-//		}
-//	}
+	public static class MSPT extends TagWorld {
+		@Override
+		public String getValue() {
+			return String.format("%.0f", mspt);
+		}
+	}
 
 	public static void register() {
 //		TagRegistry.INSTANCE.register(new Name().setName("worldname"));
@@ -274,7 +255,7 @@ public abstract class TagWorld extends Tag {
 		TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));
 //		TagRegistry.INSTANCE.register(new LocalTemperature().setName("localtemperature"));
 //		TagRegistry.INSTANCE.register(new Humidity().setName("humidity"));
-//		TagRegistry.INSTANCE.register(new TPS().setName("tps"));
-//		TagRegistry.INSTANCE.register(new MSPT().setName("mspt"));
+		TagRegistry.INSTANCE.register(new TPS().setName("tps"));
+		TagRegistry.INSTANCE.register(new MSPT().setName("mspt"));
 	}
 }

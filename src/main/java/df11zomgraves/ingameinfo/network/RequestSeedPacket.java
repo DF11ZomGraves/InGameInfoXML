@@ -8,11 +8,7 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 public class RequestSeedPacket {
-	
-	public RequestSeedPacket() {
 
-	}
-	
 	public void encode(final FriendlyByteBuf buf) {
 	}
 
@@ -25,7 +21,7 @@ public class RequestSeedPacket {
 			final ServerPlayer player = context.get().getSender();
 			if (player != null) {
 				long seed = player.serverLevel().getSeed();
-				PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new MessageSeed(seed));
+				PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new ResponseSeedPacket(seed));
 			}
 		});
 		context.get().setPacketHandled(true);

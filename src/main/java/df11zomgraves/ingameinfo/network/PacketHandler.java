@@ -21,7 +21,11 @@ public class PacketHandler {
 		int id = 0;
 		INSTANCE.registerMessage(id++, RequestSeedPacket.class, RequestSeedPacket::encode,
 				RequestSeedPacket::decode, RequestSeedPacket::handleMessage);
-		INSTANCE.registerMessage(id++, MessageSeed.class, MessageSeed::encode, MessageSeed::decode,
-				MessageSeed::handleMessage);
+		INSTANCE.registerMessage(id++, ResponseSeedPacket.class, ResponseSeedPacket::encode, ResponseSeedPacket::decode,
+				ResponseSeedPacket::handleMessage);
+		INSTANCE.registerMessage(id++, RequestMSPTPacket.class, RequestMSPTPacket::encode,
+				RequestMSPTPacket::decode, RequestMSPTPacket::handleMessage);
+		INSTANCE.registerMessage(id++, ResponseMSPTPacket.class, ResponseMSPTPacket::encode, ResponseMSPTPacket::decode,
+				ResponseMSPTPacket::handleMessage);
 	}
 }

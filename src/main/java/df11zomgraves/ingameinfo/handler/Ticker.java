@@ -2,13 +2,16 @@ package df11zomgraves.ingameinfo.handler;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
 import df11zomgraves.ingameinfo.network.PacketHandler;
+import df11zomgraves.ingameinfo.network.RequestMSPTPacket;
 import df11zomgraves.ingameinfo.network.RequestSeedPacket;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
+import df11zomgraves.ingameinfo.util.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
+import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -26,9 +29,7 @@ public class Ticker {
 	private final Minecraft client = Minecraft.getInstance();
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 	private boolean inGame = false;
-
-	private Ticker() {
-	}
+	private long lastRemoteUpdate = 0;
 
 	private boolean isRunning() {
 		if (!enabled)
@@ -50,7 +51,7 @@ public class Ticker {
 		}
 		return false;
 	}
-
+	
 	@SubscribeEvent
 	public void onRenderGuiOverlayEvent(final RenderGuiOverlayEvent.Pre event) {
 //		if (!isRunning())
@@ -80,6 +81,23 @@ public class Ticker {
 			if (!inGameCurrent) {
 				Tag.setSeed(ConfigurationHandler.seed);
 				inGame = false;
+			} else {
+				IntegratedServer singleServer = client.getSingleplayerServer();
+				if (singleServer != null) {
+					long[] times = singleServer.getTickTime(client.level.dimension());
+					if (times != null) {
+						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
+						Tag.setMSPT(worldTickTime);
+					}
+				}
+				else {
+					Tag.setMSPT(-1.0);
+					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
+					if (delay > 1500 || delay < 0) {
+						PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
+						lastRemoteUpdate = System.currentTimeMillis();
+					}
+				}
 			}
 		} else if (inGameCurrent)
 			try {

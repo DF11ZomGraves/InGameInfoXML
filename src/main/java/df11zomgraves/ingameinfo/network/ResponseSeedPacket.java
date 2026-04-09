@@ -7,14 +7,14 @@ import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
-public class MessageSeed {
+public class ResponseSeedPacket {
 	public long seed;
 
-	public MessageSeed() {
+	public ResponseSeedPacket() {
 		this.seed = 0;
 	}
 
-	public MessageSeed(final long seed) {
+	public ResponseSeedPacket(final long seed) {
 		this.seed = seed;
 	}
 
@@ -22,8 +22,8 @@ public class MessageSeed {
 		buf.writeVarLong(this.seed);
 	}
 
-	public static MessageSeed decode(final FriendlyByteBuf buf) {
-		return new MessageSeed(buf.readVarLong());
+	public static ResponseSeedPacket decode(final FriendlyByteBuf buf) {
+		return new ResponseSeedPacket(buf.readVarLong());
 	}
 
 	public void handleMessage(Supplier<NetworkEvent.Context> context) {

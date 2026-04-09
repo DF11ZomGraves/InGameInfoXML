@@ -18,6 +18,8 @@ public abstract class Tag {
 	protected static LocalPlayer player;
 	protected static List<Info> info;
 	protected static long seed = 0;
+	protected static double mspt = -1;
+	protected static double tps = -1;
 
 	private String name = null;
 	private String[] aliases = new String[0];
@@ -65,6 +67,11 @@ public abstract class Tag {
 
 	public static void setSeed(final long seed) {
 		Tag.seed = seed;
+	}
+	
+	public static void setMSPT(final double mspt) {
+		Tag.mspt = mspt;
+		Tag.tps = (mspt == -1) ? -1 : Math.min(1000.0 / mspt, 20);
 	}
 	
 	public static void setWorld(final ClientLevel world) {
