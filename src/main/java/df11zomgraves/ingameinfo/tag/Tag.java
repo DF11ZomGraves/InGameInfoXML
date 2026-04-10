@@ -6,7 +6,6 @@ import net.minecraft.client.player.LocalPlayer;
 import java.util.List;
 
 import df11zomgraves.ingameinfo.gui.overlay.Info;
-import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.util.MBlockPos;
 import df11zomgraves.ingameinfo.util.Vector3f;
 
@@ -17,16 +16,9 @@ public abstract class Tag {
 	protected static ClientLevel world;
 	protected static LocalPlayer player;
 	protected static List<Info> info;
-	protected static long seed = 0;
-	protected static double mspt = -1;
-	protected static double tps = -1;
 
 	private String name = null;
 	private String[] aliases = new String[0];
-
-	public Tag() {
-		setSeed(ConfigurationHandler.seed);
-	}
 
 	public Tag setName(final String name) {
 		this.name = name;
@@ -64,15 +56,6 @@ public abstract class Tag {
 
 	public abstract String getCategory();
 	public abstract String getValue();
-
-	public static void setSeed(final long seed) {
-		Tag.seed = seed;
-	}
-	
-	public static void setMSPT(final double mspt) {
-		Tag.mspt = mspt;
-		Tag.tps = (mspt == -1) ? -1 : Math.min(1000.0 / mspt, 20);
-	}
 	
 	public static void setWorld(final ClientLevel world) {
 		Tag.world = world;

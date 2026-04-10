@@ -25,6 +25,9 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod(Names.MODID)
 public class InGameInfoXML {
 	public static Logger logger = LogManager.getLogger(Names.MODID);
+	public static long seed = 0;
+	public static double mspt = -1;
+	public static double tps = -1;
 
 	public InGameInfoXML(FMLJavaModLoadingContext context) {
 		PacketHandler.init();

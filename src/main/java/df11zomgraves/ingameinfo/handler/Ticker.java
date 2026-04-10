@@ -1,6 +1,7 @@
 package df11zomgraves.ingameinfo.handler;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
+import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.network.PacketHandler;
 import df11zomgraves.ingameinfo.network.RequestMSPTPacket;
 import df11zomgraves.ingameinfo.network.RequestSeedPacket;
@@ -79,7 +80,9 @@ public class Ticker {
 		boolean inGameCurrent = (client.level == null ? false : true);
 		if (inGame) {
 			if (!inGameCurrent) {
-				Tag.setSeed(ConfigurationHandler.seed);
+				InGameInfoXML.seed = ConfigurationHandler.seed;
+				InGameInfoXML.mspt = -1;
+				InGameInfoXML.tps = -1;
 				inGame = false;
 			} else {
 				IntegratedServer singleServer = client.getSingleplayerServer();
@@ -87,15 +90,18 @@ public class Ticker {
 					long[] times = singleServer.getTickTime(client.level.dimension());
 					if (times != null) {
 						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
-						Tag.setMSPT(worldTickTime);
+						InGameInfoXML.mspt = worldTickTime;
+						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
 					}
 				}
 				else {
-					Tag.setMSPT(-1.0);
 					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
-					if (delay > 1500 || delay < 0) {
+					if (delay > 1500 || delay < 0) 
+					try {
 						PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
 						lastRemoteUpdate = System.currentTimeMillis();
+					} catch (Exception e) {
+						InGameInfoXML.logger.error("Failed to get mspt.");
 					}
 				}
 			}
@@ -105,7 +111,7 @@ public class Ticker {
 				showVerionInfo();
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
 			} catch (Exception e) {
-				Tag.setSeed(ConfigurationHandler.seed);
+				InGameInfoXML.seed = ConfigurationHandler.seed;
 			}
 		onTick(event);
 	}

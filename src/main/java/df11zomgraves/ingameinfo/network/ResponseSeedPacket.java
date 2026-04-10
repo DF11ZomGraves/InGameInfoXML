@@ -2,7 +2,7 @@ package df11zomgraves.ingameinfo.network;
 
 import java.util.function.Supplier;
 
-import df11zomgraves.ingameinfo.tag.Tag;
+import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
@@ -28,7 +28,7 @@ public class ResponseSeedPacket {
 
 	public void handleMessage(Supplier<NetworkEvent.Context> context) {
 		context.get().enqueueWork(() -> {
-			Tag.setSeed(seed);
+			InGameInfoXML.seed = seed;
 		});
 		context.get().setPacketHandled(true);
 		StringConvertUtils.sendSeedToChat(seed);

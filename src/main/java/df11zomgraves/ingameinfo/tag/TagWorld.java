@@ -1,5 +1,6 @@
 package df11zomgraves.ingameinfo.tag;
 
+import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.util.ChunkHelper;
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
@@ -63,7 +64,7 @@ public abstract class TagWorld extends Tag {
 	public static class Seed extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.valueOf(seed);
+			return String.valueOf(InGameInfoXML.seed);
 		}
 	}
 
@@ -173,17 +174,17 @@ public abstract class TagWorld extends Tag {
 	public static class Slimes extends TagWorld {
 		@Override
 		public String getValue() {
-			boolean slimeChunk = ChunkHelper.isSlimeChunk(seed, playerPosition);
+			boolean slimeChunk = ChunkHelper.isSlimeChunk(InGameInfoXML.seed, playerPosition);
 			int playerPos = playerPosition.y;
 			boolean isSwamp = world.getBiome(playerPosition).is(Biomes.SWAMP);
-			return String.valueOf(seed != 0 && slimeChunk || isSwamp && playerPos > 50 && playerPos < 70);
+			return String.valueOf(InGameInfoXML.seed != 0 && slimeChunk || isSwamp && playerPos > 50 && playerPos < 70);
 		}
 	}
 
 	public static class SlimeChunk extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.valueOf(seed != 0 && ChunkHelper.isSlimeChunk(seed, playerPosition));
+			return String.valueOf(InGameInfoXML.seed != 0 && ChunkHelper.isSlimeChunk(InGameInfoXML.seed, playerPosition));
 		}
 	}
 
@@ -221,14 +222,14 @@ public abstract class TagWorld extends Tag {
 	public static class TPS extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", tps);
+			return String.format("%.0f", InGameInfoXML.tps);
 		}
 	}
 
 	public static class MSPT extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", mspt);
+			return String.format("%.0f", InGameInfoXML.mspt);
 		}
 	}
 
