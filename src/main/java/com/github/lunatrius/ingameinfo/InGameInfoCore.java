@@ -8,7 +8,6 @@ import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
 import com.github.lunatrius.ingameinfo.parser.xml.XmlParser;
 import com.github.lunatrius.ingameinfo.reference.Names;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.Value;
 import com.github.lunatrius.ingameinfo.value.ValueComplex;
@@ -81,7 +80,7 @@ public class InGameInfoCore {
 			}
 		}
 
-		Reference.logger.warn("The config '{}' does not exist", filename);
+		InGameInfoXML.logger.warn("The config '{}' does not exist", filename);
 		this.configFile = null;
 		this.parser = new XmlParser();
 		return filename.equalsIgnoreCase("default");
@@ -212,17 +211,17 @@ public class InGameInfoCore {
 
 		try {
 			if (this.configFile != null && this.configFile.exists()) {
-				Reference.logger.debug("Loading file config...");
+				InGameInfoXML.logger.debug("Loading file config...");
 				inputStream = new FileInputStream(this.configFile);
 			} else {
-				Reference.logger.debug("Loading default config...");
+				InGameInfoXML.logger.debug("Loading default config...");
 				final ResourceLocation resourceLocation = new ResourceLocation("ingameinfo",
 						Names.Files.FILE_XML.toLowerCase(Locale.ENGLISH));
 				final IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
 				inputStream = resource.getInputStream();
 			}
 		} catch (final Exception e) {
-			Reference.logger.error("", e);
+			InGameInfoXML.logger.error("", e);
 		}
 
 		return inputStream;
@@ -233,7 +232,7 @@ public class InGameInfoCore {
 			if (value.isValidSize())
 				return value.getReplacedValue();
 		} catch (final Exception e) {
-			Reference.logger.debug("Failed to get value!", e);
+			InGameInfoXML.logger.debug("Failed to get value!", e);
 			return "null";
 		}
 

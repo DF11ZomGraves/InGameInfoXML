@@ -1,10 +1,10 @@
 package com.github.lunatrius.ingameinfo.value;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoItem;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.util.EntityHelper;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
@@ -198,7 +198,7 @@ public abstract class ValueComplex extends Value {
 
 			if (ticks == 0) {
 				if (this.cache.size() > 16) {
-					Reference.logger.trace("Clearing file cache...");
+					InGameInfoXML.logger.trace("Clearing file cache...");
 					this.cache.clear();
 				}
 
@@ -228,7 +228,7 @@ public abstract class ValueComplex extends Value {
 
 				return line;
 			} catch (final Exception e) {
-				Reference.logger.error("", e);
+				InGameInfoXML.logger.error("", e);
 			}
 
 			return "";

@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.client.gui.config.GuiHelper;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.util.Vector2f;
 
 import net.minecraft.client.Minecraft;
@@ -80,7 +80,7 @@ public class InfoIcon extends Info {
 
 			GlStateManager.translate(-getX(), -getY(), 0);
 		} catch (final Exception e) {
-			Reference.logger.debug(e);
+			InGameInfoXML.logger.error(e);
 		}
 	}
 

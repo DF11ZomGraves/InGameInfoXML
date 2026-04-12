@@ -1,8 +1,8 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
 import com.github.lunatrius.ingameinfo.Alignment;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.parser.IParser;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.value.Value;
 
 import java.io.BufferedReader;
@@ -45,7 +45,7 @@ public class TextParser implements IParser {
 
 			this.tokenizer.tokenize(content);
 		} catch (final Exception e) {
-			Reference.logger.fatal("Could not read text configuration file!", e);
+			InGameInfoXML.logger.fatal("Could not read text configuration file!", e);
 			return false;
 		}
 
@@ -61,7 +61,7 @@ public class TextParser implements IParser {
 			expr = alignments(format) && this.token.isEof();
 		} catch (final Exception e) {
 			expr = false;
-			Reference.logger.error("Parsing failed at {}!", this.token, e);
+			InGameInfoXML.logger.error("Parsing failed at {}!", this.token, e);
 		}
 
 		return expr;

@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag.registry;
 
-import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.tag.TagFormatting;
 import com.github.lunatrius.ingameinfo.tag.TagMisc;
@@ -27,12 +27,12 @@ public class TagRegistry {
 
 	private void register(final String name, final Tag tag) {
 		if (this.stringTagMap.containsKey(name)) {
-			Reference.logger.error("Duplicate tag key '" + name + "'!");
+			InGameInfoXML.logger.error("Duplicate tag key '" + name + "'!");
 			return;
 		}
 
 		if (name == null) {
-			Reference.logger.error("Tag name cannot be null!");
+			InGameInfoXML.logger.error("Tag name cannot be null!");
 			return;
 		}
 
@@ -71,6 +71,6 @@ public class TagRegistry {
 		TagTime.register();
 		TagWorld.register();
 
-		Reference.logger.info("Registered " + this.stringTagMap.size() + " tags.");
+		InGameInfoXML.logger.info("Registered " + this.stringTagMap.size() + " tags.");
 	}
 }

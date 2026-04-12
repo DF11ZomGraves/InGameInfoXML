@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.value.registry;
 
-import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.value.Value;
 import com.github.lunatrius.ingameinfo.value.ValueComplex;
 import com.github.lunatrius.ingameinfo.value.ValueLogic;
@@ -20,12 +20,12 @@ public class ValueRegistry {
 
 	private void register(final String name, final Value value, final boolean isAlias) {
 		if (this.stringValueMap.containsKey(name)) {
-			Reference.logger.error("Duplicate value key '" + name + "'!");
+			InGameInfoXML.logger.error("Duplicate value key '" + name + "'!");
 			return;
 		}
 
 		if (name == null) {
-			Reference.logger.error("Value name cannot be null!");
+			InGameInfoXML.logger.error("Value name cannot be null!");
 			return;
 		}
 
@@ -53,11 +53,11 @@ public class ValueRegistry {
 					return value;
 			}
 		} catch (final Exception e) {
-			Reference.logger.error(String.format("Failed to create an instance for %s!", name), e);
+			InGameInfoXML.logger.error(String.format("Failed to create an instance for %s!", name), e);
 			return new ValueSimple.ValueInvalid();
 		}
 
-		Reference.logger.error(String.format("Failed to create an instance for %s!", name));
+		InGameInfoXML.logger.error(String.format("Failed to create an instance for %s!", name));
 		return new ValueSimple.ValueInvalid();
 	}
 

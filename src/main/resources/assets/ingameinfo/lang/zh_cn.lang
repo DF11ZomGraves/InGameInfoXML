@@ -310,6 +310,8 @@ ingameinfoxml.tag.hardcore.desc=如果该游戏世界为极限模式就返回§e
 ingameinfoxml.tag.temperature.desc=生物群系温度。
 ingameinfoxml.tag.localtemperature.desc=你当前位置的生物群系温度。
 ingameinfoxml.tag.humidity.desc=生物群系湿度。
+ingameinfoxml.tag.tps.desc=当前维度每秒tick数。
+ingameinfoxml.tag.mspt.desc=当前维度平均每tick所用的毫秒数。
 
 # keys
 ingameinfoxml.key.category=InGameInfo XML

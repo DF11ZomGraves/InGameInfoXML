@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
 
@@ -84,7 +84,7 @@ public abstract class TagRiding extends Tag {
 			}
 
 			if (this.jumpHeightCache.size() > 16) {
-				Reference.logger.trace("Clearing horse jump height cache.");
+				InGameInfoXML.logger.trace("Clearing horse jump height cache.");
 				this.jumpHeightCache.clear();
 			}
 

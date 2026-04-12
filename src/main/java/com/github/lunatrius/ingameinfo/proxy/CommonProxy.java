@@ -1,8 +1,8 @@
 package com.github.lunatrius.ingameinfo.proxy;
 
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.network.PacketHandler;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -11,9 +11,8 @@ import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 
 public class CommonProxy {
 	public void preInit(final FMLPreInitializationEvent event) {
-		Reference.logger = event.getModLog();
+		InGameInfoXML.logger = event.getModLog();
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-//        FMLInterModComms.sendMessage("LunatriusCore", "checkUpdate", Reference.FORGE);
 	}
 
 	public void init(final FMLInitializationEvent event) {

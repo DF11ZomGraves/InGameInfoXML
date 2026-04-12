@@ -311,6 +311,8 @@ ingameinfoxml.tag.hardcore.desc=§etrue§r if the world is in hardcore mode, §e
 ingameinfoxml.tag.temperature.desc=Biome temperature.
 ingameinfoxml.tag.localtemperature.desc=Biome temperature at your current position.
 ingameinfoxml.tag.humidity.desc=Biome humidity.
+ingameinfoxml.tag.tps.desc=Current ticks per second in the current dimension.
+ingameinfoxml.tag.mspt.desc=The average milliseconds per tick in the current dimension.
 
 # keys
 ingameinfoxml.key.category=InGameInfo XML

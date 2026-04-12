@@ -1,7 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
-import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.util.MBlockPos;
 import com.github.lunatrius.ingameinfo.util.Vector3f;
@@ -22,15 +21,10 @@ public abstract class Tag {
 	protected static World world;
 	protected static EntityPlayerSP player;
 	protected static List<Info> info;
-	protected static long seed = 0;
 
 	private String name = null;
 	private String[] aliases = new String[0];
 	
-	public Tag() {
-		setSeed(ConfigurationHandler.serverSeed);
-	}
-
 	public Tag setName(final String name) {
 		this.name = name;
 		return this;
@@ -75,10 +69,6 @@ public abstract class Tag {
 
 	public abstract String getCategory();
 	public abstract String getValue();
-
-	public static void setSeed(final long seed) {
-		Tag.seed = seed;
-	}
 
 	public static void setWorld(final World world) {
 		Tag.world = world;

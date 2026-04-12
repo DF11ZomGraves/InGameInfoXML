@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.ChunkHelper;
 
@@ -62,7 +63,7 @@ public abstract class TagWorld extends Tag {
 	public static class Seed extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.valueOf(seed);
+			return String.valueOf(InGameInfoXML.seed);
 		}
 	}
 
@@ -191,16 +192,18 @@ public abstract class TagWorld extends Tag {
 	public static class Slimes extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.valueOf(seed != 0 && ChunkHelper.isSlimeChunk(seed, playerPosition)
-					|| world.getBiome(playerPosition) == Biomes.SWAMPLAND && playerPosition.y > 50
-							&& playerPosition.y < 70);
+			return String
+					.valueOf(InGameInfoXML.seed != 0 && ChunkHelper.isSlimeChunk(InGameInfoXML.seed, playerPosition)
+							|| world.getBiome(playerPosition) == Biomes.SWAMPLAND && playerPosition.y > 50
+									&& playerPosition.y < 70);
 		}
 	}
 
 	public static class SlimeChunk extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.valueOf(seed != 0 && ChunkHelper.isSlimeChunk(seed, playerPosition));
+			return String
+					.valueOf(InGameInfoXML.seed != 0 && ChunkHelper.isSlimeChunk(InGameInfoXML.seed, playerPosition));
 		}
 	}
 
@@ -233,6 +236,20 @@ public abstract class TagWorld extends Tag {
 		}
 	}
 
+	public static class TPS extends TagWorld {
+		@Override
+		public String getValue() {
+			return String.format("%.0f", InGameInfoXML.tps);
+		}
+	}
+
+	public static class MSPT extends TagWorld {
+		@Override
+		public String getValue() {
+			return String.format("%.0f", InGameInfoXML.mspt);
+		}
+	}
+
 	public static void register() {
 		TagRegistry.INSTANCE.register(new Name().setName("worldname"));
 		TagRegistry.INSTANCE.register(new Size().setName("worldsize"));
@@ -257,5 +274,7 @@ public abstract class TagWorld extends Tag {
 		TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));
 		TagRegistry.INSTANCE.register(new LocalTemperature().setName("localtemperature"));
 		TagRegistry.INSTANCE.register(new Humidity().setName("humidity"));
+		TagRegistry.INSTANCE.register(new TPS().setName("tps"));
+		TagRegistry.INSTANCE.register(new MSPT().setName("mspt"));
 	}
 }

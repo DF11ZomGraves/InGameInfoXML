@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.value;
 
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
 
@@ -106,7 +106,7 @@ public abstract class Value {
 			if (value != null)
 				return value;
 		} catch (final Exception e) {
-			Reference.logger.debug("Failed to get value!", e);
+			InGameInfoXML.logger.debug("Failed to get value!", e);
 			return "null";
 		}
 

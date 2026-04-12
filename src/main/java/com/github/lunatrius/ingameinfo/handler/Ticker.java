@@ -1,11 +1,19 @@
 package com.github.lunatrius.ingameinfo.handler;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
+import com.github.lunatrius.ingameinfo.network.PacketHandler;
+import com.github.lunatrius.ingameinfo.network.RequestMSPTPacket;
+import com.github.lunatrius.ingameinfo.network.RequestSeedPacket;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
+import com.github.lunatrius.ingameinfo.util.MathUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -23,6 +31,8 @@ public class Ticker {
 	private final Minecraft client = Minecraft.getMinecraft();
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 	private static boolean showVersionMessage = false;
+	private boolean inGame = false;
+	private long lastRemoteUpdate = 0;
 
 	private Ticker() {
 	}
@@ -48,6 +58,45 @@ public class Ticker {
 
 	@SubscribeEvent
 	public void onClientTick(final TickEvent.ClientTickEvent event) {
+		boolean inGameCurrent = (client.world == null ? false : true);
+		if (inGame) {
+			if (!inGameCurrent) {
+				InGameInfoXML.seed = ConfigurationHandler.serverSeed;
+				InGameInfoXML.mspt = -1;
+				InGameInfoXML.tps = -1;
+				inGame = false;
+			} else {
+				IntegratedServer singleServer = client.getIntegratedServer();
+				if (singleServer != null && !client.isGamePaused()) {
+					EntityPlayer player = client.player;
+					long[] times = singleServer.worldTickTimes.get(player.dimension);
+					if (times != null) {
+						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
+						InGameInfoXML.mspt = worldTickTime;
+						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
+					}
+				} else {
+					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
+					if (delay > 1500 || delay < 0)
+						try {
+							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
+							lastRemoteUpdate = System.currentTimeMillis();
+						} catch (Exception e) {
+							InGameInfoXML.mspt = -1;
+							InGameInfoXML.tps = -1;
+							InGameInfoXML.logger.error("Failed to get mspt.");
+						}
+				}
+			}
+		}
+		else if (inGameCurrent) 
+			try {
+				inGame = true;
+				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
+			} catch (Exception e) {
+				InGameInfoXML.seed = ConfigurationHandler.serverSeed;
+				InGameInfoXML.logger.error("Failed to get Seed.");
+			}
 		onTick(event);
 	}
 

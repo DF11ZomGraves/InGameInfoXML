@@ -15,10 +15,17 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY)
 public class InGameInfoXML {
 	@Instance(Reference.MODID)
 	public static InGameInfoXML instance;
+	public static Logger logger = LogManager.getLogger(Reference.MODID);
+	public static long seed = 0;
+	public static double mspt = -1;
+	public static double tps = -1;
 
 	@SidedProxy(serverSide = Reference.PROXY_SERVER, clientSide = Reference.PROXY_CLIENT)
 	public static CommonProxy proxy;

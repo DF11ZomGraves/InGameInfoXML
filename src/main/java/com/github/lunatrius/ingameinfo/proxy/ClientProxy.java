@@ -4,7 +4,6 @@ import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.KeyInputHandler;
-import com.github.lunatrius.ingameinfo.handler.PlayerHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
@@ -41,7 +40,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(ConfigurationHandler.INSTANCE);
 		MinecraftForge.EVENT_BUS.register(KeyInputHandler.INSTANCE);
 		ClientCommandHandler.instance.registerCommand(InGameInfoCommand.INSTANCE);
-		MinecraftForge.EVENT_BUS.register(new PlayerHandler());
 	}
 
 	@Override

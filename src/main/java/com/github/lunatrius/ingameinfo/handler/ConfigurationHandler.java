@@ -1,6 +1,7 @@
 package com.github.lunatrius.ingameinfo.handler;
 
 import com.github.lunatrius.ingameinfo.Alignment;
+import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraftforge.common.config.Configuration;
@@ -138,7 +139,7 @@ public class ConfigurationHandler {
 		} catch (Exception e) {
 			serverSeed = 0;
 		}
-		Reference.logger.info("serverSeed=" + serverSeed);
+		InGameInfoXML.logger.info("serverSeed=" + serverSeed);
 		
 		propSendSeedToChat = configuration.get(categoryGeneral, Names.Config.SEND_SEED_TO_CHAT, false,
 				Names.Config.SEND_SEED_TO_CHAT_DESC);
