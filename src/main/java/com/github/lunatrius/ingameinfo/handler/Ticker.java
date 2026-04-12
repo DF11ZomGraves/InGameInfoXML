@@ -77,7 +77,7 @@ public class Ticker {
 					}
 				} else {
 					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
-					if (delay > 1500 || delay < 0)
+					if ((delay > 1500 || delay < 0) && !client.isGamePaused())
 						try {
 							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
 							lastRemoteUpdate = System.currentTimeMillis();
