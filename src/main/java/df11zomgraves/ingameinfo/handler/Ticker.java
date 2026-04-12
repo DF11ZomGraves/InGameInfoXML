@@ -86,7 +86,7 @@ public class Ticker {
 				inGame = false;
 			} else {
 				IntegratedServer singleServer = client.getSingleplayerServer();
-				if (singleServer != null) {
+				if (singleServer != null && !client.isPaused()) {
 					long[] times = singleServer.getTickTime(client.level.dimension());
 					if (times != null) {
 						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
