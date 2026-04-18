@@ -29,6 +29,8 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HEALTH_DECIMAL_PLACE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HUNGER_DECIMAL_PLACE_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Integer> MSPT_DECIMAL_PLACE_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Integer> TPS_DECIMAL_PLACE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> DISPLAY_INVISIBLE_PLAYER_DEFAULT;
 
 	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_LEFT;
@@ -56,6 +58,8 @@ public class ConfigurationHandler {
 	public static String alignmentMiddleCenter;
 	public static int healthDecimalPlace;
 	public static int hungerDecimalPlace;
+	public static int msptDecimalPlace;
+	public static int tpsDecimalPlace;
 	public static boolean displayInvisiblePlayer;
 
 	static {
@@ -75,6 +79,8 @@ public class ConfigurationHandler {
 		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
 		HEALTH_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HEALTH_DECIMAL_PLACE_DESC).define(Names.Config.HEALTH_DECIMAL_PLACE, 2);
 		HUNGER_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HUNGER_DECIMAL_PLACE_DESC).define(Names.Config.HUNGER_DECIMAL_PLACE, 2);
+		MSPT_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.MSPT_DECIMAL_PLACE_DESC).define(Names.Config.MSPT_DECIMAL_PLACE, 0);
+		TPS_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.TPS_DECIMAL_PLACE_DESC).define(Names.Config.TPS_DECIMAL_PLACE, 0);
 		DISPLAY_INVISIBLE_PLAYER_DEFAULT = BUILDER.comment(Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC).define(Names.Config.DISPLAY_INVISIBLE_PLAYER, false);
 
 		BUILDER.pop();
@@ -117,6 +123,8 @@ public class ConfigurationHandler {
 		showSurvivalHUD = SHOW_SURVIVAL_HUD_DEFAULT.get();
 		healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT.get();
 		hungerDecimalPlace = HUNGER_DECIMAL_PLACE_DEFAULT.get();
+		msptDecimalPlace = MSPT_DECIMAL_PLACE_DEFAULT.get();
+		tpsDecimalPlace = TPS_DECIMAL_PLACE_DEFAULT.get();
 		displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT.get();
 		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
 		try {
@@ -143,6 +151,8 @@ public class ConfigurationHandler {
 		SHOW_SURVIVAL_HUD_DEFAULT.set(showSurvivalHUD);
 		HEALTH_DECIMAL_PLACE_DEFAULT.set(healthDecimalPlace);
 		HUNGER_DECIMAL_PLACE_DEFAULT.set(hungerDecimalPlace);
+		MSPT_DECIMAL_PLACE_DEFAULT.set(msptDecimalPlace);
+		TPS_DECIMAL_PLACE_DEFAULT.set(tpsDecimalPlace);
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
 		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());

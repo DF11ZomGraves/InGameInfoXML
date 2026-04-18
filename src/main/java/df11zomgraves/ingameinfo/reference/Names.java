@@ -83,6 +83,12 @@ public final class Names {
 		public static final String HUNGER_DECIMAL_PLACE = "hungerDigit";
 		public static final String HUNGER_DECIMAL_PLACE_DESC = "Hunger value decimal places retained (saturation, exhaustion).";
 		
+		public static final String MSPT_DECIMAL_PLACE  = "msptDigit";
+		public static final String MSPT_DECIMAL_PLACE_DESC = "Mspt value decimal places retained.";
+		
+		public static final String TPS_DECIMAL_PLACE = "tpsDigit";
+		public static final String TPS_DECIMAL_PLACE_DESC = "Tps value decimal places retained.";
+		
 		public static final String DISPLAY_INVISIBLE_PLAYER = "displayInvisiblePlayer";
 		public static final String DISPLAY_INVISIBLE_PLAYER_DESC = "Should the nearbyplayer tag display invisible players?";
 	}

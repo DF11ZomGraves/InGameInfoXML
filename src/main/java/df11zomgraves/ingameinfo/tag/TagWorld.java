@@ -1,7 +1,9 @@
 package df11zomgraves.ingameinfo.tag;
 
 import df11zomgraves.ingameinfo.InGameInfoXML;
+import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.util.ChunkHelper;
+import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.Util;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
@@ -222,14 +224,14 @@ public abstract class TagWorld extends Tag {
 	public static class TPS extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", InGameInfoXML.tps);
+			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.tps, ConfigurationHandler.tpsDecimalPlace);
 		}
 	}
 
 	public static class MSPT extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", InGameInfoXML.mspt);
+			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.mspt, ConfigurationHandler.msptDecimalPlace);
 		}
 	}
 

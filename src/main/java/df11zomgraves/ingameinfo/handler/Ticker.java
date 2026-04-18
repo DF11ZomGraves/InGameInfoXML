@@ -55,8 +55,6 @@ public class Ticker {
 	
 	@SubscribeEvent
 	public void onRenderGuiOverlayEvent(final RenderGuiOverlayEvent.Pre event) {
-//		if (!isRunning())
-//			return;
 		NamedGuiOverlay overlay = event.getOverlay();
 		boolean isSurvivalHUD = overlay == VanillaGuiOverlay.PLAYER_HEALTH.type()
 				|| overlay == VanillaGuiOverlay.FOOD_LEVEL.type() || overlay == VanillaGuiOverlay.ARMOR_LEVEL.type();
@@ -83,8 +81,9 @@ public class Ticker {
 				InGameInfoXML.seed = ConfigurationHandler.seed;
 				InGameInfoXML.mspt = -1;
 				InGameInfoXML.tps = -1;
+				InGameInfoXML.serverInstalled = false;
 				inGame = false;
-			} else {
+			} else if (isRunning()) {
 				IntegratedServer singleServer = client.getSingleplayerServer();
 				if (singleServer != null && !client.isPaused()) {
 					long[] times = singleServer.getTickTime(client.level.dimension());
@@ -93,8 +92,8 @@ public class Ticker {
 						InGameInfoXML.mspt = worldTickTime;
 						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
 					}
-				}
-				else {
+				} else if (InGameInfoXML.serverInstalled) {
+					InGameInfoXML.serverInstalled = false;
 					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
 					if (delay > 1500 || delay < 0) 
 					try {
@@ -108,6 +107,7 @@ public class Ticker {
 		} else if (inGameCurrent)
 			try {
 				inGame = true;
+				InGameInfoXML.serverInstalled = true;
 				showVerionInfo();
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
 			} catch (Exception e) {

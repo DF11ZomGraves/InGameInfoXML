@@ -29,6 +29,7 @@ public class ResponseMSPTPacket {
 		context.get().enqueueWork(() -> {
 			InGameInfoXML.mspt = this.mspt;
 			InGameInfoXML.tps = (this.mspt == -1) ? -1 : Math.min(1000.0 / this.mspt, 20);
+			InGameInfoXML.serverInstalled = true;
 		});
 		context.get().setPacketHandled(true);
 	}

@@ -28,6 +28,7 @@ public class InGameInfoXML {
 	public static long seed = 0;
 	public static double mspt = -1;
 	public static double tps = -1;
+	public static boolean serverInstalled = false;
 
 	public InGameInfoXML(FMLJavaModLoadingContext context) {
 		PacketHandler.init();

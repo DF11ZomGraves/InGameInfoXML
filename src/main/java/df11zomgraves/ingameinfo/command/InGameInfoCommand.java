@@ -84,16 +84,6 @@ public class InGameInfoCommand {
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.SEND_SEED_TO_CHAT, BoolArgumentType.getBool(source, value))))));
 		
-		// igi config healthDigit true
-		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HEALTH_DECIMAL_PLACE)
-				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
-						source -> setDecimalPlace(Names.Config.HEALTH_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
-		
-		// igi config hungerDigit true
-		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HUNGER_DECIMAL_PLACE)
-				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
-						source -> setDecimalPlace(Names.Config.HUNGER_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
-		
 		// igi config showSurvivalHUD true
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.SHOW_SURVIVAL_HUD)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
@@ -103,6 +93,26 @@ public class InGameInfoCommand {
 		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.DISPLAY_INVISIBLE_PLAYER)
 				.then(Commands.argument(value, BoolArgumentType.bool()).executes(
 						source -> setBoolean(Names.Config.DISPLAY_INVISIBLE_PLAYER, BoolArgumentType.getBool(source, value))))));
+		
+		// igi config healthDigit 2
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HEALTH_DECIMAL_PLACE)
+				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
+						source -> setDecimalPlace(Names.Config.HEALTH_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
+		
+		// igi config hungerDigit 2
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.HUNGER_DECIMAL_PLACE)
+				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
+						source -> setDecimalPlace(Names.Config.HUNGER_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
+		
+		// igi config msptDigit 0
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.MSPT_DECIMAL_PLACE)
+				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
+						source -> setDecimalPlace(Names.Config.MSPT_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
+		
+		// igi config tpsDigit 0
+		igiCommand.then(Commands.literal("config").then(Commands.literal(Names.Config.TPS_DECIMAL_PLACE)
+				.then(Commands.argument(value, IntegerArgumentType.integer()).executes(
+						source -> setDecimalPlace(Names.Config.TPS_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
 		dispatcher.register(igiCommand);
 	}
 
@@ -218,6 +228,10 @@ public class InGameInfoCommand {
 			ConfigurationHandler.healthDecimalPlace = value;
 		else if (config.equals(Names.Config.HUNGER_DECIMAL_PLACE))
 			ConfigurationHandler.hungerDecimalPlace = value;
+		else if (config.equals(Names.Config.MSPT_DECIMAL_PLACE))
+			ConfigurationHandler.msptDecimalPlace = value;
+		else if (config.equals(Names.Config.TPS_DECIMAL_PLACE))
+			ConfigurationHandler.tpsDecimalPlace = value;
 		else {
 			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
 			return -1;
