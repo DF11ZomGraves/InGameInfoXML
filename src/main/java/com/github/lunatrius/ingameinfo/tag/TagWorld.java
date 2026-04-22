@@ -1,8 +1,10 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.util.ChunkHelper;
+import com.github.lunatrius.ingameinfo.util.StringConvertUtils;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Biomes;
@@ -239,14 +241,14 @@ public abstract class TagWorld extends Tag {
 	public static class TPS extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", InGameInfoXML.tps);
+			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.tps, ConfigurationHandler.tpsDecimalPlace);
 		}
 	}
 
 	public static class MSPT extends TagWorld {
 		@Override
 		public String getValue() {
-			return String.format("%.0f", InGameInfoXML.mspt);
+			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.mspt, ConfigurationHandler.msptDecimalPlace);
 		}
 	}
 

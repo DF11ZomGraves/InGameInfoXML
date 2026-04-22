@@ -34,6 +34,8 @@ public class ConfigurationHandler {
 	public static final String ALIGNMENT_MIDDLECENTER_DEFAULT = "MIDDLECENTER";
 	public static final int HEALTH_DECIMAL_PLACE_DEFAULT = 2;
 	public static final int HUNGER_DECIMAL_PLACE_DEFAULT = 2;
+	public static final int MSPT_DECIMAL_PLACE_DEFAULT = 0;
+	public static final int TPS_DECIMAL_PLACE_DEFAULT = 0;
 	public static final boolean DISPLAY_INVISIBLE_PLAYER_DEFAULT = false;
 
 	public static String configName = CONFIG_NAME_DEFAULT;
@@ -50,6 +52,8 @@ public class ConfigurationHandler {
 	public static String alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT;
 	public static int healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT;
 	public static int hungerDecimalPlace = HUNGER_DECIMAL_PLACE_DEFAULT;
+	public static int msptDecimalPlace = MSPT_DECIMAL_PLACE_DEFAULT;
+	public static int tpsDecimalPlace = TPS_DECIMAL_PLACE_DEFAULT;
 	public static boolean displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT;
 
 	public static Property propConfigName = null;
@@ -66,6 +70,8 @@ public class ConfigurationHandler {
 	public static Property propSendSeedToChat = null;
 	public static Property propHealthDecimalPlace = null;
 	public static Property propHungerDecimalPlace = null;
+	public static Property propMsptDecimalPlace = null;
+	public static Property propTpsDecimalPlace = null;
 	public static Property propDisplayInvisiblePlayer = null;
 		
 	public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
@@ -172,6 +178,16 @@ public class ConfigurationHandler {
 				HUNGER_DECIMAL_PLACE_DEFAULT, Names.Config.HUNGER_DECIMAL_PLACE_DESC, 0, 6);
 		propHungerDecimalPlace.setLanguageKey(prefix + Names.Config.HUNGER_DECIMAL_PLACE);
 		hungerDecimalPlace = propHungerDecimalPlace.getInt(HUNGER_DECIMAL_PLACE_DEFAULT);
+		
+		propMsptDecimalPlace = configuration.get(categoryGeneral, Names.Config.MSPT_DECIMAL_PLACE,
+				MSPT_DECIMAL_PLACE_DEFAULT, Names.Config.MSPT_DECIMAL_PLACE_DESC, 0, 6);
+		propMsptDecimalPlace.setLanguageKey(prefix + Names.Config.MSPT_DECIMAL_PLACE);
+		msptDecimalPlace = propMsptDecimalPlace.getInt(MSPT_DECIMAL_PLACE_DEFAULT);
+		
+		propTpsDecimalPlace = configuration.get(categoryGeneral, Names.Config.TPS_DECIMAL_PLACE,
+				TPS_DECIMAL_PLACE_DEFAULT, Names.Config.TPS_DECIMAL_PLACE_DESC, 0, 6);
+		propTpsDecimalPlace.setLanguageKey(prefix + Names.Config.TPS_DECIMAL_PLACE);
+		tpsDecimalPlace = propTpsDecimalPlace.getInt(TPS_DECIMAL_PLACE_DEFAULT);
 		
 		propDisplayInvisiblePlayer = configuration.get(categoryGeneral, Names.Config.DISPLAY_INVISIBLE_PLAYER,
 				false, Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC);

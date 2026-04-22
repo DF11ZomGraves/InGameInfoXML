@@ -33,6 +33,10 @@ ingameinfoxml.config.healthDecimalPlace=Health decimal place
 ingameinfoxml.config.healthDecimalPlace.tooltip=Health value decimal places retained (health, absorption).
 ingameinfoxml.config.hungerDecimalPlace=Hunger decimal place
 ingameinfoxml.config.hungerDecimalPlace.tooltip=Hunger value decimal places retained (saturation, exhaustion).
+ingameinfoxml.config.tpsDigit=TPS decimal place
+ingameinfoxml.config.tpsDigit.tooltip=TPS value decimal places retained.
+ingameinfoxml.config.msptDigit=MSPT decimal place
+ingameinfoxml.config.msptDigit.tooltip=MSPT value decimal places retained.
 ingameinfoxml.config.displayInvisiblePlayer=Display invisible player
 ingameinfoxml.config.displayInvisiblePlayer.tooltip=Should the nearbyplayer tag display invisible players?
 

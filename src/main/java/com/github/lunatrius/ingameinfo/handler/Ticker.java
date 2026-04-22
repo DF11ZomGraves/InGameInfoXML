@@ -64,8 +64,9 @@ public class Ticker {
 				InGameInfoXML.seed = ConfigurationHandler.serverSeed;
 				InGameInfoXML.mspt = -1;
 				InGameInfoXML.tps = -1;
+				InGameInfoXML.serverInstalled = false;
 				inGame = false;
-			} else {
+			} else if (isRunning()) {
 				IntegratedServer singleServer = client.getIntegratedServer();
 				if (singleServer != null && !client.isGamePaused()) {
 					EntityPlayer player = client.player;
@@ -75,9 +76,10 @@ public class Ticker {
 						InGameInfoXML.mspt = worldTickTime;
 						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
 					}
-				} else {
+				} else if (InGameInfoXML.serverInstalled) {
+					InGameInfoXML.serverInstalled = false;
 					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
-					if ((delay > 1500 || delay < 0) && !client.isGamePaused())
+					if ((delay > 1500 || delay < 0))
 						try {
 							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
 							lastRemoteUpdate = System.currentTimeMillis();
@@ -92,6 +94,7 @@ public class Ticker {
 		else if (inGameCurrent) 
 			try {
 				inGame = true;
+				InGameInfoXML.serverInstalled = true;
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
 			} catch (Exception e) {
 				InGameInfoXML.seed = ConfigurationHandler.serverSeed;

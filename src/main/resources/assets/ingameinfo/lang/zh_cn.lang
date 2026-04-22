@@ -33,6 +33,10 @@ ingameinfoxml.config.healthDecimalPlace=生命值小数位数
 ingameinfoxml.config.healthDecimalPlace.tooltip=生命值保留小数位数（包括伤害吸收）。
 ingameinfoxml.config.hungerDecimalPlace=饱食度小数位数
 ingameinfoxml.config.hungerDecimalPlace.tooltip=饱食度保留小数位数（包括饱和度）。
+ingameinfoxml.config.tpsDigit=TPS小数位数
+ingameinfoxml.config.tpsDigit.tooltip=TPS保留小数位数。
+ingameinfoxml.config.msptDigit=MSPT小数位数
+ingameinfoxml.config.msptDigit.tooltip=MSPT保留小数位数。
 ingameinfoxml.config.displayInvisiblePlayer=显示隐身玩家
 ingameinfoxml.config.displayInvisiblePlayer.tooltip=nearbyplayer标记是否显示隐身状态的玩家？
 

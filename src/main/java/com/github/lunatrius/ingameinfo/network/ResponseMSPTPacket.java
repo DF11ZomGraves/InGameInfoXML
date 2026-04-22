@@ -37,7 +37,7 @@ public class ResponseMSPTPacket implements IMessage {
 			try {
 				InGameInfoXML.mspt = message.mspt;
 				InGameInfoXML.tps = (message.mspt == -1) ? -1 : Math.min(1000.0 / message.mspt, 20);
-				InGameInfoXML.logger.info(InGameInfoXML.mspt);
+				InGameInfoXML.serverInstalled = true;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

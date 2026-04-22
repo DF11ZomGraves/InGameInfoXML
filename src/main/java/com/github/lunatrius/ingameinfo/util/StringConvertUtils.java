@@ -26,7 +26,7 @@ public class StringConvertUtils {
 		return s.toString();
 	}
 
-	public static String getFloatDisplayFormat(float value, int decimalPlace) {
+	public static String getFloatDisplayFormat(double value, int decimalPlace) {
 		if (decimalPlace < 0)
 			decimalPlace = 0;
 		else if (decimalPlace > 6)
