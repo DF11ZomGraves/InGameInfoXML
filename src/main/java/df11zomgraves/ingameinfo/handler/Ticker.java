@@ -83,25 +83,25 @@ public class Ticker {
 				InGameInfoXML.tps = -1;
 				InGameInfoXML.serverInstalled = false;
 				inGame = false;
-			} else if (isRunning()) {
-				IntegratedServer singleServer = client.getSingleplayerServer();
-				if (singleServer != null && !client.isPaused()) {
-					long[] times = singleServer.getTickTime(client.level.dimension());
-					if (times != null) {
-						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
-						InGameInfoXML.mspt = worldTickTime;
-						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
-					}
-				} else if (InGameInfoXML.serverInstalled) {
-					InGameInfoXML.serverInstalled = false;
-					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
-					if (delay > 1500 || delay < 0) 
-					try {
-						PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
-						lastRemoteUpdate = System.currentTimeMillis();
-					} catch (Exception e) {
-						InGameInfoXML.logger.error("Failed to get mspt.");
-					}
+			} else if (isRunning() && InGameInfoXML.existMSPT) {
+				long delay = (System.currentTimeMillis() - lastRemoteUpdate);
+				if (delay > 1500 || delay < 0) {
+					IntegratedServer singleServer = client.getSingleplayerServer();
+					if (singleServer != null) {
+						long[] times = singleServer.getTickTime(client.level.dimension());
+						if (times != null) {
+							double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
+							InGameInfoXML.mspt = worldTickTime;
+							InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
+						}
+					} else if (InGameInfoXML.serverInstalled)
+						try {
+							InGameInfoXML.serverInstalled = false;
+							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
+						} catch (Exception e) {
+							
+						}
+					lastRemoteUpdate = System.currentTimeMillis();
 				}
 			}
 		} else if (inGameCurrent)

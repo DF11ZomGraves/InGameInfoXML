@@ -166,15 +166,11 @@ public class InGameInfoCore {
 		}
 	}
 
-	public boolean loadConfig(final String filename) {
-		return setConfigFile(filename) && reloadConfig();
-	}
-
 	public boolean reloadConfig() {
 		this.info.clear();
 		this.infoItemQueue.clear();
 		this.format.clear();
-
+		InGameInfoXML.existMSPT = false;
 		if (this.parser == null) {
 			return false;
 		}

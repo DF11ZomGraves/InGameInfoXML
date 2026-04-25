@@ -224,6 +224,7 @@ public abstract class TagWorld extends Tag {
 	public static class TPS extends TagWorld {
 		@Override
 		public String getValue() {
+			InGameInfoXML.existMSPT = true;
 			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.tps, ConfigurationHandler.tpsDecimalPlace);
 		}
 	}
@@ -231,6 +232,7 @@ public abstract class TagWorld extends Tag {
 	public static class MSPT extends TagWorld {
 		@Override
 		public String getValue() {
+			InGameInfoXML.existMSPT = true;
 			return StringConvertUtils.getFloatDisplayFormat(InGameInfoXML.mspt, ConfigurationHandler.msptDecimalPlace);
 		}
 	}
