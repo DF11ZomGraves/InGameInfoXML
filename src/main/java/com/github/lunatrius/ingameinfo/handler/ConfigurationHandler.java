@@ -21,7 +21,7 @@ public class ConfigurationHandler {
 	public static Configuration configuration;
 
 	public static final String CONFIG_NAME_DEFAULT = Names.Files.FILE_XML;
-	public static final boolean REPLACE_DEBUG_DEFAULT = false;
+//	public static final boolean REPLACE_DEBUG_DEFAULT = false;
 	public static final boolean SHOW_IN_CHAT_DEFAULT = true;
 	public static final boolean SHOW_ON_PLAYER_LIST_DEFAULT = true;
 	public static final double SCALE_DEFAULT = 1.0;
@@ -39,7 +39,7 @@ public class ConfigurationHandler {
 	public static final boolean DISPLAY_INVISIBLE_PLAYER_DEFAULT = false;
 
 	public static String configName = CONFIG_NAME_DEFAULT;
-	public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
+//	public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
 	public static boolean showInChat = SHOW_IN_CHAT_DEFAULT;
 	public static boolean showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT;
 	public static float scale = (float) SCALE_DEFAULT;
@@ -57,7 +57,7 @@ public class ConfigurationHandler {
 	public static boolean displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT;
 
 	public static Property propConfigName = null;
-	public static Property propReplaceDebug = null;
+//	public static Property propReplaceDebug = null;
 	public static Property propShowInChat = null;
 	public static Property propShowOnPlayerList = null;
 	public static Property propScale = null;
@@ -96,10 +96,10 @@ public class ConfigurationHandler {
 		propConfigName.setLanguageKey(prefix + Names.Config.FILENAME).setRequiresMcRestart(true);
 		configName = propConfigName.getString();
 
-		propReplaceDebug = configuration.get(categoryGeneral, Names.Config.REPLACE_DEBUG,
-				REPLACE_DEBUG_DEFAULT, Names.Config.REPLACE_DEBUG_DESC);
-		propReplaceDebug.setLanguageKey(prefix + Names.Config.REPLACE_DEBUG);
-		replaceDebug = propReplaceDebug.getBoolean(REPLACE_DEBUG_DEFAULT);
+//		propReplaceDebug = configuration.get(categoryGeneral, Names.Config.REPLACE_DEBUG,
+//				REPLACE_DEBUG_DEFAULT, Names.Config.REPLACE_DEBUG_DESC);
+//		propReplaceDebug.setLanguageKey(prefix + Names.Config.REPLACE_DEBUG);
+//		replaceDebug = propReplaceDebug.getBoolean(REPLACE_DEBUG_DEFAULT);
 
 		propShowInChat = configuration.get(categoryGeneral, Names.Config.SHOW_IN_CHAT,
 				SHOW_IN_CHAT_DEFAULT, Names.Config.SHOW_IN_CHAT_DESC);

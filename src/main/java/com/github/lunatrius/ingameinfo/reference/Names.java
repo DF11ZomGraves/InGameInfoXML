@@ -53,8 +53,8 @@ public final class Names {
 
 		public static final String FILENAME = "filename";
 		public static final String FILENAME_DESC = "The configuration that should be loaded on startup.";
-		public static final String REPLACE_DEBUG = "replaceDebug";
-		public static final String REPLACE_DEBUG_DESC = "Replace the debug overlay (F3) with the InGameInfo XML overlay.";
+//		public static final String REPLACE_DEBUG = "replaceDebug";
+//		public static final String REPLACE_DEBUG_DESC = "Replace the debug overlay (F3) with the InGameInfo XML overlay.";
 		public static final String SHOW_IN_CHAT = "showInChat";
 		public static final String SHOW_IN_CHAT_DESC = "Display the overlay in chat.";
 		public static final String SHOW_ON_PLAYER_LIST = "showOnPlayerList";

@@ -17,42 +17,29 @@ import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.text.ChatType;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class Ticker {
 	public static final Ticker INSTANCE = new Ticker();
-
 	public static boolean enabled = true;
-
 	private final Minecraft client = Minecraft.getMinecraft();
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
-	private static boolean showVersionMessage = false;
 	private boolean inGame = false;
 	private long lastRemoteUpdate = 0;
 
 	private Ticker() {
 	}
 
-	@SubscribeEvent
-	public void clientJoinedEvent(ClientConnectedToServerEvent event) {
-		showVersionMessage = true;
-	}
-
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
-		if (canRun()) {
-			if (ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG)
-				event.setCanceled(true);
-			if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
-				event.setCanceled(true);
-		}
-
-		if (!ConfigurationHandler.showOverlayPotions
-				&& event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS)
+		ElementType elementType = event.getType();
+		if (isRunning() && elementType == RenderGameOverlayEvent.ElementType.TEXT)
+			event.setCanceled(true);
+		if (!ConfigurationHandler.showOverlayPotions && elementType == RenderGameOverlayEvent.ElementType.POTION_ICONS)
 			event.setCanceled(true);
 	}
 
@@ -66,35 +53,34 @@ public class Ticker {
 				InGameInfoXML.tps = -1;
 				InGameInfoXML.serverInstalled = false;
 				inGame = false;
-			} else if (isRunning()) {
-				IntegratedServer singleServer = client.getIntegratedServer();
-				if (singleServer != null && !client.isGamePaused()) {
-					EntityPlayer player = client.player;
-					long[] times = singleServer.worldTickTimes.get(player.dimension);
-					if (times != null) {
-						double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
-						InGameInfoXML.mspt = worldTickTime;
-						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
-					}
-				} else if (InGameInfoXML.serverInstalled) {
-					InGameInfoXML.serverInstalled = false;
-					long delay = (System.currentTimeMillis() - lastRemoteUpdate);
-					if ((delay > 1500 || delay < 0))
+			} else if (isRunning() && InGameInfoXML.existMSPT) {
+				long delay = (System.currentTimeMillis() - lastRemoteUpdate);
+				if ((delay > 1500 || delay < 0)) {
+					IntegratedServer singleServer = client.getIntegratedServer();
+					if (singleServer != null && !client.isGamePaused()) {
+						EntityPlayer player = client.player;
+						long[] times = singleServer.worldTickTimes.get(player.dimension);
+						if (times != null) {
+							double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
+							InGameInfoXML.mspt = worldTickTime;
+							InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
+						}
+					} else if (InGameInfoXML.serverInstalled)
 						try {
+							InGameInfoXML.serverInstalled = false;
 							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
-							lastRemoteUpdate = System.currentTimeMillis();
 						} catch (Exception e) {
 							InGameInfoXML.mspt = -1;
 							InGameInfoXML.tps = -1;
-							InGameInfoXML.logger.error("Failed to get mspt.");
 						}
+					lastRemoteUpdate = System.currentTimeMillis();
 				}
 			}
-		}
-		else if (inGameCurrent) 
+		} else if (inGameCurrent)
 			try {
 				inGame = true;
 				InGameInfoXML.serverInstalled = true;
+				showVerionInfo();
 				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
 			} catch (Exception e) {
 				InGameInfoXML.seed = ConfigurationHandler.serverSeed;
@@ -105,35 +91,20 @@ public class Ticker {
 
 	@SubscribeEvent
 	public void onRenderTick(final TickEvent.RenderTickEvent event) {
-		if (showVersionMessage && client != null && client.player != null) {
-			showVersionMessage = false;
-			showVerionInfo();
-		}
 		onTick(event);
 	}
 
 	// TODO: this requires a bit of optimization... it's just boolean checks mostly
 	// but still
-	private boolean canRun() {
+	private boolean isRunning() {
 		if (!enabled)
 			return false;
 		if (this.client.mcProfiler.profilingEnabled)
 			return true;
-		if (ConfigurationHandler.replaceDebug
-				|| ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo)
-			return true;
-
-		return false;
-	}
-
-	private boolean isRunning() {
-		if (!canRun())
-			return false;
-		if (this.client.mcProfiler.profilingEnabled)
-			return true;
 		// a && b || !a && !b --> a == b
-		if (this.client.gameSettings != null
-				&& ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
+		if (this.client.gameSettings != null) {
+			if (this.client.gameSettings.showDebugInfo)
+				return false;
 			if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown())
 				return false;
 			if (this.client.gameSettings.hideGUI)

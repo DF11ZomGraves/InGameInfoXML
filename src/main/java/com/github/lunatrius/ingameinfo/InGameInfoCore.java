@@ -186,7 +186,7 @@ public class InGameInfoCore {
 		this.info.clear();
 		this.infoItemQueue.clear();
 		this.format.clear();
-
+		InGameInfoXML.existMSPT = false;
 		if (this.parser == null)
 			return false;
 

@@ -27,6 +27,7 @@ public class InGameInfoXML {
 	public static double mspt = -1;
 	public static double tps = -1;
 	public static boolean serverInstalled = false;
+	public static boolean existMSPT = false;
 
 	@SidedProxy(serverSide = Reference.PROXY_SERVER, clientSide = Reference.PROXY_CLIENT)
 	public static CommonProxy proxy;
