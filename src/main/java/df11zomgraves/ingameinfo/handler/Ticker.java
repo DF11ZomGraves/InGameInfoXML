@@ -24,9 +24,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Ticker {
 	public static final Ticker INSTANCE = new Ticker();
-
 	public static boolean enabled = true;
-
 	private final Minecraft client = Minecraft.getInstance();
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 	private boolean inGame = false;
@@ -99,7 +97,8 @@ public class Ticker {
 							InGameInfoXML.serverInstalled = false;
 							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
 						} catch (Exception e) {
-							
+							InGameInfoXML.mspt = -1;
+							InGameInfoXML.tps = -1;
 						}
 					lastRemoteUpdate = System.currentTimeMillis();
 				}
