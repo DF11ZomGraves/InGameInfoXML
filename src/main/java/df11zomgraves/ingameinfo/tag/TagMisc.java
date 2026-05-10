@@ -68,11 +68,9 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			final String str = player.connection.getConnection().getRemoteAddress().toString();
 			final int i = str.indexOf("/");
-			final int j = str.indexOf(":");
-			if (i < 0) {
+			final int j = str.lastIndexOf(":");
+			if (i < 0)
 				return "localhost";
-			}
-
 			final String name = (i == 0) ? str.substring(i + 1, j) : str.substring(0, i);
 			final String port = str.substring(j + 1);
 			return name + (port.equals("25565") ? "" : ":" + port);
@@ -84,11 +82,10 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			final String str = player.connection.getConnection().getRemoteAddress().toString();
 			final int i = str.indexOf("/");
-			if (i < 0) {
+			if (i < 0)
 				return "localhost";
-			} else if (i == 0) {
-				return str.substring(i + 1, str.indexOf(":"));
-			}
+			if (i == 0)
+				return str.substring(i + 1, str.lastIndexOf(":"));
 			return str.substring(0, i);
 		}
 	}
@@ -98,10 +95,9 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			final String str = player.connection.getConnection().getRemoteAddress().toString();
 			final int i = str.indexOf("/");
-			if (i < 0) {
+			if (i < 0)
 				return "127.0.0.1";
-			}
-			return str.substring(i + 1, str.indexOf(":"));
+			return str.substring(i + 1, str.lastIndexOf(":"));
 		}
 	}
 
@@ -110,10 +106,9 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			final String str = player.connection.getConnection().getRemoteAddress().toString();
 			final int i = str.indexOf("/");
-			if (i < 0) {
+			if (i < 0)
 				return "-1";
-			}
-			return str.substring(str.indexOf(":") + 1);
+			return str.substring(str.lastIndexOf(":") + 1);
 		}
 	}
 
