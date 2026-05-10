@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.9.1.100, Release, 2026/5/?
+﻿InGameInfo XML 2.9.1.100, Release, 2026/5/10
 Common
 	1.Add displayInvisiblePlayer configuration.
 	2.Add nearbyplayerabsorption tag.

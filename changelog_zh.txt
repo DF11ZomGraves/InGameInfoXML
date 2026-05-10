@@ -1,4 +1,4 @@
-﻿InGameInfo XML 2.9.1.100, Release, 2026/5/?
+﻿InGameInfo XML 2.9.1.100, Release, 2026/5/10
 通用
 	1.增加“displayInvisiblePlayer”选项，决定nearbyplayer相关指令是否获取隐身状态的玩家。
 	2.增加nearbyplayerabsorption标签，用于显示附近玩家的伤害吸收值。
@@ -7,10 +7,10 @@
 	5.修复在多人游戏下且服务端安装的情况下seed标签显示问题。
 	6.修复服务器地址为ipv6下，server、servername和serverport标签显示不正确问题。
 1.12.2
-	1.增加/igi config指令
-	2.移除“replaceDebug”选项
+	1.增加/igi config指令。
+	2.移除“replaceDebug”选项。
 1.20.1
-	1.调整/igi config指令
+	1.调整/igi config指令。
 
 InGameInfo XML 2.9.0.99, Release, 2026/2/11
 通用
