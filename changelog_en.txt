@@ -1,4 +1,18 @@
-﻿InGameInfo XML 2.9.0.99, Release, 2026/2/11
+﻿InGameInfo XML 2.9.1.100, Release, 2026/5/?
+Common
+	1.Add displayInvisiblePlayer configuration.
+	2.Add nearbyplayerabsorption tag.
+	3.Add tps, mspt tag.
+	4.Add tpsDecimalPlace, msptDecimalPlace configuration.
+	5.Fix issue of unable to display seed in multiplayer world.
+	6.Fix issue where the server address is IPv6, and the "server", "servername", and "serverport" tags display incorrectly.
+1.12.2
+	1.Add "/igi config" command.
+	2.Remove "replaceDebug" configuration.
+1.20.1
+	1.Adjust "/igi config" command.
+
+InGameInfo XML 2.9.0.99, Release, 2026/2/11
 Common
 	1.Add the "HealthDecimalPlace" and "HungerDecimalPlace" option to the configuration file.
 	2.Add "targethealth", "targetmaxhealth", "nearbyplayerhealth", "nearbyplayermaxhealth" tag.
