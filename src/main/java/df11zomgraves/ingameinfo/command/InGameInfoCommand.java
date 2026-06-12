@@ -9,6 +9,7 @@ import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
+import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.command.arguments.AlignArgument;
 import df11zomgraves.ingameinfo.command.arguments.FileArgument;
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
@@ -160,9 +161,14 @@ public class InGameInfoCommand {
 
 	public static int SetSeed(long seed) {
 		Minecraft mc = Minecraft.getInstance();
+		if (InGameInfoXML.serverInstalled) {
+			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS2));
+			return 1;
+		}
 		try {
 			ConfigurationHandler.seed = seed;
 			ConfigurationHandler.applyConfiguration();
+			InGameInfoXML.seed = seed;
 			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS, seed));
 		} catch (final Exception e) {
 			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_FAILURE));

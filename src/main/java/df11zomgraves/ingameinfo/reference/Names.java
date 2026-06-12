@@ -2,7 +2,7 @@ package df11zomgraves.ingameinfo.reference;
 
 public final class Names {
 	public static final String MODID = "ingameinfoxml";
-	public static final String VERSION = "2.9.1.100";
+	public static final String VERSION = "2.9.2.101";
 	public static final String VERSION_CHAT = "chat.ingameinfo.version";
 	public static final String SHOW_SEED = "chat.ingameinfo.seed";
 	
@@ -17,6 +17,7 @@ public final class Names {
 			public static final String ALIGNMENT_SET_SUCCESS = "commands.ingameinfoxml.alignment.set.success";
 			public static final String ALIGNMENT_SET_FAILURE = "commands.ingameinfoxml.alignment.set.failure";
 			public static final String SED_SEET_SUCCESS = "commands.ingameinfoxml.seed.set.success";
+			public static final String SED_SEET_SUCCESS2 = "commands.ingameinfoxml.seed.set.success2";
 			public static final String SED_SEET_FAILURE = "commands.ingameinfoxml.seed.set.failure";
 			public static final String ALIGNMENT_MIDDLECENTER_SET_SUCCESS = "commands.ingameinfoxml.alignmentmiddlecenter.set.success";
 			public static final String ALIGNMENT_MIDDLECENTER_SET_FAILURE = "commands.ingameinfoxml.alignmentmiddlecenter.set.failure";
