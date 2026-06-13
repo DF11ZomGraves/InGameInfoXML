@@ -152,7 +152,7 @@ public class InGameInfoCommand {
 					Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_FAILURE, alignment));
 			return -1;
 		}
-		ConfigurationHandler.alignmentMiddleCenter = alignment;
+		ConfigurationHandler.alignmentMiddleCenter = align;
 		ConfigurationHandler.applyConfiguration();
 		mc.gui.getChat().addMessage(
 				Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_SUCCESS, alignment));

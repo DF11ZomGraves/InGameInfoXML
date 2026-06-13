@@ -26,7 +26,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_SURVIVAL_HUD_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGNMENT_MIDDLECENTER_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<Alignment> ALIGNMENT_MIDDLECENTER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HEALTH_DECIMAL_PLACE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HUNGER_DECIMAL_PLACE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> MSPT_DECIMAL_PLACE_DEFAULT;
@@ -55,7 +55,7 @@ public class ConfigurationHandler {
 	public static boolean sendSeedToChat;
 	public static boolean showSurvivalHUD;
 	public static long seed;
-	public static String alignmentMiddleCenter;
+	public static Alignment alignmentMiddleCenter;
 	public static int healthDecimalPlace;
 	public static int hungerDecimalPlace;
 	public static int msptDecimalPlace;
@@ -70,18 +70,24 @@ public class ConfigurationHandler {
 		SCALE_DEFAULT = BUILDER.comment(Names.Config.SCALE_DESC).defineInRange(Names.Config.SCALE, 1.0, 0.5, 2.0);
 		FILE_INTERVAL_DEFAULT = BUILDER.comment(Names.Config.FILE_INTERVAL_DESC).defineInRange(Names.Config.FILE_INTERVAL, 5, 1, 60);
 		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
-		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC).define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
+		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC)
+				.define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
 		SEND_SEED_TO_CHAT_DEFAULT = BUILDER.comment(Names.Config.SEND_SEED_TO_CHAT_DESC).define(Names.Config.SEND_SEED_TO_CHAT, false);
 		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
-		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC).define(Names.Config.ALIGNMENT_MIDDLECENTER,
-				Names.Command.MIDDLE_CENTER);
+		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC)
+				.defineEnum(Names.Config.ALIGNMENT_MIDDLECENTER, Alignment.MIDDLECENTER);
 		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
-		HEALTH_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HEALTH_DECIMAL_PLACE_DESC).define(Names.Config.HEALTH_DECIMAL_PLACE, 2);
-		HUNGER_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HUNGER_DECIMAL_PLACE_DESC).define(Names.Config.HUNGER_DECIMAL_PLACE, 2);
-		MSPT_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.MSPT_DECIMAL_PLACE_DESC).define(Names.Config.MSPT_DECIMAL_PLACE, 0);
-		TPS_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.TPS_DECIMAL_PLACE_DESC).define(Names.Config.TPS_DECIMAL_PLACE, 0);
-		DISPLAY_INVISIBLE_PLAYER_DEFAULT = BUILDER.comment(Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC).define(Names.Config.DISPLAY_INVISIBLE_PLAYER, false);
+		HEALTH_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HEALTH_DECIMAL_PLACE_DESC)
+				.defineInRange(Names.Config.HEALTH_DECIMAL_PLACE, 2, 0, 6);
+		HUNGER_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HUNGER_DECIMAL_PLACE_DESC)
+				.defineInRange(Names.Config.HUNGER_DECIMAL_PLACE, 2, 0, 6);
+		MSPT_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.MSPT_DECIMAL_PLACE_DESC)
+				.defineInRange(Names.Config.MSPT_DECIMAL_PLACE, 1, 0, 6);
+		TPS_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.TPS_DECIMAL_PLACE_DESC)
+				.defineInRange(Names.Config.TPS_DECIMAL_PLACE, 1, 0, 6);
+		DISPLAY_INVISIBLE_PLAYER_DEFAULT = BUILDER.comment(Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC)
+				.define(Names.Config.DISPLAY_INVISIBLE_PLAYER, false);
 
 		BUILDER.pop();
 		BUILDER.push(Names.Config.Category.ALIGNMENT);

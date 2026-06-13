@@ -66,7 +66,7 @@ public enum Alignment {
 	}
 
 	public int getX(final int screenwidth, final int textwidth) {
-		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toLowerCase(Locale.ENGLISH);
+		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toString().toLowerCase();
 		switch (this.alignment & MASK_X) {
 		case LEFT:
 			return this.x;
@@ -86,7 +86,7 @@ public enum Alignment {
 	}
 
 	public int getY(final int screenheight, final int textheight) {
-		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toLowerCase(Locale.ENGLISH);
+		String alignmentMiddleCenter = ConfigurationHandler.alignmentMiddleCenter.toString().toLowerCase();
 		switch (this.alignment & MASK_Y) {
 		case TOP:
 			return this.y;
