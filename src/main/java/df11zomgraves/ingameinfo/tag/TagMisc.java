@@ -1,7 +1,11 @@
 package df11zomgraves.ingameinfo.tag;
 
+import java.util.Collection;
+
 import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraftforge.fml.ModList;
 
 public abstract class TagMisc extends Tag {
@@ -60,6 +64,26 @@ public abstract class TagMisc extends Tag {
 		public String getValue() {
 			String entitiesTotal = minecraft.levelRenderer.getEntityStatistics();
 			return entitiesTotal.split("/")[1].split(",")[0];
+		}
+	}
+	
+	public static class ResourcePack extends TagMisc {
+		protected static final PackRepository resourcePackRepository = minecraft.getResourcePackRepository();
+		
+		@Override
+		public String getValue() {
+			final Collection<Pack> selectedPacks = resourcePackRepository.getSelectedPacks();
+			String result = "";
+			String packName;
+			for (Pack pack : selectedPacks) {
+				if (pack.getId() == "mod_resources")
+					continue;
+				packName = pack.getTitle().getString();
+				if (!result.isEmpty())
+					result += ";";
+				result += packName;
+			}
+			return result;
 		}
 	}
 
@@ -220,5 +244,6 @@ public abstract class TagMisc extends Tag {
 		TagRegistry.INSTANCE.register(new ServerName().setName("servername"));
 		TagRegistry.INSTANCE.register(new ServerPort().setName("serverport"));
 		TagRegistry.INSTANCE.register(new Server().setName("server"));
+		TagRegistry.INSTANCE.register(new ResourcePack().setName("resourcepack"));
 	}
 }
