@@ -55,10 +55,15 @@ public abstract class TagMisc extends Tag {
 		@Override
 		public String getValue() {
 			final List<ResourcePackRepository.Entry> repositoryEntries = resourcePackRepository.getRepositoryEntries();
-			if (repositoryEntries.size() > 0) {
-				return repositoryEntries.get(0).getResourcePackName();
+			String result = resourcePackRepository.rprDefaultResourcePack.getPackName();
+			String result1 = "";
+			if (repositoryEntries.isEmpty())
+				return result;
+			for (int i = 0; i < repositoryEntries.size(); i++) {
+				result1 += repositoryEntries.get(i).getResourcePackName();
+				result1 += ";";
 			}
-			return resourcePackRepository.rprDefaultResourcePack.getPackName();
+			return result1 + result;
 		}
 	}
 

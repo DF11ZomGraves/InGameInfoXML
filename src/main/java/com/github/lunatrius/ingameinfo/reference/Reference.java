@@ -3,7 +3,7 @@ package com.github.lunatrius.ingameinfo.reference;
 public class Reference {
 	public static final String MODID = "ingameinfoxml";
 	public static final String NAME = "InGame Info XML";
-	public static final String VERSION = "2.9.1.100";
+	public static final String VERSION = "2.9.2.101";
 	public static final String FORGE = "14.23.5.2860";
 	public static final String MINECRAFT = "1.12.2";
 	public static final String PROXY_SERVER = "com.github.lunatrius.ingameinfo.proxy.ServerProxy";
