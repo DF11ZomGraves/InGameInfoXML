@@ -54,8 +54,12 @@ public class Ticker {
 	@SubscribeEvent
 	public void onRenderGuiOverlayEvent(final RenderGuiOverlayEvent.Pre event) {
 		NamedGuiOverlay overlay = event.getOverlay();
-		boolean isSurvivalHUD = overlay == VanillaGuiOverlay.PLAYER_HEALTH.type()
-				|| overlay == VanillaGuiOverlay.FOOD_LEVEL.type() || overlay == VanillaGuiOverlay.ARMOR_LEVEL.type();
+		boolean isSurvivalHUD =
+				overlay == VanillaGuiOverlay.PLAYER_HEALTH.type() ||
+				overlay == VanillaGuiOverlay.FOOD_LEVEL.type() ||
+				overlay == VanillaGuiOverlay.AIR_LEVEL.type() ||
+				overlay == VanillaGuiOverlay.MOUNT_HEALTH.type() ||
+				overlay == VanillaGuiOverlay.ARMOR_LEVEL.type();
 
 		if (isSurvivalHUD && !ConfigurationHandler.showSurvivalHUD)
 			event.setCanceled(true);
