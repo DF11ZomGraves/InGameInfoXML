@@ -19,7 +19,7 @@
 	"commands.ingameinfoxml.config.notfound": "Configuration %s not found.",
 	"chat.ingameinfo.version": "InGameInfo XML %s\n [%s] to toggle, [%s] to reload.",
 	"chat.ingameinfo.seed": "[InGameInfo XML] Current seed: %s",
-	
+
 	"ingameinfoxml.configuration.general": "General",
 	"ingameinfoxml.configuration.alignment": "Alignment",
 	"ingameinfoxml.configuration.filename": "File name",
@@ -40,6 +40,24 @@
 	"ingameinfoxml.configuration.displayInvisiblePlayer": "Display invisible player",
 	"ingameinfoxml.configuration.showSurvivalHUD": "Show Survival HUD",
 	
+	"ingameinfoxml.configuration.filename.tooltip": "The configuration that should be loaded on startup.",
+	"ingameinfoxml.configuration.showInChat.tooltip": "Display the overlay in chat.",
+	"ingameinfoxml.configuration.showOnPlayerList.tooltip": "Display the overlay on the player list.",
+	"ingameinfoxml.configuration.scale.tooltip": "The overlay will be scaled by this amount.",
+	"ingameinfoxml.configuration.fileInterval.tooltip": "The interval between file reads for the 'file' tag (in seconds).",
+	"ingameinfoxml.configuration.showOverlayPotions.tooltip": "Display the vanilla potion overlay.",
+	"ingameinfoxml.configuration.showOverlayItemIcons.tooltip": "Display the item overlay on icon (durability, stack size).",
+	"ingameinfoxml.configuration.defaultSeedInServer.tooltip": "Default seed in server (if InGameInfo XML NOT INSTALLED in Server).",
+	"ingameinfoxml.configuration.numericAmplifier.tooltip": "Use numerical values to display effect amplifier instead of Roman numerals.",
+	"ingameinfoxml.configuration.alignmentForMiddleCenter.tooltip": "Alignment for the middle center side of the screen.",
+	"ingameinfoxml.configuration.sendSeedToChat.tooltip": "Send seed to chat when entering the world.",
+	"ingameinfoxml.configuration.healthDigit.tooltip": "Health value decimal places retained (health, absorption).",
+	"ingameinfoxml.configuration.hungerDigit.tooltip": "Hunger value decimal places retained (saturation, exhaustion).",
+	"ingameinfoxml.configuration.tpsDigit.tooltip": "Tps value decimal places retained.",
+	"ingameinfoxml.configuration.msptDigit.tooltip": "Mspt value decimal places retained.",
+	"ingameinfoxml.configuration.displayInvisiblePlayer.tooltip": "",
+	"ingameinfoxml.configuration.showSurvivalHUD.tooltip": "Display the vanilla survival hud (health, foodlevel, armor).",
+	
 	"ingameinfoxml.configuration.topleft": "Top Left",
 	"ingameinfoxml.configuration.topcenter": "Top Center",
 	"ingameinfoxml.configuration.topright": "Top Right",
@@ -48,5 +66,15 @@
 	"ingameinfoxml.configuration.middleright": "Middle Right",
 	"ingameinfoxml.configuration.bottomleft": "Bottom Left",
 	"ingameinfoxml.configuration.bottomcenter": "Bottom Center",
-	"ingameinfoxml.configuration.bottomright": "Bottom Right"
+	"ingameinfoxml.configuration.bottomright": "Bottom Right",
+	
+	"ingameinfoxml.configuration.topleft.tooltip": "Offsets for TOPLEFT (X<space>Y).",
+	"ingameinfoxml.configuration.topcenter.tooltip": "Offsets for TOPCENTER (X<space>Y).",
+	"ingameinfoxml.configuration.topright.tooltip": "Offsets for TOPRIGHT (X<space>Y).",
+	"ingameinfoxml.configuration.middleleft.tooltip": "Offsets for MIDDLELEFT (X<space>Y).",
+	"ingameinfoxml.configuration.middlecenter.tooltip": "Offsets for MIDDLECENTER (X<space>Y).",
+	"ingameinfoxml.configuration.middleright.tooltip": "Offsets for MIDDLERIGHT (X<space>Y).",
+	"ingameinfoxml.configuration.bottomleft.tooltip": "Offsets for BOTTOMLEFT (X<space>Y).",
+	"ingameinfoxml.configuration.bottomcenter.tooltip": "Offsets for BOTTOMCENTER (X<space>Y).",
+	"ingameinfoxml.configuration.bottomright.tooltip": "Offsets for BOTTOMRIGHT (X<space>Y)."
 }

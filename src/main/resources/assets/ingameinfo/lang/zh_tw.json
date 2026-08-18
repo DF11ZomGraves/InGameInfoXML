@@ -40,6 +40,24 @@
 	"ingameinfoxml.configuration.displayInvisiblePlayer": "顯示隱身玩家",
 	"ingameinfoxml.configuration.showSurvivalHUD": "顯示生存模式部分介面",
 
+	"ingameinfoxml.configuration.filename.tooltip": "遊戲啟動時應加載的配置文件。",
+	"ingameinfoxml.configuration.showInChat.tooltip": "在聊天窗口中顯示信息。",
+	"ingameinfoxml.configuration.showOnPlayerList.tooltip": "在玩家列表中顯示信息。",
+	"ingameinfoxml.configuration.scale.tooltip": "信息顯示界面大小由該數值比例確定。",
+	"ingameinfoxml.configuration.fileInterval.tooltip": "file標記的文件讀取間隔（秒）。",
+	"ingameinfoxml.configuration.showOverlayPotions.tooltip": "顯示原版效果布局。",
+	"ingameinfoxml.configuration.showOverlayItemIcons.tooltip": "在圖標上顯示物品覆蓋（耐久度、堆疊大小）。",
+	"ingameinfoxml.configuration.defaultSeedInServer.tooltip": "指定當前世界種子，僅在伺服器沒有安裝InGameInfo XML或者無法從伺服器獲取種子時生效。",
+	"ingameinfoxml.configuration.numericAmplifier.tooltip": "效果等級用數字顯示，而不是使用羅馬數字。",
+	"ingameinfoxml.configuration.alignmentForMiddleCenter.tooltip": "顯示在螢幕正中心的內容的對齊方式。",
+	"ingameinfoxml.configuration.sendSeedToChat.tooltip": "從伺服器獲取的種子自動發送到聊天欄。",
+	"ingameinfoxml.configuration.healthDigit.tooltip": "生命值保留小數位數（包括傷害吸收）。",
+	"ingameinfoxml.configuration.hungerDigit.tooltip": "飽食度保留小數位數（包括飽和度）。",
+	"ingameinfoxml.configuration.tpsDigit.tooltip": "TPS保留小數位數。",
+	"ingameinfoxml.configuration.msptDigit.tooltip": "MSPT保留小數位數。",
+	"ingameinfoxml.configuration.displayInvisiblePlayer.tooltip": "nearbyplayer標記是否顯示隱身狀態的玩家？",
+	"ingameinfoxml.configuration.showSurvivalHUD.tooltip": "顯示生存模式HUD（生命值、飽食度、盔甲）。",
+
 	"ingameinfoxml.configuration.topleft": "左上角",
 	"ingameinfoxml.configuration.topcenter": "正上方",
 	"ingameinfoxml.configuration.topright": "右上角",
@@ -48,5 +66,15 @@
 	"ingameinfoxml.configuration.middleright": "正右方",
 	"ingameinfoxml.configuration.bottomleft": "左下角",
 	"ingameinfoxml.configuration.bottomcenter": "正下方",
-	"ingameinfoxml.configuration.bottomright": "右下角"
+	"ingameinfoxml.configuration.bottomright": "右下角",
+
+	"ingameinfoxml.configuration.topleft.tooltip": "相對於畫面左上角的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.topcenter.tooltip": "相對於畫面正上方的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.topright.tooltip": "相對於畫面右上角的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.middleleft.tooltip": "相對於畫面正左方的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.middlecenter.tooltip": "相對於畫面正中心的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.middleright.tooltip": "相對於畫面正右方的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.bottomleft.tooltip": "相對於畫面左下角的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.bottomcenter.tooltip": "相對於畫面正下方的偏移量(X<空格>Y)。",
+	"ingameinfoxml.configuration.bottomright.tooltip": "相對於畫面右下角的偏移量(X<空格>Y)。"
 }
