@@ -6,7 +6,6 @@ import com.github.lunatrius.ingameinfo.network.PacketHandler;
 import com.github.lunatrius.ingameinfo.network.RequestMSPTPacket;
 import com.github.lunatrius.ingameinfo.network.RequestSeedPacket;
 import com.github.lunatrius.ingameinfo.reference.Names;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.util.MathUtils;
 
@@ -137,7 +136,7 @@ public class Ticker {
 		String keyToggle = KeyInputHandler.KEY_BINDING_TOGGLE.getDisplayName();
 		String keyReload = KeyInputHandler.KEY_BINDING_RELOAD.getDisplayName();
 		client.ingameGUI.addChatMessage(ChatType.CHAT,
-				new TextComponentTranslation(Names.VERSION_CHAT, Reference.VERSION));
+				new TextComponentTranslation(Names.VERSION_CHAT, Names.VERSION));
 		client.ingameGUI.addChatMessage(ChatType.CHAT,
 				new TextComponentTranslation(Names.VERSION_CHAT2, keyToggle, keyReload));
 	}

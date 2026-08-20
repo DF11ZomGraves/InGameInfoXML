@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo;
+package com.github.lunatrius.ingameinfo.reference;
 
 import java.util.Locale;
 

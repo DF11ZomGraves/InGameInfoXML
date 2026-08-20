@@ -6,8 +6,6 @@ import com.github.lunatrius.ingameinfo.client.gui.tag.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.DelayedGuiDisplayTicker;
 import com.github.lunatrius.ingameinfo.reference.Names;
-import com.github.lunatrius.ingameinfo.reference.Reference;
-
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -96,7 +94,7 @@ public class InGameInfoCommand extends CommandBase {
 				String path = ConfigurationHandler.configuration.toString();
 				DelayedGuiDisplayTicker.create(new GuiConfig(null,
 						GuiFactory.getConfigElements(ConfigurationHandler.configuration, Names.Config.LANG_PREFIX),
-						Reference.MODID, false, false, GuiConfig.getAbridgedConfigPath(path)), 0);
+						Names.MODID, false, false, GuiConfig.getAbridgedConfigPath(path)), 0);
 				return;
 			}
 		}

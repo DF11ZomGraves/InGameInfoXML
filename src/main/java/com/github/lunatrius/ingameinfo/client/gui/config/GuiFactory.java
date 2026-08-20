@@ -2,7 +2,6 @@ package com.github.lunatrius.ingameinfo.client.gui.config;
 
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.reference.Names;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -39,7 +38,7 @@ public class GuiFactory implements IModGuiFactory {
 	public static class GuiModConfig extends GuiConfig {
 		public GuiModConfig(final GuiScreen guiScreen) {
 			super(guiScreen, getConfigElements(ConfigurationHandler.configuration, Names.Config.LANG_PREFIX),
-					Reference.MODID, false, false,
+					Names.MODID, false, false,
 					GuiConfig.getAbridgedConfigPath(ConfigurationHandler.configuration.toString()));
 //super(guiScreen, Reference.MODID, ConfigurationHandler.configuration, Names.Config.LANG_PREFIX);
 		}

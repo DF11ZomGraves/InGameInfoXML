@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo;
 
 import com.github.lunatrius.ingameinfo.proxy.CommonProxy;
-import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.reference.Names;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -18,18 +18,18 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY)
+@Mod(modid = Names.MODID, name = Names.NAME, version = Names.VERSION, guiFactory = Names.GUI_FACTORY)
 public class InGameInfoXML {
-	@Instance(Reference.MODID)
+	@Instance(Names.MODID)
 	public static InGameInfoXML instance;
-	public static Logger logger = LogManager.getLogger(Reference.MODID);
+	public static Logger logger = LogManager.getLogger(Names.MODID);
 	public static long seed = 0;
 	public static double mspt = -1;
 	public static double tps = -1;
 	public static boolean serverInstalled = false;
 	public static boolean existMSPT = false;
 
-	@SidedProxy(serverSide = Reference.PROXY_SERVER, clientSide = Reference.PROXY_CLIENT)
+	@SidedProxy(serverSide = Names.PROXY_SERVER, clientSide = Names.PROXY_CLIENT)
 	public static CommonProxy proxy;
 
 	@NetworkCheckHandler

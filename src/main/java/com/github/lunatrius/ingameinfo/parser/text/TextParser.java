@@ -1,8 +1,8 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
-import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.parser.IParser;
+import com.github.lunatrius.ingameinfo.reference.Alignment;
 import com.github.lunatrius.ingameinfo.value.Value;
 
 import java.io.BufferedReader;

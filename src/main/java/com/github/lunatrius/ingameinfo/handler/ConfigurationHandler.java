@@ -1,9 +1,8 @@
 package com.github.lunatrius.ingameinfo.handler;
 
-import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
+import com.github.lunatrius.ingameinfo.reference.Alignment;
 import com.github.lunatrius.ingameinfo.reference.Names;
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -222,7 +221,7 @@ public class ConfigurationHandler {
 
 	@SubscribeEvent
 	public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (event.getModID().equalsIgnoreCase(Reference.MODID))
+		if (event.getModID().equalsIgnoreCase(Names.MODID))
 			loadConfiguration();
 	}
 }

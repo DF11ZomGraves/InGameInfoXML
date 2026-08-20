@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
-import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.util.MBlockPos;
 import com.github.lunatrius.ingameinfo.util.Vector3f;
 
@@ -60,11 +60,11 @@ public abstract class Tag {
 	}
 
 	public String getLocalizedCategory() {
-		return I18n.format(Reference.MODID + ".tag.category." + getCategory() + ".name");
+		return I18n.format(Names.MODID + ".tag.category." + getCategory() + ".name");
 	}
 
 	public String getLocalizedDescription() {
-		return I18n.format(Reference.MODID + ".tag." + getRawName() + ".desc");
+		return I18n.format(Names.MODID + ".tag." + getRawName() + ".desc");
 	}
 
 	public abstract String getCategory();

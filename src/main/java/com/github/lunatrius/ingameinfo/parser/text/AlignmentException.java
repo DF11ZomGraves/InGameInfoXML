@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
-import com.github.lunatrius.ingameinfo.Alignment;
+import com.github.lunatrius.ingameinfo.reference.Alignment;
 
 public class AlignmentException extends Exception {
 	private final Alignment alignment;

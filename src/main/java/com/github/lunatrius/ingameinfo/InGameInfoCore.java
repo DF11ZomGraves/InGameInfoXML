@@ -7,6 +7,7 @@ import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
 import com.github.lunatrius.ingameinfo.parser.xml.XmlParser;
+import com.github.lunatrius.ingameinfo.reference.Alignment;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.Value;

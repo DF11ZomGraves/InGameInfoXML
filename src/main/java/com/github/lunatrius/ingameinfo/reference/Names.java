@@ -1,6 +1,14 @@
 package com.github.lunatrius.ingameinfo.reference;
 
 public final class Names {
+	public static final String MODID = "ingameinfoxml";
+	public static final String NAME = "InGame Info XML";
+	public static final String VERSION = "2.9.2.101";
+	public static final String FORGE = "14.23.5.2860";
+	public static final String MINECRAFT = "1.12.2";
+	public static final String PROXY_SERVER = "com.github.lunatrius.ingameinfo.proxy.ServerProxy";
+	public static final String PROXY_CLIENT = "com.github.lunatrius.ingameinfo.proxy.ClientProxy";
+	public static final String GUI_FACTORY = "com.github.lunatrius.ingameinfo.client.gui.config.GuiFactory";
 	public static final String VERSION_CHAT = "ingameinfo.chat.version";
 	public static final String VERSION_CHAT2 = "ingameinfo.chat.version2";
 	public static final String SEED_CHAT = "ingameinfo.chat.seed";
@@ -79,10 +87,10 @@ public final class Names {
 		public static final String ALIGNMENT_MIDDLECENTER = "alignmentForMiddleCenter";
 		public static final String ALIGNMENT_MIDDLECENTER_DESC = "Alignment for the middle center side of the screen.";
 		
-		public static final String HEALTH_DECIMAL_PLACE = "healthDecimalPlace";
+		public static final String HEALTH_DECIMAL_PLACE = "healthDigit";
 		public static final String HEALTH_DECIMAL_PLACE_DESC = "Health value decimal places retained (health, absorption).";
 		
-		public static final String HUNGER_DECIMAL_PLACE = "hungerDecimalPlace";
+		public static final String HUNGER_DECIMAL_PLACE = "hungerDigit";
 		public static final String HUNGER_DECIMAL_PLACE_DESC = "Hunger value decimal places retained (saturation, exhaustion).";
 
 		public static final String MSPT_DECIMAL_PLACE  = "msptDigit";
@@ -99,7 +107,7 @@ public final class Names {
 		
 		public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
-		public static final String LANG_PREFIX = Reference.MODID + ".config";
+		public static final String LANG_PREFIX = MODID + ".config";
 	}
 
 	public static final class Files {
