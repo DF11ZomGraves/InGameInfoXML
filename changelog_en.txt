@@ -1,4 +1,18 @@
-﻿InGameInfo XML 2.9.1.100, Release, 2026/5/10
+﻿InGameInfo XML 2.9.2.101, Beta, 2026/11/12
+1.12.2
+	1.The resourcepack tag now supports the display of multiple resourcepacks, default resourcepack always display.
+1.20.1/1.21.1
+	1.Add resourcepack tag.
+	2.Modifications to the seed take effect immediately when the server is not installed, but cannot be changed if the server is already installed.
+	3.Command "/igi alignment get" can return all alignment infomation.
+	4.Fix the issue where changes made using the "/igi config displayInvisiblePlayer" command are not saved.
+	5.Fix the issue of repeatedly generating bak files caused by the defaultSeedInServer type being set to long.
+1.21.1
+	Required NeoForge 21.1.248 and higher.
+	1.Remove mcpversion tag.
+	2.Adjust tag name "forgeversion" to "neoforgeversion".
+
+InGameInfo XML 2.9.1.100, Release, 2026/5/10
 Common
 	1.Add displayInvisiblePlayer configuration.
 	2.Add nearbyplayerabsorption tag.
