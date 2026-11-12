@@ -141,6 +141,7 @@ ingameinfoxml.tag.nearbyplayername.desc=Name of the x-th nearby player.
 ingameinfoxml.tag.nearbyplayericon.desc=Head icon of the x-th nearby player.
 ingameinfoxml.tag.nearbyplayerhealth.desc=Health point of the x-th nearby player.
 ingameinfoxml.tag.nearbyplayermaxhealth.desc=Maximum health point of the x-th nearby player.
+ingameinfoxml.tag.nearbyplayerabsorption.desc=Absorption point of the x-th nearby player.
 
 # gui - tag list - player equipment
 ingameinfoxml.tag.equippedname.desc=Equipped item's name.
@@ -199,7 +200,7 @@ ingameinfoxml.tag.bootsdamageleft.desc=Boots' damage left.
 ingameinfoxml.tag.bootsquantity.desc=Quantity of the boots in the inventory.
 ingameinfoxml.tag.bootsicon.desc=Boots' icon.
 ingameinfoxml.tag.bootslargeicon.desc=Boots' large icon.
-ingameinfoxml.tag.inventory.desc=Head icon of the player.
+ingameinfoxml.tag.inventory.desc=Player's inventory.
 ingameinfoxml.tag.arrowcount.desc=Quantity of the arrows in the inventory.
 
 # gui - tag list - player general

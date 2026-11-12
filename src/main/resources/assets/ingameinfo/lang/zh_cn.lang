@@ -140,6 +140,7 @@ ingameinfoxml.tag.nearbyplayername.desc=附近第x个玩家的名称。
 ingameinfoxml.tag.nearbyplayericon.desc=附近第x个玩家的头像。
 ingameinfoxml.tag.nearbyplayerhealth.desc=附近第x个玩家的生命值。
 ingameinfoxml.tag.nearbyplayermaxhealth.desc=附近第x个玩家的最大生命值。
+ingameinfoxml.tag.nearbyplayerabsorption.desc=附近第x个玩家的伤害吸收值。
 
 # gui - tag list - player equipment
 ingameinfoxml.tag.equippedname.desc=持有物品的名称。

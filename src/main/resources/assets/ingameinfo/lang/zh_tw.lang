@@ -137,9 +137,10 @@ ingameinfoxml.tag.targetmaxhealth.desc=游標下生物的最大生命值，如�
 # gui - tag list - nearby player
 ingameinfoxml.tag.nearbyplayerdistance.desc=與附近第x個玩家間的距離。
 ingameinfoxml.tag.nearbyplayername.desc=附近第x個玩家的名稱。
-ingameinfoxml.tag.nearbyplayericon.desc=附近第x个玩家的头像。
-ingameinfoxml.tag.nearbyplayerhealth.desc=附近第x个玩家的生命值。
-ingameinfoxml.tag.nearbyplayermaxhealth.desc=附近第x个玩家的最大生命值。
+ingameinfoxml.tag.nearbyplayericon.desc=附近第x個玩家的頭像。
+ingameinfoxml.tag.nearbyplayerhealth.desc=附近第x個玩家的生命值。
+ingameinfoxml.tag.nearbyplayermaxhealth.desc=附近第x個玩家的最大生命值。
+ingameinfoxml.tag.nearbyplayerabsorption.desc=附近第x個玩家的傷害吸收值。
 
 # gui - tag list - player equipment
 ingameinfoxml.tag.equippedname.desc=持有物品的名稱。
