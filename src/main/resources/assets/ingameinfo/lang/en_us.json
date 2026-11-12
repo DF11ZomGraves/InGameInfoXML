@@ -40,6 +40,8 @@
 	"ingameinfoxml.configuration.displayInvisiblePlayer": "Display invisible player",
 	"ingameinfoxml.configuration.showSurvivalHUD": "Show Survival HUD",
 	
+	"ingameinfoxml.configuration.general.tooltip": "General settings",
+	"ingameinfoxml.configuration.alignment.tooltip": "Alignment settings",
 	"ingameinfoxml.configuration.filename.tooltip": "The configuration that should be loaded on startup.",
 	"ingameinfoxml.configuration.showInChat.tooltip": "Display the overlay in chat.",
 	"ingameinfoxml.configuration.showOnPlayerList.tooltip": "Display the overlay on the player list.",

@@ -39,7 +39,9 @@
 	"ingameinfoxml.configuration.msptDigit": "MSPT小数位数",
 	"ingameinfoxml.configuration.displayInvisiblePlayer": "显示隐身玩家",
 	"ingameinfoxml.configuration.showSurvivalHUD": "显示生存模式部分界面",
-
+	
+	"ingameinfoxml.configuration.general.tooltip": "常规设置",
+	"ingameinfoxml.configuration.alignment.tooltip": "对齐设置",
 	"ingameinfoxml.configuration.filename.tooltip": "游戏启动时应加载的配置文件。",
 	"ingameinfoxml.configuration.showInChat.tooltip": "在聊天窗口中显示信息。",
 	"ingameinfoxml.configuration.showOnPlayerList.tooltip": "在玩家列表中显示信息。",

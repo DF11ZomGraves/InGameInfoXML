@@ -40,6 +40,8 @@
 	"ingameinfoxml.configuration.displayInvisiblePlayer": "顯示隱身玩家",
 	"ingameinfoxml.configuration.showSurvivalHUD": "顯示生存模式部分介面",
 
+	"ingameinfoxml.configuration.general.tooltip": "一般設置",
+	"ingameinfoxml.configuration.alignment.tooltip": "對齊設置",
 	"ingameinfoxml.configuration.filename.tooltip": "遊戲啟動時應加載的配置文件。",
 	"ingameinfoxml.configuration.showInChat.tooltip": "在聊天窗口中顯示信息。",
 	"ingameinfoxml.configuration.showOnPlayerList.tooltip": "在玩家列表中顯示信息。",

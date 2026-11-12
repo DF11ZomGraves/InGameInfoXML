@@ -76,7 +76,7 @@ public abstract class TagMisc extends Tag {
 			String result = "";
 			String packName;
 			for (Pack pack : selectedPacks) {
-				if (pack.getId() == "mod_resources")
+				if (pack.getId() == "mod_resources" || pack.isHidden())
 					continue;
 				packName = pack.getTitle().getString();
 				if (!result.isEmpty())
