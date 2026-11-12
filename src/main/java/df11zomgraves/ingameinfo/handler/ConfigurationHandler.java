@@ -25,7 +25,7 @@ public class ConfigurationHandler {
 	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_SURVIVAL_HUD_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Long> SEED_DEFAULT;
+	public static final ForgeConfigSpec.ConfigValue<String> SEED_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Alignment> ALIGNMENT_MIDDLECENTER_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HEALTH_DECIMAL_PLACE_DEFAULT;
 	public static final ForgeConfigSpec.ConfigValue<Integer> HUNGER_DECIMAL_PLACE_DEFAULT;
@@ -74,7 +74,7 @@ public class ConfigurationHandler {
 				.define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
 		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
 		SEND_SEED_TO_CHAT_DEFAULT = BUILDER.comment(Names.Config.SEND_SEED_TO_CHAT_DESC).define(Names.Config.SEND_SEED_TO_CHAT, false);
-		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, 0L);
+		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, "0");
 		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC)
 				.defineEnum(Names.Config.ALIGNMENT_MIDDLECENTER, Alignment.MIDDLECENTER);
 		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
@@ -125,6 +125,7 @@ public class ConfigurationHandler {
 		configName = CONFIG_NAME_DEFAULT.get();
 		showInChat = SHOW_IN_CHAT_DEFAULT.get();
 		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
+		alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT.get();
 		sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
 		showSurvivalHUD = SHOW_SURVIVAL_HUD_DEFAULT.get();
 		healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT.get();
@@ -132,14 +133,13 @@ public class ConfigurationHandler {
 		msptDecimalPlace = MSPT_DECIMAL_PLACE_DEFAULT.get();
 		tpsDecimalPlace = TPS_DECIMAL_PLACE_DEFAULT.get();
 		displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT.get();
-		// Exception caught during firing event: class java.lang.Integer cannot be cast to class java.lang.Long ?
 		try {
-			seed = (long)SEED_DEFAULT.get();
+			seed = Long.parseLong(SEED_DEFAULT.get());
 		}
 		catch (Exception e) {
+			seed = 0L;
 			InGameInfoXML.logger.error(e.getMessage());
 		}
-		alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT.get();
 	}
 	
 	public static void applyConfiguration() {
@@ -152,13 +152,14 @@ public class ConfigurationHandler {
 		SHOW_IN_CHAT_DEFAULT.set(showInChat);
 		NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
 		ALIGNMENT_MIDDLECENTER_DEFAULT.set(alignmentMiddleCenter);
-		SEED_DEFAULT.set(seed);
 		SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
 		SHOW_SURVIVAL_HUD_DEFAULT.set(showSurvivalHUD);
 		HEALTH_DECIMAL_PLACE_DEFAULT.set(healthDecimalPlace);
 		HUNGER_DECIMAL_PLACE_DEFAULT.set(hungerDecimalPlace);
 		MSPT_DECIMAL_PLACE_DEFAULT.set(msptDecimalPlace);
 		TPS_DECIMAL_PLACE_DEFAULT.set(tpsDecimalPlace);
+		DISPLAY_INVISIBLE_PLAYER_DEFAULT.set(displayInvisiblePlayer);
+		SEED_DEFAULT.set(String.valueOf(seed));
 		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
 		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
 		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());
