@@ -16,6 +16,7 @@ import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.reference.Alignment;
 import df11zomgraves.ingameinfo.reference.Names;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -33,6 +34,9 @@ public class InGameInfoCommand {
 		final String filename = "filename";
 		final String value = "value";
 		LiteralArgumentBuilder<CommandSourceStack> igiCommand = Commands.literal(Names.Command.NAME);
+		// igi alignment get
+		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).executes(source -> GetAlignment(""))));
+		
 		// igi alignment get TOPLEFT
 		igiCommand.then(Commands.literal(strAlign).then(Commands.literal(strGet).then(Commands.argument(strAlign, AlignArgument.GetAlignment())
 				.executes(source -> GetAlignment(AlignArgument.GetString(source, strAlign))))));
@@ -116,70 +120,81 @@ public class InGameInfoCommand {
 						source -> setDecimalPlace(Names.Config.TPS_DECIMAL_PLACE, IntegerArgumentType.getInteger(source, value))))));
 		dispatcher.register(igiCommand);
 	}
+	
+	public static ChatComponent ch = Minecraft.getInstance().gui.getChat();
 
 	public static int SetAlignment(String alignment, int x, int y) {
 		String alignValue = String.format("%s %s", x, y);
 		Alignment align = Alignment.parse(alignment);
-		Minecraft mc = Minecraft.getInstance();
 		if (align == null) {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_SET_FAILURE, alignment));
+			ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_SET_FAILURE, alignment));
 			return -1;
 		}
 		align.setXY(alignValue);
 		ConfigurationHandler.applyConfiguration();
-		mc.gui.getChat().addMessage(
-				Component.translatable(Names.Command.Message.ALIGNMENT_SET_SUCCESS, alignment, align.x, align.y));
+		ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_SET_SUCCESS,
+				alignment, align.x, align.y));
 		return 1;
 	}
 
+	public static void OutputAlignment(Alignment alignment) {
+		ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_GET_SUCCESS,
+				alignment.name(), alignment.x, alignment.y));
+	}
+	
 	public static int GetAlignment(String alignment) {
+		if (alignment.equals("")) {
+			OutputAlignment(Alignment.TOPLEFT);
+			OutputAlignment(Alignment.TOPCENTER);
+			OutputAlignment(Alignment.TOPRIGHT);
+			OutputAlignment(Alignment.MIDDLELEFT);
+			OutputAlignment(Alignment.MIDDLECENTER);
+			OutputAlignment(Alignment.MIDDLERIGHT);
+			OutputAlignment(Alignment.BOTTOMLEFT);
+			OutputAlignment(Alignment.BOTTOMCENTER);
+			OutputAlignment(Alignment.BOTTOMRIGHT);
+			return 1;
+		}
 		Alignment align = Alignment.parse(alignment);
-		Minecraft mc = Minecraft.getInstance();
 		if (align == null) {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_GET_FAILURE, alignment));
+			ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_GET_FAILURE, alignment));
 			return -1;
 		}
-		mc.gui.getChat().addMessage(
-				Component.translatable(Names.Command.Message.ALIGNMENT_GET_SUCCESS, alignment, align.x, align.y));
+		OutputAlignment(align);
 		return 1;
 	}
 
 	public static int SetMiddleCenterAlignment(String alignment) {
 		Alignment align = Alignment.parse(alignment);
-		Minecraft mc = Minecraft.getInstance();
 		if (align == null) {
-			mc.gui.getChat().addMessage(
-					Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_FAILURE, alignment));
+			ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_FAILURE, alignment));
 			return -1;
 		}
 		ConfigurationHandler.alignmentMiddleCenter = align;
 		ConfigurationHandler.applyConfiguration();
-		mc.gui.getChat().addMessage(
-				Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_SUCCESS, alignment));
+		ch.addMessage(Component.translatable(Names.Command.Message.ALIGNMENT_MIDDLECENTER_SET_SUCCESS, alignment));
 		return 1;
 	}
 
 	public static int SetSeed(long seed) {
-		Minecraft mc = Minecraft.getInstance();
 		if (InGameInfoXML.serverInstalled) {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS2));
+			ch.addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS2));
 			return 1;
 		}
 		try {
 			ConfigurationHandler.seed = seed;
 			ConfigurationHandler.applyConfiguration();
 			InGameInfoXML.seed = seed;
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS, seed));
+			ch.addMessage(Component.translatable(Names.Command.Message.SED_SEET_SUCCESS, seed));
 		} catch (final Exception e) {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SED_SEET_FAILURE));
+			ch.addMessage(Component.translatable(Names.Command.Message.SED_SEET_FAILURE));
 			return -1;
 		}
 		return 1;
 	}
 
 	public static int loadFile(String filename) {
-		Minecraft mc = Minecraft.getInstance();
-		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.LOAD, filename));
+		ch.addMessage(Component.translatable(Names.Command.Message.LOAD, filename));
 		InGameInfoCore core = InGameInfoCore.INSTANCE;
 		Path configPath = FMLPaths.CONFIGDIR.get();
 		Path modConfigPath = Paths.get(configPath.toAbsolutePath().toString());
@@ -190,15 +205,14 @@ public class InGameInfoCommand {
 		ConfigurationHandler.applyConfiguration();
 		boolean b = core.reloadConfig();
 		if (!b) {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.FAILURE));
+			ch.addMessage(Component.translatable(Names.Command.Message.FAILURE));
 			return -1;
 		}
-		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.SUCCESS));
+		ch.addMessage(Component.translatable(Names.Command.Message.SUCCESS));
 		return 1;
 	}
 
 	public static int setBoolean(String config, boolean value) {
-		Minecraft mc = Minecraft.getInstance();
 		if (config.equals(Names.Config.SHOW_IN_CHAT))
 			ConfigurationHandler.showInChat = value;
 		else if (config.equals(Names.Config.SHOW_IN_CHAT))
@@ -216,16 +230,15 @@ public class InGameInfoCommand {
 		else if (config.equals(Names.Config.DISPLAY_INVISIBLE_PLAYER))
 			ConfigurationHandler.displayInvisiblePlayer = value;
 		else {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
+			ch.addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
 			return -1;
 		}
 		ConfigurationHandler.applyConfiguration();
-		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_SET_SUCCESS, config, value));
+		ch.addMessage(Component.translatable(Names.Command.Message.CONFIG_SET_SUCCESS, config, value));
 		return 1;
 	}
 	
 	public static int setDecimalPlace(String config, int value) {
-		Minecraft mc = Minecraft.getInstance();
 		if (value < 0)
 			value = 0;
 		else if (value > 6)
@@ -239,11 +252,11 @@ public class InGameInfoCommand {
 		else if (config.equals(Names.Config.TPS_DECIMAL_PLACE))
 			ConfigurationHandler.tpsDecimalPlace = value;
 		else {
-			mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
+			ch.addMessage(Component.translatable(Names.Command.Message.CONFIG_NOT_FOUND, config));
 			return -1;
 		}
 		ConfigurationHandler.applyConfiguration();
-		mc.gui.getChat().addMessage(Component.translatable(Names.Command.Message.CONFIG_SET_SUCCESS, config, value));
+		ch.addMessage(Component.translatable(Names.Command.Message.CONFIG_SET_SUCCESS, config, value));
 		return 1;
 	}
 }
