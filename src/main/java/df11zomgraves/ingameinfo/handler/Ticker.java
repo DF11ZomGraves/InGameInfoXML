@@ -2,25 +2,18 @@ package df11zomgraves.ingameinfo.handler;
 
 import df11zomgraves.ingameinfo.InGameInfoCore;
 import df11zomgraves.ingameinfo.InGameInfoXML;
-import df11zomgraves.ingameinfo.network.PacketHandler;
-import df11zomgraves.ingameinfo.network.RequestMSPTPacket;
-import df11zomgraves.ingameinfo.network.RequestSeedPacket;
+import df11zomgraves.ingameinfo.network.ClientPacketHandler;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.Tag;
-import df11zomgraves.ingameinfo.util.MathUtils;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.event.RenderGuiEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.NamedGuiOverlay;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Ticker {
 	public static final Ticker INSTANCE = new Ticker();
@@ -29,6 +22,14 @@ public class Ticker {
 	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 	private boolean inGame = false;
 	private long lastRemoteUpdate = 0;
+
+	private Ticker() {
+	}
+
+	public static void register() {
+		ClientTickEvents.END_CLIENT_TICK.register(INSTANCE::onClientTick);
+		HudRenderCallback.EVENT.register(INSTANCE::onRenderGuiPost);
+	}
 
 	private boolean isRunning() {
 		if (!enabled)
@@ -50,33 +51,17 @@ public class Ticker {
 		}
 		return false;
 	}
-	
-	@SubscribeEvent
-	public void onRenderGuiOverlayEvent(final RenderGuiOverlayEvent.Pre event) {
-		NamedGuiOverlay overlay = event.getOverlay();
-		boolean isSurvivalHUD =
-				overlay == VanillaGuiOverlay.PLAYER_HEALTH.type() ||
-				overlay == VanillaGuiOverlay.FOOD_LEVEL.type() ||
-				overlay == VanillaGuiOverlay.AIR_LEVEL.type() ||
-				overlay == VanillaGuiOverlay.MOUNT_HEALTH.type() ||
-				overlay == VanillaGuiOverlay.ARMOR_LEVEL.type();
 
-		if (isSurvivalHUD && !ConfigurationHandler.showSurvivalHUD)
-			event.setCanceled(true);
-		else if (overlay == VanillaGuiOverlay.POTION_ICONS.type() && !ConfigurationHandler.showOverlayPotions)
-			event.setCanceled(true);
-	}
-
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void onRenderGuiEventPost(final RenderGuiEvent.Post event) {
+	public void onRenderGuiPost(final GuiGraphics guiGraphics, final float tickDelta) {
 		if (isRunning()) {
 			this.core.onTickClient();
-			this.core.onTickRender(event.getGuiGraphics());
+			this.core.onTickRender(guiGraphics);
+		} else {
+			Tag.releaseResources();
 		}
 	}
 
-	@SubscribeEvent
-	public void onClientTick(final TickEvent.ClientTickEvent event) {
+	public void onClientTick(final Minecraft client) {
 		boolean inGameCurrent = (client.level == null ? false : true);
 		if (inGame) {
 			if (!inGameCurrent) {
@@ -90,51 +75,42 @@ public class Ticker {
 				if (delay > 1500 || delay < 0) {
 					IntegratedServer singleServer = client.getSingleplayerServer();
 					if (singleServer != null) {
-						long[] times = singleServer.getTickTime(client.level.dimension());
-						if (times != null) {
-							double worldTickTime = MathUtils.mean(times) * 1.0E-6D;
-							InGameInfoXML.mspt = worldTickTime;
-							InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
-						}
-					} else if (InGameInfoXML.serverInstalled)
+						double worldTickTime = singleServer.getAverageTickTime();
+						if (worldTickTime < 0)
+							worldTickTime = -1;
+						InGameInfoXML.mspt = worldTickTime;
+						InGameInfoXML.tps = (worldTickTime == -1) ? -1 : Math.min(1000.0 / worldTickTime, 20);
+					} else if (InGameInfoXML.serverInstalled) {
 						try {
 							InGameInfoXML.serverInstalled = false;
-							PacketHandler.INSTANCE.sendToServer(new RequestMSPTPacket());
-						} catch (Exception e) {
+							ClientPacketHandler.sendRequestMSPT();
+						} catch (final Exception e) {
 							InGameInfoXML.mspt = -1;
 							InGameInfoXML.tps = -1;
 						}
+					}
 					lastRemoteUpdate = System.currentTimeMillis();
 				}
 			}
-		} else if (inGameCurrent)
+		} else if (inGameCurrent) {
 			try {
 				inGame = true;
 				InGameInfoXML.serverInstalled = true;
 				showVerionInfo();
-				PacketHandler.INSTANCE.sendToServer(new RequestSeedPacket());
-			} catch (Exception e) {
+				ClientPacketHandler.sendRequestSeed();
+			} catch (final Exception e) {
 				InGameInfoXML.seed = ConfigurationHandler.seed;
 			}
-		onTick(event);
-	}
+		}
 
-	@SubscribeEvent
-	public void onRenderTick(final TickEvent.RenderTickEvent event) {
-		onTick(event);
-	}
-
-	private void onTick(final TickEvent event) {
-		if ((!enabled || this.client.options == null) && event.type == TickEvent.Type.CLIENT)
+		if (!enabled || this.client.options == null)
 			Tag.releaseResources();
 	}
 
 	private void showVerionInfo() {
-		String keyToggle = KeyInputHandler.KEY_TOGGLE.getKey().getName();
-		String keyReload = KeyInputHandler.KEY_RELOAD.getKey().getName();
-		String keyToggle1 = Component.translatable(keyToggle).getString();
-		String keyReload1 = Component.translatable(keyReload).getString();
-		client.gui.getChat()
-				.addMessage(Component.translatable(Names.VERSION_CHAT, Names.VERSION, keyToggle1, keyReload1));
+		String keyToggle1 = KeyInputHandler.KEY_TOGGLE.getTranslatedKeyMessage().getString();
+		String keyReload1 = KeyInputHandler.KEY_RELOAD.getTranslatedKeyMessage().getString();
+		if (client.gui != null)
+			client.gui.getChat().addMessage(Component.translatable(Names.VERSION_CHAT, Names.VERSION, keyToggle1, keyReload1));
 	}
 }

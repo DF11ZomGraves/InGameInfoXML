@@ -1,10 +1,10 @@
 package df11zomgraves.ingameinfo.value;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,11 +20,24 @@ import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
 import df11zomgraves.ingameinfo.gui.overlay.InfoItem;
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.tag.Tag;
+import df11zomgraves.ingameinfo.util.EntityHelper;
 
 public abstract class ValueComplex extends Value {
 	@Override
 	public boolean isSimple() {
 		return false;
+	}
+
+	/**
+	 * Looks up an item by its registry name, returning {@code null} when the
+	 * resource location does not describe a registered item (the item registry is
+	 * a defaulted registry, so a plain lookup would return air).
+	 */
+	public static Item getRegisteredItem(final ResourceLocation location) {
+		final Item item = BuiltInRegistries.ITEM.get(location);
+		if (item != null && location.equals(BuiltInRegistries.ITEM.getKey(item)))
+			return item;
+		return null;
 	}
 
 	public static class ValueOperation extends ValueComplex {
@@ -108,8 +121,10 @@ public abstract class ValueComplex extends Value {
 		public String getValue() {
 			try {
 				ResourceLocation res = new ResourceLocation(getValue(0));
-				Item item = ForgeRegistries.ITEMS.getValue(res);
-				int itemCount = minecraft.player.getInventory().countItem(item);
+				Item item = getRegisteredItem(res);
+				if (item == null)
+					return "0";
+				int itemCount = EntityHelper.getItemCountInInventory(minecraft.player.getInventory(), item);
 				return String.valueOf(itemCount);
 			} catch (final Exception e2) {
 				return "0";
@@ -131,7 +146,7 @@ public abstract class ValueComplex extends Value {
 				for (int i = 0; i < args.length; i++) {
 					args[i] = getValue(i + 1);
 				}
-				return I18n.get(format, args);
+				return I18n.get(format, (Object[]) args);
 			} catch (final Exception e) {
 				return "?";
 			}
@@ -245,7 +260,7 @@ public abstract class ValueComplex extends Value {
 				String value = getValue(0);
 				final ResourceLocation what = new ResourceLocation(value);
 				if (size == 1) {
-					Item item = ForgeRegistries.ITEMS.getValue(what);
+					Item item = getRegisteredItem(what);
 					if (item != null) {
 						ItemStack itemStack = item.getDefaultInstance();
 						InfoItem infoItem = new InfoItem(itemStack);

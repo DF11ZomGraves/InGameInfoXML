@@ -1,6 +1,5 @@
 package df11zomgraves.ingameinfo.gui.overlay;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
@@ -44,21 +43,19 @@ public class InfoItem extends Info {
 	public void drawInfo(GuiGraphics guiGraphics) {
 		if (this.itemStack.isEmpty())
 			return;
-		PoseStack stack = RenderSystem.getModelViewStack();
+		PoseStack stack = guiGraphics.pose();
 		stack.pushPose();
 		if (!large) {
 			stack.scale(0.5f, 0.5f, 0.5f);
 			stack.translate(getX() * 2, getY() * 2, 0);
 		} else
 			stack.translate(getX(), getY(), 0);
-		RenderSystem.applyModelViewMatrix();
 		guiGraphics.renderItem(itemStack, 0, 0);
 		if (forceRender)
 			guiGraphics.renderItemDecorations(MINECRAFT.font, itemStack, 0, 0);
 		else if (ConfigurationHandler.showOverlayItemIcons)
 			guiGraphics.renderItemDecorations(MINECRAFT.font, itemStack, 0, 0, "");
 		stack.popPose();
-		RenderSystem.applyModelViewMatrix();
 	}
 
 	@Override

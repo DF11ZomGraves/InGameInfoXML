@@ -1,29 +1,26 @@
 package df11zomgraves.ingameinfo;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import df11zomgraves.ingameinfo.command.arguments.InGameInfoArgumentTypes;
+import df11zomgraves.ingameinfo.handler.ClientEventHandler;
 import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
+import df11zomgraves.ingameinfo.handler.KeyInputHandler;
 import df11zomgraves.ingameinfo.handler.Ticker;
-import df11zomgraves.ingameinfo.network.PacketHandler;
+import df11zomgraves.ingameinfo.network.ClientPacketHandler;
 import df11zomgraves.ingameinfo.reference.Names;
 import df11zomgraves.ingameinfo.tag.TagRegistry;
 import df11zomgraves.ingameinfo.value.ValueRegistry;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.api.FabricLoader;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(Names.MODID)
-public class InGameInfoXML {
+/**
+ * Fabric client entrypoint of InGame Info XML.
+ */
+public class InGameInfoXML implements ClientModInitializer {
 	public static Logger logger = LogManager.getLogger(Names.MODID);
 	public static long seed = 0;
 	public static double mspt = -1;
@@ -31,29 +28,42 @@ public class InGameInfoXML {
 	public static boolean serverInstalled = false;
 	public static boolean existMSPT = false;
 
-	public InGameInfoXML(FMLJavaModLoadingContext context) {
-		PacketHandler.init();
-		IEventBus modEventBus = context.getModEventBus();
-		context.registerConfig(ModConfig.Type.CLIENT, ConfigurationHandler.SPEC);
-		modEventBus.addListener(this::clientSetup);
-		InGameInfoArgumentTypes.COMMAND_ARGUMENT_TYPES.register(modEventBus);
-	}
+	private static boolean coreInitialized = false;
 
-	private void clientSetup(final FMLClientSetupEvent event) {
-		if (FMLLoader.getLoadingModList().getModFileById("chloride") != null)
-			logger.warn("Chloride installed. may cause FPS do not display. use Xenon instead.");
-		
-		IEventBus bus = MinecraftForge.EVENT_BUS;
-		bus.register(InGameInfoCore.INSTANCE);
-		bus.register(Ticker.INSTANCE);
+	@Override
+	public void onInitializeClient() {
+		ClientPacketHandler.initClient();
+
 		ValueRegistry.INSTANCE.init();
 		TagRegistry.INSTANCE.init();
+
+		// The resource manager is not ready during the client entrypoint, so the
+		// configuration file is loaded on the first client tick instead.
+		ClientTickEvents.END_CLIENT_TICK.register(client -> initializeCore());
+
+		KeyInputHandler.register();
+		Ticker.register();
+		ClientEventHandler.register();
+	}
+
+	private static void initializeCore() {
+		if (coreInitialized)
+			return;
+		coreInitialized = true;
+
 		InGameInfoCore core = InGameInfoCore.INSTANCE;
-		Path configPath = FMLPaths.CONFIGDIR.get();
-		Path modConfigPath = Paths.get(configPath.toAbsolutePath().toString());
-		core.setConfigDirectory(modConfigPath.toFile());
+		Path configPath = FabricLoader.getInstance().getConfigDir();
+		core.setConfigDirectory(configPath.toAbsolutePath().toFile());
 		core.setConfigFile(ConfigurationHandler.configName);
 		core.reloadConfig();
-		event.enqueueWork(InGameInfoArgumentTypes::registerArgumentTypes);
+	}
+
+	/** Re-reads the configuration file (used by the reload key and the 'igi load' command). */
+	public static boolean reloadCoreConfig() {
+		InGameInfoCore core = InGameInfoCore.INSTANCE;
+		Path configPath = FabricLoader.getInstance().getConfigDir();
+		core.setConfigDirectory(configPath.toAbsolutePath().toFile());
+		core.setConfigFile(ConfigurationHandler.configName);
+		return core.reloadConfig();
 	}
 }

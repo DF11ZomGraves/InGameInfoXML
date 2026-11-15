@@ -149,7 +149,6 @@ public class InGameInfoCore {
 			y = alignment.getY(scaledHeight, queue.size() * (fontRenderer.lineHeight + 1));
 			for (final Info item : queue) {
 				item.y = y;
-				this.info.add(item);
 				y += fontRenderer.lineHeight + 1;
 			}
 
@@ -184,9 +183,11 @@ public class InGameInfoCore {
 			if (this.parser.load(inputStream) && this.parser.parse(this.format))
 				return true;
 		} catch (final Exception e) {
-			minecraft.gui.getChat().addMessage(Component.translatable(e.getMessage()));
-            return false;
-        }
+			InGameInfoXML.logger.error("Failed to parse the configuration!", e);
+			if (minecraft.gui != null)
+				minecraft.gui.getChat().addMessage(Component.translatable(String.valueOf(e.getMessage())));
+			return false;
+		}
 
 		this.format.clear();
 		return false;

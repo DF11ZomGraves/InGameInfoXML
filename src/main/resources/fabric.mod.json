@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "ingameinfoxml",
+  "version": "${version}",
+  "name": "InGame Info XML",
+  "description": "Display extra information on top of your ingame screen. Unofficial version maintained by DF11ZomGraves.",
+  "authors": [
+    "DF11ZomGraves"
+  ],
+  "contact": {
+    "homepage": "https://github.com/DF11ZomGraves/InGameInfoXML",
+    "sources": "https://github.com/DF11ZomGraves/InGameInfoXML",
+    "issues": "https://github.com/DF11ZomGraves/InGameInfoXML/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/ingameinfo/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "df11zomgraves.ingameinfo.InGameInfoXMLServer"
+    ],
+    "client": [
+      "df11zomgraves.ingameinfo.InGameInfoXML"
+    ]
+  },
+  "mixins": [
+    "ingameinfoxml.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "fabric-api": "*",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  }
+}

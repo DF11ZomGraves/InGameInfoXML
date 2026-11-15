@@ -4,6 +4,7 @@ import df11zomgraves.ingameinfo.handler.ConfigurationHandler;
 import df11zomgraves.ingameinfo.util.StringConvertUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -13,7 +14,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class TagMouseOver extends Tag {
 	@Override
@@ -51,13 +51,13 @@ public abstract class TagMouseOver extends Tag {
 				ResourceLocation res;
 				if (hitType == HitResult.Type.ENTITY) {
 					final EntityHitResult targetEntity = (EntityHitResult) hitResult;
-					res = ForgeRegistries.ENTITY_TYPES.getKey(targetEntity.getEntity().getType());
+					res = BuiltInRegistries.ENTITY_TYPE.getKey(targetEntity.getEntity().getType());
 					return res.toString();
 				} else if (hitType == HitResult.Type.BLOCK) {
 					final BlockHitResult targetBlock = (BlockHitResult) hitResult;
 					final BlockPos pos = targetBlock.getBlockPos();
 					final BlockState blockState = world.getBlockState(pos);
-					res = ForgeRegistries.BLOCKS.getKey(blockState.getBlock());
+					res = BuiltInRegistries.BLOCK.getKey(blockState.getBlock());
 					return res.toString();
 				}
 			}

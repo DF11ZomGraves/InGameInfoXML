@@ -1,173 +1,214 @@
 package df11zomgraves.ingameinfo.handler;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Reader;
+import java.io.Writer;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import df11zomgraves.ingameinfo.InGameInfoXML;
 import df11zomgraves.ingameinfo.reference.Alignment;
 import df11zomgraves.ingameinfo.reference.Names;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.fabricmc.loader.api.FabricLoader;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Forge's config APIs
-@Mod.EventBusSubscriber(modid = Names.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+/**
+ * Configuration of InGame Info XML.
+ *
+ * <p>Replaces the Forge {@code ForgeConfigSpec} of the original mod with a plain
+ * JSON file stored in the Fabric config directory.
+ */
 public class ConfigurationHandler {
-	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-	public static final ForgeConfigSpec SPEC;
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	private static final String FILE_NAME = "ingameinfoxml-client.json";
 
-	public static final ForgeConfigSpec.ConfigValue<Integer> FILE_INTERVAL_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Double> SCALE_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<String> CONFIG_NAME_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_IN_CHAT_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_ON_PLAYER_LIST_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_POTIONS_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> NUMERIC_AMPLIFIER_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SEND_SEED_TO_CHAT_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_SURVIVAL_HUD_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<String> SEED_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Alignment> ALIGNMENT_MIDDLECENTER_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Integer> HEALTH_DECIMAL_PLACE_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Integer> HUNGER_DECIMAL_PLACE_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Integer> MSPT_DECIMAL_PLACE_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Integer> TPS_DECIMAL_PLACE_DEFAULT;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> DISPLAY_INVISIBLE_PLAYER_DEFAULT;
-
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_LEFT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_CENTER;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_TOP_RIGHT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_MIDDLE_LEFT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_CENTER;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_MIDDLE_RIGHT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_LEFT;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_CENTER;
-	public static final ForgeConfigSpec.ConfigValue<String> ALIGN_BOTTOM_RIGHT;
-
-	public static boolean showOverlayItemIcons;
-	public static boolean showOverlayPotions;
-	public static int fileInterval;
-	public static boolean replaceDebug;
-	public static boolean showOnPlayerList;
-	public static Double scale;
-	public static String configName;
-	public static boolean showInChat;
-	public static boolean numericAmplifier;
-	public static boolean sendSeedToChat;
-	public static boolean showSurvivalHUD;
-	public static long seed;
-	public static Alignment alignmentMiddleCenter;
-	public static int healthDecimalPlace;
-	public static int hungerDecimalPlace;
-	public static int msptDecimalPlace;
-	public static int tpsDecimalPlace;
-	public static boolean displayInvisiblePlayer;
+	public static boolean showOverlayItemIcons = true;
+	public static boolean showOverlayPotions = true;
+	public static int fileInterval = 5;
+	public static boolean replaceDebug = false;
+	public static boolean showOnPlayerList = true;
+	public static Double scale = 1.0;
+	public static String configName = "ingameinfo.xml";
+	public static boolean showInChat = true;
+	public static boolean numericAmplifier = false;
+	public static boolean sendSeedToChat = false;
+	public static boolean showSurvivalHUD = true;
+	public static long seed = 0;
+	public static Alignment alignmentMiddleCenter = Alignment.MIDDLECENTER;
+	public static int healthDecimalPlace = 2;
+	public static int hungerDecimalPlace = 2;
+	public static int msptDecimalPlace = 1;
+	public static int tpsDecimalPlace = 1;
+	public static boolean displayInvisiblePlayer = false;
 
 	static {
-		BUILDER.push(Names.Config.Category.GENERAL);
-		CONFIG_NAME_DEFAULT = BUILDER.comment(Names.Config.FILENAME_DESC).define(Names.Config.FILENAME, "ingameinfo.xml");
-		SHOW_IN_CHAT_DEFAULT = BUILDER.comment(Names.Config.SHOW_IN_CHAT_DESC).define(Names.Config.SHOW_IN_CHAT, true);
-		SHOW_ON_PLAYER_LIST_DEFAULT = BUILDER.comment(Names.Config.SHOW_ON_PLAYER_LIST_DESC).define(Names.Config.SHOW_ON_PLAYER_LIST, true);
-		SCALE_DEFAULT = BUILDER.comment(Names.Config.SCALE_DESC).defineInRange(Names.Config.SCALE, 1.0, 0.5, 2.0);
-		FILE_INTERVAL_DEFAULT = BUILDER.comment(Names.Config.FILE_INTERVAL_DESC).defineInRange(Names.Config.FILE_INTERVAL, 5, 1, 60);
-		SHOW_OVERLAY_POTIONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_POTIONS_DESC).define(Names.Config.SHOW_OVERLAY_POTIONS, true);
-		SHOW_OVERLAY_ITEM_ICONS_DEFAULT = BUILDER.comment(Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC)
-				.define(Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
-		NUMERIC_AMPLIFIER_DEFAULT = BUILDER.comment(Names.Config.NUMERIC_AMPLIFIER_DESC).define(Names.Config.NUMERIC_AMPLIFIER, false);
-		SEND_SEED_TO_CHAT_DEFAULT = BUILDER.comment(Names.Config.SEND_SEED_TO_CHAT_DESC).define(Names.Config.SEND_SEED_TO_CHAT, false);
-		SEED_DEFAULT = BUILDER.comment(Names.Config.DEFAULT_SEED_IN_SERVER_DESC).define(Names.Config.DEFAULT_SEED_IN_SERVER, "0");
-		ALIGNMENT_MIDDLECENTER_DEFAULT = BUILDER.comment(Names.Config.ALIGNMENT_MIDDLECENTER_DESC)
-				.defineEnum(Names.Config.ALIGNMENT_MIDDLECENTER, Alignment.MIDDLECENTER);
-		SHOW_SURVIVAL_HUD_DEFAULT = BUILDER.comment(Names.Config.SHOW_SURVIVAL_HUD_DESC).define(Names.Config.SHOW_SURVIVAL_HUD, true);
-		HEALTH_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HEALTH_DECIMAL_PLACE_DESC)
-				.defineInRange(Names.Config.HEALTH_DECIMAL_PLACE, 2, 0, 6);
-		HUNGER_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.HUNGER_DECIMAL_PLACE_DESC)
-				.defineInRange(Names.Config.HUNGER_DECIMAL_PLACE, 2, 0, 6);
-		MSPT_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.MSPT_DECIMAL_PLACE_DESC)
-				.defineInRange(Names.Config.MSPT_DECIMAL_PLACE, 1, 0, 6);
-		TPS_DECIMAL_PLACE_DEFAULT = BUILDER.comment(Names.Config.TPS_DECIMAL_PLACE_DESC)
-				.defineInRange(Names.Config.TPS_DECIMAL_PLACE, 1, 0, 6);
-		DISPLAY_INVISIBLE_PLAYER_DEFAULT = BUILDER.comment(Names.Config.DISPLAY_INVISIBLE_PLAYER_DESC)
-				.define(Names.Config.DISPLAY_INVISIBLE_PLAYER, false);
-
-		BUILDER.pop();
-		BUILDER.push(Names.Config.Category.ALIGNMENT);
-
-		ALIGN_TOP_LEFT = BUILDER.comment("Offsets for TOPLEFT (X<space>Y).").define("topleft", "2 2");
-		ALIGN_TOP_CENTER = BUILDER.comment("Offsets for TOPCENTER (X<space>Y).").define("topcenter", "0 2");
-		ALIGN_TOP_RIGHT = BUILDER.comment("Offsets for TOPRIGHT (X<space>Y).").define("topright", "-2 2");
-		ALIGN_MIDDLE_LEFT = BUILDER.comment("Offsets for MIDDLELEFT (X<space>Y).").define("middleleft", "2 0");
-		ALIGN_CENTER = BUILDER.comment("Offsets for MIDDLECENTER (X<space>Y).").define("middlecenter", "0 0");
-		ALIGN_MIDDLE_RIGHT = BUILDER.comment("Offsets for MIDDLERIGHT (X<space>Y).").define("middleright", "-2 0");
-		ALIGN_BOTTOM_LEFT = BUILDER.comment("Offsets for BOTTOMLEFT (X<space>Y).").define("bottomleft", "2 -2");
-		ALIGN_BOTTOM_CENTER = BUILDER.comment("Offsets for BOTTOMCENTER (X<space>Y).").define("bottomcenter", "0 -45");
-		ALIGN_BOTTOM_RIGHT = BUILDER.comment("Offsets for BOTTOMRIGHT (X<space>Y).").define("bottomright", "-2 -2");
-
-		BUILDER.pop();
-		SPEC = BUILDER.build();
+		load();
 	}
 
-	@SubscribeEvent
-	static void onLoad(final ModConfigEvent event) {
-		Alignment.TOPLEFT.setXY(ALIGN_TOP_LEFT.get());
-		Alignment.TOPCENTER.setXY(ALIGN_TOP_CENTER.get());
-		Alignment.TOPRIGHT.setXY(ALIGN_TOP_RIGHT.get());
-		Alignment.MIDDLELEFT.setXY(ALIGN_MIDDLE_LEFT.get());
-		Alignment.MIDDLECENTER.setXY(ALIGN_CENTER.get());
-		Alignment.MIDDLERIGHT.setXY(ALIGN_MIDDLE_RIGHT.get());
-		Alignment.BOTTOMLEFT.setXY(ALIGN_BOTTOM_LEFT.get());
-		Alignment.BOTTOMCENTER.setXY(ALIGN_BOTTOM_CENTER.get());
-		Alignment.BOTTOMRIGHT.setXY(ALIGN_BOTTOM_RIGHT.get());
-		showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT.get();
-		showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT.get();
-		fileInterval = FILE_INTERVAL_DEFAULT.get();
-		showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT.get();
-		scale = SCALE_DEFAULT.get();
-		configName = CONFIG_NAME_DEFAULT.get();
-		showInChat = SHOW_IN_CHAT_DEFAULT.get();
-		numericAmplifier = NUMERIC_AMPLIFIER_DEFAULT.get();
-		alignmentMiddleCenter = ALIGNMENT_MIDDLECENTER_DEFAULT.get();
-		sendSeedToChat = SEND_SEED_TO_CHAT_DEFAULT.get();
-		showSurvivalHUD = SHOW_SURVIVAL_HUD_DEFAULT.get();
-		healthDecimalPlace = HEALTH_DECIMAL_PLACE_DEFAULT.get();
-		hungerDecimalPlace = HUNGER_DECIMAL_PLACE_DEFAULT.get();
-		msptDecimalPlace = MSPT_DECIMAL_PLACE_DEFAULT.get();
-		tpsDecimalPlace = TPS_DECIMAL_PLACE_DEFAULT.get();
-		displayInvisiblePlayer = DISPLAY_INVISIBLE_PLAYER_DEFAULT.get();
+	public static File getConfigFile() {
+		return new File(FabricLoader.getInstance().getConfigDir().toFile(), FILE_NAME);
+	}
+
+	public static void load() {
+		JsonObject config = null;
+		final File file = getConfigFile();
+
+		if (file.exists()) {
+			try (final Reader reader = new FileReader(file)) {
+				final JsonElement element = JsonParser.parseReader(reader);
+				if (element != null && element.isJsonObject())
+					config = element.getAsJsonObject();
+			} catch (final Exception e) {
+				if (InGameInfoXML.logger != null)
+					InGameInfoXML.logger.warn("Could not read the configuration file!", e);
+			}
+		}
+
+		if (config == null)
+			config = new JsonObject();
+
+		configName = getString(config, Names.Config.FILENAME, "ingameinfo.xml");
+		showInChat = getBoolean(config, Names.Config.SHOW_IN_CHAT, true);
+		showOnPlayerList = getBoolean(config, Names.Config.SHOW_ON_PLAYER_LIST, true);
+		scale = getDouble(config, Names.Config.SCALE, 1.0, 0.5, 2.0);
+		fileInterval = getInt(config, Names.Config.FILE_INTERVAL, 5, 1, 60);
+		showOverlayPotions = getBoolean(config, Names.Config.SHOW_OVERLAY_POTIONS, true);
+		showOverlayItemIcons = getBoolean(config, Names.Config.SHOW_OVERLAY_ITEM_ICONS, true);
+		numericAmplifier = getBoolean(config, Names.Config.NUMERIC_AMPLIFIER, false);
+		sendSeedToChat = getBoolean(config, Names.Config.SEND_SEED_TO_CHAT, false);
+		showSurvivalHUD = getBoolean(config, Names.Config.SHOW_SURVIVAL_HUD, true);
+		healthDecimalPlace = getInt(config, Names.Config.HEALTH_DECIMAL_PLACE, 2, 0, 6);
+		hungerDecimalPlace = getInt(config, Names.Config.HUNGER_DECIMAL_PLACE, 2, 0, 6);
+		msptDecimalPlace = getInt(config, Names.Config.MSPT_DECIMAL_PLACE, 1, 0, 6);
+		tpsDecimalPlace = getInt(config, Names.Config.TPS_DECIMAL_PLACE, 1, 0, 6);
+		displayInvisiblePlayer = getBoolean(config, Names.Config.DISPLAY_INVISIBLE_PLAYER, false);
+
 		try {
-			seed = Long.parseLong(SEED_DEFAULT.get());
-		}
-		catch (Exception e) {
+			seed = Long.parseLong(getString(config, Names.Config.DEFAULT_SEED_IN_SERVER, "0"));
+		} catch (final Exception e) {
 			seed = 0L;
-			InGameInfoXML.logger.error(e.getMessage());
+			InGameInfoXML.logger.error("The default seed is not a valid number!", e);
+		}
+
+		alignmentMiddleCenter = parseAlignment(getString(config, Names.Config.ALIGNMENT_MIDDLECENTER,
+				Alignment.MIDDLECENTER.name()));
+
+		Alignment.TOPLEFT.setXY(getString(config, "topleft", Alignment.TOPLEFT.getDefaultXY()));
+		Alignment.TOPCENTER.setXY(getString(config, "topcenter", Alignment.TOPCENTER.getDefaultXY()));
+		Alignment.TOPRIGHT.setXY(getString(config, "topright", Alignment.TOPRIGHT.getDefaultXY()));
+		Alignment.MIDDLELEFT.setXY(getString(config, "middleleft", Alignment.MIDDLELEFT.getDefaultXY()));
+		Alignment.MIDDLECENTER.setXY(getString(config, "middlecenter", Alignment.MIDDLECENTER.getDefaultXY()));
+		Alignment.MIDDLERIGHT.setXY(getString(config, "middleright", Alignment.MIDDLERIGHT.getDefaultXY()));
+		Alignment.BOTTOMLEFT.setXY(getString(config, "bottomleft", Alignment.BOTTOMLEFT.getDefaultXY()));
+		Alignment.BOTTOMCENTER.setXY(getString(config, "bottomcenter", Alignment.BOTTOMCENTER.getDefaultXY()));
+		Alignment.BOTTOMRIGHT.setXY(getString(config, "bottomright", Alignment.BOTTOMRIGHT.getDefaultXY()));
+
+		if (!file.exists())
+			applyConfiguration();
+	}
+
+	/** Persists the current values to disk. */
+	public static void applyConfiguration() {
+		final JsonObject config = new JsonObject();
+
+		config.addProperty(Names.Config.FILENAME, configName);
+		config.addProperty(Names.Config.SHOW_IN_CHAT, showInChat);
+		config.addProperty(Names.Config.SHOW_ON_PLAYER_LIST, showOnPlayerList);
+		config.addProperty(Names.Config.SCALE, scale);
+		config.addProperty(Names.Config.FILE_INTERVAL, fileInterval);
+		config.addProperty(Names.Config.SHOW_OVERLAY_POTIONS, showOverlayPotions);
+		config.addProperty(Names.Config.SHOW_OVERLAY_ITEM_ICONS, showOverlayItemIcons);
+		config.addProperty(Names.Config.NUMERIC_AMPLIFIER, numericAmplifier);
+		config.addProperty(Names.Config.SEND_SEED_TO_CHAT, sendSeedToChat);
+		config.addProperty(Names.Config.SHOW_SURVIVAL_HUD, showSurvivalHUD);
+		config.addProperty(Names.Config.HEALTH_DECIMAL_PLACE, healthDecimalPlace);
+		config.addProperty(Names.Config.HUNGER_DECIMAL_PLACE, hungerDecimalPlace);
+		config.addProperty(Names.Config.MSPT_DECIMAL_PLACE, msptDecimalPlace);
+		config.addProperty(Names.Config.TPS_DECIMAL_PLACE, tpsDecimalPlace);
+		config.addProperty(Names.Config.DISPLAY_INVISIBLE_PLAYER, displayInvisiblePlayer);
+		config.addProperty(Names.Config.DEFAULT_SEED_IN_SERVER, String.valueOf(seed));
+		config.addProperty(Names.Config.ALIGNMENT_MIDDLECENTER,
+				alignmentMiddleCenter != null ? alignmentMiddleCenter.name() : Alignment.MIDDLECENTER.name());
+
+		config.addProperty("topleft", Alignment.TOPLEFT.getXY());
+		config.addProperty("topcenter", Alignment.TOPCENTER.getXY());
+		config.addProperty("topright", Alignment.TOPRIGHT.getXY());
+		config.addProperty("middleleft", Alignment.MIDDLELEFT.getXY());
+		config.addProperty("middlecenter", Alignment.MIDDLECENTER.getXY());
+		config.addProperty("middleright", Alignment.MIDDLERIGHT.getXY());
+		config.addProperty("bottomleft", Alignment.BOTTOMLEFT.getXY());
+		config.addProperty("bottomcenter", Alignment.BOTTOMCENTER.getXY());
+		config.addProperty("bottomright", Alignment.BOTTOMRIGHT.getXY());
+
+		try {
+			final File file = getConfigFile();
+			final File parent = file.getParentFile();
+			if (parent != null && !parent.exists())
+				parent.mkdirs();
+			try (final Writer writer = new FileWriter(file)) {
+				GSON.toJson(config, writer);
+			}
+		} catch (final Exception e) {
+			InGameInfoXML.logger.error("Could not save the configuration file!", e);
 		}
 	}
-	
-	public static void applyConfiguration() {
-		SHOW_OVERLAY_ITEM_ICONS_DEFAULT.set(showOverlayItemIcons);
-		SHOW_OVERLAY_POTIONS_DEFAULT.set(showOverlayPotions);
-		FILE_INTERVAL_DEFAULT.set(fileInterval);
-		SHOW_ON_PLAYER_LIST_DEFAULT.set(showOnPlayerList);
-		SCALE_DEFAULT.set(scale);
-		CONFIG_NAME_DEFAULT.set(configName);
-		SHOW_IN_CHAT_DEFAULT.set(showInChat);
-		NUMERIC_AMPLIFIER_DEFAULT.set(numericAmplifier);
-		ALIGNMENT_MIDDLECENTER_DEFAULT.set(alignmentMiddleCenter);
-		SEND_SEED_TO_CHAT_DEFAULT.set(sendSeedToChat);
-		SHOW_SURVIVAL_HUD_DEFAULT.set(showSurvivalHUD);
-		HEALTH_DECIMAL_PLACE_DEFAULT.set(healthDecimalPlace);
-		HUNGER_DECIMAL_PLACE_DEFAULT.set(hungerDecimalPlace);
-		MSPT_DECIMAL_PLACE_DEFAULT.set(msptDecimalPlace);
-		TPS_DECIMAL_PLACE_DEFAULT.set(tpsDecimalPlace);
-		DISPLAY_INVISIBLE_PLAYER_DEFAULT.set(displayInvisiblePlayer);
-		SEED_DEFAULT.set(String.valueOf(seed));
-		ALIGN_TOP_LEFT.set(Alignment.TOPLEFT.getXY());
-		ALIGN_TOP_CENTER.set(Alignment.TOPCENTER.getXY());
-		ALIGN_TOP_RIGHT.set(Alignment.TOPRIGHT.getXY());
-		ALIGN_MIDDLE_LEFT.set(Alignment.MIDDLELEFT.getXY());
-		ALIGN_CENTER.set(Alignment.MIDDLECENTER.getXY());
-		ALIGN_MIDDLE_RIGHT.set(Alignment.MIDDLERIGHT.getXY());
-		ALIGN_BOTTOM_LEFT.set(Alignment.BOTTOMLEFT.getXY());
-		ALIGN_BOTTOM_CENTER.set(Alignment.BOTTOMCENTER.getXY());
-		ALIGN_BOTTOM_RIGHT.set(Alignment.BOTTOMRIGHT.getXY());
+
+	private static Alignment parseAlignment(final String name) {
+		try {
+			return Alignment.valueOf(name.toUpperCase(java.util.Locale.ENGLISH));
+		} catch (final Exception e) {
+			return Alignment.MIDDLECENTER;
+		}
+	}
+
+	private static String getString(final JsonObject config, final String key, final String fallback) {
+		try {
+			final JsonElement element = config.get(key);
+			if (element != null && element.isJsonPrimitive())
+				return element.getAsString();
+		} catch (final Exception e) {
+			// ignore and use the fallback
+		}
+		return fallback;
+	}
+
+	private static boolean getBoolean(final JsonObject config, final String key, final boolean fallback) {
+		try {
+			final JsonElement element = config.get(key);
+			if (element != null && element.isJsonPrimitive())
+				return element.getAsBoolean();
+		} catch (final Exception e) {
+			// ignore and use the fallback
+		}
+		return fallback;
+	}
+
+	private static int getInt(final JsonObject config, final String key, final int fallback, final int min,
+			final int max) {
+		try {
+			final JsonElement element = config.get(key);
+			if (element != null && element.isJsonPrimitive())
+				return Math.max(min, Math.min(max, element.getAsInt()));
+		} catch (final Exception e) {
+			// ignore and use the fallback
+		}
+		return fallback;
+	}
+
+	private static double getDouble(final JsonObject config, final String key, final double fallback, final double min,
+			final double max) {
+		try {
+			final JsonElement element = config.get(key);
+			if (element != null && element.isJsonPrimitive())
+				return Math.max(min, Math.min(max, element.getAsDouble()));
+		} catch (final Exception e) {
+			// ignore and use the fallback
+		}
+		return fallback;
 	}
 }

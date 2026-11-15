@@ -2,13 +2,13 @@ package df11zomgraves.ingameinfo.tag;
 
 import df11zomgraves.ingameinfo.gui.overlay.InfoItem;
 import df11zomgraves.ingameinfo.util.EntityHelper;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class TagPlayerEquipment extends Tag {
 	public static final String[] TYPES = new String[] { "offhand", "mainhand", "helmet", "chestplate", "leggings",
@@ -98,7 +98,7 @@ public abstract class TagPlayerEquipment extends Tag {
 			final ItemStack itemStack = getItemStack(this.slot);
 			if (itemStack.isEmpty())
 				return "";
-			ResourceLocation res = ForgeRegistries.ITEMS.getKey(itemStack.getItem());
+			ResourceLocation res = BuiltInRegistries.ITEM.getKey(itemStack.getItem());
 			return res.toString();
 		}
 	}

@@ -3,10 +3,11 @@ package df11zomgraves.ingameinfo.tag;
 import java.util.Collection;
 
 import df11zomgraves.ingameinfo.gui.overlay.InfoIcon;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraftforge.fml.ModList;
 
 public abstract class TagMisc extends Tag {
 
@@ -68,15 +69,17 @@ public abstract class TagMisc extends Tag {
 	}
 	
 	public static class ResourcePack extends TagMisc {
-		protected static final PackRepository resourcePackRepository = minecraft.getResourcePackRepository();
-		
 		@Override
 		public String getValue() {
+			final PackRepository resourcePackRepository = minecraft.getResourcePackRepository();
+			if (resourcePackRepository == null)
+				return "";
 			final Collection<Pack> selectedPacks = resourcePackRepository.getSelectedPacks();
 			String result = "";
 			String packName;
 			for (Pack pack : selectedPacks) {
-				if (pack.getId() == "mod_resources"  || pack.isHidden())
+				final String id = pack.getId();
+				if (id == null || "vanilla".equals(id) || id.startsWith("mod_resources"))
 					continue;
 				packName = pack.getTitle().getString();
 				if (!result.isEmpty())
@@ -183,35 +186,36 @@ public abstract class TagMisc extends Tag {
 	public static class MinecraftVersion extends TagMisc {
 		@Override
 		public String getValue() {
-			return net.minecraftforge.versions.mcp.MCPVersion.getMCPVersion();
+			return SharedConstants.getCurrentVersion().getName();
 		}
 	}
 
-	public static class ForgeVersion extends TagMisc {
+	/** Fabric does not have a Forge version: the loader version is reported instead. */
+	public static class FabricVersion extends TagMisc {
 		@Override
 		public String getValue() {
-			return net.minecraftforge.versions.forge.ForgeVersion.getVersion();
+			return getLoaderVersion();
 		}
 	}
 
 	public static class MCPVersion extends TagMisc {
 		@Override
 		public String getValue() {
-			return net.minecraftforge.versions.mcp.MCPVersion.getMCPVersion();
+			return SharedConstants.getCurrentVersion().getName();
 		}
 	}
 
 	public static class ModsTotal extends TagMisc {
 		@Override
 		public String getValue() {
-			return String.format("%d", ModList.get().size());
+			return String.format("%d", getModCount());
 		}
 	}
 
 	public static class ModsActive extends TagMisc {
 		@Override
 		public String getValue() {
-			return String.format("%d", ModList.get().size());
+			return String.format("%d", getModCount());
 		}
 	}
 
@@ -224,10 +228,27 @@ public abstract class TagMisc extends Tag {
 		}
 	}
 
+	private static String getLoaderVersion() {
+		try {
+			return FabricLoader.getInstance().getModContainer("fabricloader")
+					.map(container -> container.getMetadata().getVersion().getFriendlyString()).orElse("unknown");
+		} catch (final Exception e) {
+			return "unknown";
+		}
+	}
+
+	private static int getModCount() {
+		try {
+			return FabricLoader.getInstance().getAllMods().size();
+		} catch (final Exception e) {
+			return 0;
+		}
+	}
+
 	public static void register() {
 		TagRegistry.INSTANCE.register(new EntitiesRendered().setName("entitiesrendered"));
 		TagRegistry.INSTANCE.register(new EntitiesTotal().setName("entitiestotal"));
-		TagRegistry.INSTANCE.register(new ForgeVersion().setName("forgeversion"));
+		TagRegistry.INSTANCE.register(new FabricVersion().setName("fabricversion"));
 		TagRegistry.INSTANCE.register(new FPS().setName("fps"));
 		TagRegistry.INSTANCE.register(new JavaVersion().setName("javaversion"));
 		TagRegistry.INSTANCE.register(new MCPVersion().setName("mcpversion"));

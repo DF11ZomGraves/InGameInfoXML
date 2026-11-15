@@ -40,8 +40,11 @@ public class FileArgument implements ArgumentType<String> {
 	public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext,
 			SuggestionsBuilder suggestionsBuilder) {
 		final File[] files = this.core.getConfigDirectory().listFiles((File dir, String name) -> {
-			return name.toLowerCase().startsWith(Names.Files.NAME.toLowerCase()) && (name.endsWith(Names.Files.EXT_XML)
-					|| name.endsWith(Names.Files.EXT_JSON) || name.endsWith(Names.Files.EXT_TXT));
+			String nameLowerCase = name.toLowerCase();
+			return nameLowerCase.startsWith(Names.Files.NAME.toLowerCase())
+					&& !nameLowerCase.equals("ingameinfoxml-client.json")
+					&& (nameLowerCase.endsWith(Names.Files.EXT_XML)
+					|| nameLowerCase.endsWith(Names.Files.EXT_JSON) || nameLowerCase.endsWith(Names.Files.EXT_TXT));
 		});
 
 		final List<String> filenames = new ArrayList<String>();
