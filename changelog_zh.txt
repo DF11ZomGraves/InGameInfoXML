@@ -1,4 +1,10 @@
-﻿InGameInfo XML 2.9.2.101, Beta, 2026/11/12
+﻿InGameInfo XML 2.9.2.102, Release, 2026/11/15
+1.20.1-fabric
+	需要Fabric Loader 0.15.11 和 Fabric API 0.92.2 及以上版本。
+	1."forgeversion"标签调整为"fabricversion"。
+	2.配置文件名为“ingameinfoxml-client.json”，“/igi load”指令参数已过滤该文件。
+
+InGameInfo XML 2.9.2.101, Beta, 2026/11/12
 1.12.2
 	1.resourcepack标签现在可以显示多个材质包，默认材质总是显示。
 1.20.1/1.21.1
