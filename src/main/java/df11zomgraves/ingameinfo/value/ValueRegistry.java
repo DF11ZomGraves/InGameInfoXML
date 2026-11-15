@@ -45,7 +45,7 @@ public class ValueRegistry {
         try {
             final Class<? extends Value> clazz = this.stringClassMap.get(name);
             if (clazz != null) {
-                final Value value = clazz.newInstance();
+                final Value value = clazz.getDeclaredConstructor().newInstance();
                 if (value != null) {
                     return value;
                 }
