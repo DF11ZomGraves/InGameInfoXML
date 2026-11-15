@@ -5,7 +5,10 @@
   "name": "InGame Info XML",
   "description": "Display extra information on top of your ingame screen. Unofficial version maintained by DF11ZomGraves.",
   "authors": [
-    "DF11ZomGraves"
+    "DF11ZomGraves",
+    "DaftPVF",
+    "bspkrs",
+    "Lunatrius"
   ],
   "contact": {
     "homepage": "https://github.com/DF11ZomGraves/InGameInfoXML",
